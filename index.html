@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>MG COACH · Treino Full Body</title>
+<!-- brand-meta: fullbody-integrado-v2.0.0 -->
+<style>
+  :root{
+    --bg:#0a0a0a;--bg-card:#141414;--bg-row-alt:#171717;
+    --orange:#ff6b1a;--orange-dim:#ff6b1a22;--orange-line:#ff6b1a55;
+    --text:#f2f2f2;--text-dim:#9a9a9a;--text-faint:#6b6b6b;--border:#262626;
+    --aquec:#3a86ff;--feeder:#ffd23f;--valida:#ff6b1a;
+    --falha:#ff4d4d;--falha-dim:#ff4d4d1f;--falha-line:#ff4d4d55;
+    --rir:#42b883;--rir-dim:#42b8831f;--rir-line:#42b88355;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:50px;}
+  .radio-nav{position:absolute;opacity:0;pointer-events:none;width:0;height:0;}
+
+  .topbar{background:linear-gradient(180deg,#111 0%,#0a0a0a 100%);border-bottom:1px solid var(--border);padding:22px 16px 18px;text-align:center;}
+  .star{font-size:22px;color:var(--orange);display:block;margin-bottom:4px;text-shadow:0 0 16px var(--orange-dim);}
+  .brand{font-size:11px;letter-spacing:3px;color:var(--text-dim);font-weight:600;text-transform:uppercase;}
+  .brand strong{color:var(--orange);}
+  h1{font-size:22px;font-weight:800;margin-top:8px;letter-spacing:-0.5px;}
+  .h1-sub{font-size:12px;color:var(--text-dim);margin-top:4px;}
+
+  .tabs{display:flex;gap:6px;padding:14px 12px;overflow-x:auto;background:#0a0a0a;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{flex:0 0 auto;cursor:pointer;color:var(--text-dim);background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:9px 16px;font-size:13px;font-weight:700;letter-spacing:0.5px;white-space:nowrap;transition:all .15s ease;user-select:none;-webkit-user-select:none;}
+  .tab:active{transform:scale(0.96);}
+
+  .panel{display:none;padding:18px 14px 10px;}
+  #r-FB1:checked ~ .tabs .tab-FB1{background:var(--orange);color:#0a0a0a;border-color:var(--orange);}
+  #r-FB1:checked ~ .content .panel-FB1{display:block;}
+  #r-FB2:checked ~ .tabs .tab-FB2{background:var(--orange);color:#0a0a0a;border-color:var(--orange);}
+  #r-FB2:checked ~ .content .panel-FB2{display:block;}
+  #r-FB3:checked ~ .tabs .tab-FB3{background:var(--orange);color:#0a0a0a;border-color:var(--orange);}
+  #r-FB3:checked ~ .content .panel-FB3{display:block;}
+  #r-FB4:checked ~ .tabs .tab-FB4{background:var(--orange);color:#0a0a0a;border-color:var(--orange);}
+  #r-FB4:checked ~ .content .panel-FB4{display:block;}
+  #r-FB5:checked ~ .tabs .tab-FB5{background:var(--orange);color:#0a0a0a;border-color:var(--orange);}
+  #r-FB5:checked ~ .content .panel-FB5{display:block;}
+
+  .day-summary{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+  .day-summary .day-title{font-size:17px;font-weight:800;color:var(--orange);margin-bottom:3px;}
+  .day-summary .day-musc{font-size:12px;color:var(--text-dim);line-height:1.5;}
+  .day-stats{display:flex;gap:14px;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+  .stat{font-size:11px;color:var(--text-faint);}
+  .stat b{color:var(--text);font-size:13px;display:block;}
+
+  .intens-note{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;padding:10px 12px;background:var(--bg-card);border:1px solid var(--border);border-radius:8px;}
+  .in-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--text-dim);}
+  .pill{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;padding:3px 7px;border-radius:5px;white-space:nowrap;}
+  .pill.rir{color:var(--rir);background:var(--rir-dim);border:1px solid var(--rir-line);}
+  .pill.falha{color:var(--falha);background:var(--falha-dim);border:1px solid var(--falha-line);}
+
+  .tools{display:flex;gap:8px;margin-bottom:16px;}
+  .tool-btn{flex:1;background:var(--bg-card);border:1px solid var(--border);color:var(--text-dim);border-radius:8px;padding:9px;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:0.3px;}
+  .tool-btn:active{border-color:var(--orange);color:var(--orange);}
+
+  .ex-card{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+  .ex-head{display:flex;justify-content:space-between;align-items:center;padding:12px 14px 10px;background:#181818;gap:8px;}
+  .ex-head-l{display:flex;align-items:center;min-width:0;}
+  .ex-num{color:var(--orange);font-weight:800;font-size:13px;margin-right:8px;flex:0 0 auto;}
+  .ex-name{font-size:14.5px;font-weight:700;color:var(--text);}
+  .ex-musc{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);background:var(--orange-dim);border:1px solid var(--orange-line);border-radius:5px;padding:3px 8px;font-weight:700;white-space:nowrap;flex:0 0 auto;}
+  .ex-tags{padding:0 14px 10px;background:#181818;border-bottom:1px solid var(--border);}
+  .ex-rir{display:inline-block;font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;padding:3px 9px;border-radius:5px;}
+  .ex-rir.falha{color:var(--falha);background:var(--falha-dim);border:1px solid var(--falha-line);}
+  .ex-rir.rir{color:var(--rir);background:var(--rir-dim);border:1px solid var(--rir-line);}
+
+  /* protocolo prescrito */
+  .proto{padding:4px 0;}
+  .proto-row{display:grid;grid-template-columns:22px 1fr 52px 56px 48px;align-items:center;padding:8px 14px;font-size:11.5px;border-bottom:1px solid #1f1f1f;}
+  .proto-row:nth-child(even){background:var(--bg-row-alt);}
+  .proto-row.header-row{font-size:9px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-faint);font-weight:700;background:none !important;padding:8px 14px 5px;}
+  .row-dot{width:7px;height:7px;border-radius:50%;}
+  .row-dot.aquec{background:var(--aquec);}
+  .row-dot.feeder{background:var(--feeder);}
+  .row-dot.valida{background:var(--valida);}
+  .pt-tipo{color:var(--text-dim);font-weight:600;}
+  .pt-tipo.is-valida{color:var(--text);font-weight:800;}
+  .pt-val{text-align:center;color:var(--text);font-weight:600;}
+  .pt-val.is-valida{color:var(--orange);font-weight:800;}
+  .pt-val.is-rir{color:var(--text-dim);font-weight:700;font-size:10.5px;}
+
+  /* divisor registro */
+  .reg-divider{display:flex;align-items:center;gap:8px;padding:12px 14px 8px;font-size:9.5px;text-transform:uppercase;letter-spacing:1px;color:var(--orange);font-weight:800;border-top:2px solid var(--orange-line);background:#100d0a;}
+
+  /* referencia ultima sessao */
+  .last-ref{padding:8px 14px 10px;background:#100d0a;font-size:11px;color:var(--text-dim);}
+  .last-ref .lr-title{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--rir);font-weight:800;margin-bottom:4px;}
+  .last-ref .lr-data{color:var(--text);font-weight:600;line-height:1.6;}
+  .last-ref .lr-none{color:var(--text-faint);font-style:italic;}
+  .lr-date{color:var(--text-faint);font-weight:500;font-size:10px;}
+
+  /* form de input */
+  .input-block{padding:10px 14px 14px;background:#100d0a;}
+  .input-row{display:grid;grid-template-columns:64px 1fr 1fr;gap:8px;align-items:center;margin-bottom:9px;}
+  .input-row .il{font-size:11px;font-weight:700;color:var(--text-dim);display:flex;align-items:center;gap:5px;}
+  .input-row .il .vdot{width:7px;height:7px;border-radius:50%;background:var(--valida);}
+  .field{display:flex;flex-direction:column;gap:2px;}
+  .field label{font-size:8.5px;text-transform:uppercase;letter-spacing:0.5px;color:var(--text-faint);font-weight:700;}
+  .field input{background:#0d0d0d;border:1px solid var(--border);border-radius:7px;color:var(--text);font-size:14px;font-weight:700;padding:8px 10px;width:100%;text-align:center;-webkit-appearance:none;}
+  .field input:focus{outline:none;border-color:var(--orange);background:#111;}
+  .field input::placeholder{color:#444;font-weight:500;}
+  .save-btn{width:100%;margin-top:6px;background:var(--orange);color:#0a0a0a;border:none;border-radius:9px;padding:11px;font-size:13px;font-weight:800;letter-spacing:0.5px;cursor:pointer;transition:all .15s;}
+  .save-btn:active{transform:scale(0.98);}
+  .save-btn.saved{background:var(--rir);}
+
+  /* historico */
+  .hist-toggle{display:block;width:100%;background:none;border:none;border-top:1px solid var(--border);color:var(--text-dim);font-size:11px;font-weight:700;padding:10px;cursor:pointer;text-align:center;letter-spacing:0.5px;}
+  .hist-toggle:active{color:var(--orange);}
+  .hist-list{display:none;padding:0 14px 12px;background:#100d0a;}
+  .hist-list.open{display:block;}
+  .hist-item{display:flex;justify-content:space-between;align-items:center;font-size:11px;padding:7px 0;border-bottom:1px solid #1c1c1c;color:var(--text-dim);gap:8px;}
+  .hist-item:last-child{border-bottom:none;}
+  .hist-item .hi-date{color:var(--text-faint);font-size:10px;flex:0 0 auto;}
+  .hist-item .hi-data{color:var(--text);font-weight:600;flex:1;}
+  .hist-del{background:none;border:none;color:var(--falha);font-size:14px;cursor:pointer;padding:0 4px;opacity:0.6;flex:0 0 auto;}
+  .hist-del:active{opacity:1;}
+
+  .footnote{font-size:11px;color:var(--text-faint);text-align:center;padding:18px 24px 6px;line-height:1.6;}
+  .footnote b{color:var(--text-dim);}
+
+  @media (min-width:680px){.content{max-width:640px;margin:0 auto;}.panel{padding-top:24px;}.tabs{justify-content:center;}.topbar{padding-top:32px;}}
+</style>
+</head>
+<body>
+
+<input type="radio" name="dia" id="r-FB1" class="radio-nav" checked>
+<input type="radio" name="dia" id="r-FB2" class="radio-nav">
+<input type="radio" name="dia" id="r-FB3" class="radio-nav">
+<input type="radio" name="dia" id="r-FB4" class="radio-nav">
+<input type="radio" name="dia" id="r-FB5" class="radio-nav">
+
+<div class="topbar">
+  <span class="star">★</span>
+  <div class="brand">MG <strong>COACH</strong></div>
+  <h1>Treino Full Body</h1>
+  <div class="h1-sub">Protocolo + registro de cargas · alta frequência</div>
+</div>
+
+<div class="tabs">
+    <label for="r-FB1" class="tab tab-FB1">FB 1</label>
+    <label for="r-FB2" class="tab tab-FB2">FB 2</label>
+    <label for="r-FB3" class="tab tab-FB3">FB 3</label>
+    <label for="r-FB4" class="tab tab-FB4">FB 4</label>
+    <label for="r-FB5" class="tab tab-FB5">FB 5</label>
+</div>
+
+<div class="content">
+  <div class="intens-note">
+    <div class="in-item"><span class="pill rir">RIR 1–2</span> compostos pesados</div>
+    <div class="in-item"><span class="pill falha">Falha liberada</span> isolados</div>
+  </div>
+
+  <div class="tools">
+    <button class="tool-btn" onclick="exportarDados()">⬇ Exportar backup</button>
+    <button class="tool-btn" onclick="importarDados()">⬆ Importar backup</button>
+  </div>
+  <input type="file" id="fileImport" accept=".json" style="display:none">
+
+  <section class="panel panel-FB1" id="panel-FB1"></section>
+  <section class="panel panel-FB2" id="panel-FB2"></section>
+  <section class="panel panel-FB3" id="panel-FB3"></section>
+  <section class="panel panel-FB4" id="panel-FB4"></section>
+  <section class="panel panel-FB5" id="panel-FB5"></section>
+
+  <div class="footnote">
+    <b>★ MG COACH</b> — Cada exercício mostra o protocolo (aquecimento · feeders · válidas) e abaixo os campos para registrar carga e reps. A última sessão fica salva como referência verde. Use Exportar backup periodicamente — os dados ficam neste navegador.
+  </div>
+</div>
+
+<script>
+const DADOS_TREINO = {"FB1": {"resumo": "Peito · Dorsal · Glúteo · Bíceps · Quadríceps · Posteriores", "tempo": "~65min", "exercicios": [{"musculo": "Peito", "nome": "Supino reto", "falha": false}, {"musculo": "Dorsal", "nome": "Puxada pronada", "falha": false}, {"musculo": "Glúteo", "nome": "Elevação pélvica", "falha": false}, {"musculo": "Bíceps", "nome": "Rosca direta", "falha": true}, {"musculo": "Quadríceps", "nome": "Agachamento", "falha": false}, {"musculo": "Posteriores", "nome": "Stiff", "falha": false}, {"musculo": "Posteriores", "nome": "Mesa flexora", "falha": true}]}, "FB2": {"resumo": "Peito · Dorsal · Ombro · Adutor · Tríceps · Quadríceps", "tempo": "~55min", "exercicios": [{"musculo": "Peito", "nome": "Supino inclinado", "falha": false}, {"musculo": "Dorsal", "nome": "Remada aberta pronada", "falha": false}, {"musculo": "Ombro", "nome": "Desenvolvimento normal", "falha": false}, {"musculo": "Adutor", "nome": "Cadeira adutora", "falha": true}, {"musculo": "Tríceps", "nome": "Testa", "falha": true}, {"musculo": "Quadríceps", "nome": "Leg press", "falha": false}]}, "FB3": {"resumo": "Peito · Dorsal · Ombro · Bíceps · Quadríceps", "tempo": "~46min", "exercicios": [{"musculo": "Peito", "nome": "Voador (peck deck)", "falha": true}, {"musculo": "Dorsal", "nome": "Puxada neutra", "falha": false}, {"musculo": "Ombro", "nome": "Elevação lateral halter", "falha": true}, {"musculo": "Bíceps", "nome": "Rosca martelo", "falha": true}, {"musculo": "Quadríceps", "nome": "Extensora", "falha": true}]}, "FB4": {"resumo": "Peito · Dorsal · Ombro · Glúteo · Tríceps · Posteriores", "tempo": "~55min", "exercicios": [{"musculo": "Peito", "nome": "Supino declinado", "falha": false}, {"musculo": "Dorsal", "nome": "Remada neutra", "falha": false}, {"musculo": "Ombro", "nome": "Desenvolvimento neutro", "falha": false}, {"musculo": "Glúteo", "nome": "Cadeira abdutora", "falha": true}, {"musculo": "Tríceps", "nome": "Pulley", "falha": true}, {"musculo": "Posteriores", "nome": "Cadeira flexora", "falha": true}]}, "FB5": {"resumo": "Peito · Dorsal · Ombro · Bíceps · Tríceps · Quadríceps", "tempo": "~55min", "exercicios": [{"musculo": "Peito", "nome": "Crucifixo halter", "falha": true}, {"musculo": "Dorsal", "nome": "Puxada supinada", "falha": false}, {"musculo": "Ombro", "nome": "Elevação lateral polia", "falha": true}, {"musculo": "Bíceps", "nome": "Rosca banco 45", "falha": true}, {"musculo": "Tríceps", "nome": "Francês", "falha": true}, {"musculo": "Quadríceps", "nome": "Extensora", "falha": true}]}};
+const STORAGE_KEY = 'mgcoach_fullbody_v2';
+
+function carregarRegistros(){
+  try{ const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : {}; }
+  catch(e){ return {}; }
+}
+function salvarRegistros(reg){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(reg)); }
+  catch(e){ alert('Não foi possível salvar. Evite o modo privado/anônimo do navegador.'); }
+}
+function chaveExercicio(dia, idx){ return dia + '_' + idx; }
+function fmtData(iso){
+  const d = new Date(iso);
+  return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');
+}
+
+function renderUltima(key){
+  const reg = carregarRegistros();
+  const hist = reg[key];
+  if(!hist || hist.length === 0) return '<div class="lr-none">Sem registro ainda — sua primeira sessão será a referência.</div>';
+  const ult = hist[hist.length-1];
+  const txt = ult.series.map((s,i)=>'V'+(i+1)+': <b>'+(s.carga||'—')+'</b>kg × <b>'+(s.reps||'—')+'</b>').join('  ·  ');
+  return '<div class="lr-data">'+txt+' <span class="lr-date">('+fmtData(ult.data)+')</span></div>';
+}
+function renderHistorico(key){
+  const reg = carregarRegistros();
+  const hist = reg[key];
+  if(!hist || hist.length === 0) return '<div class="hist-item"><span class="hi-date">Nenhuma sessão registrada</span></div>';
+  return hist.slice().reverse().map((sess, ri)=>{
+    const realIdx = hist.length-1-ri;
+    const dados = sess.series.map((s,i)=>'V'+(i+1)+' '+(s.carga||'—')+'kg×'+(s.reps||'—')).join(' · ');
+    return '<div class="hist-item"><span class="hi-date">'+fmtData(sess.data)+'</span><span class="hi-data">'+dados+'</span><button class="hist-del" onclick="apagarSessao(\''+key+'\','+realIdx+')">×</button></div>';
+  }).join('');
+}
+
+function exCard(dia, idx, ex){
+  const key = chaveExercicio(dia, idx);
+  const num = String(idx+1).padStart(2,'0');
+  const selo = ex.falha ? '<span class="ex-rir falha">Falha liberada</span>' : '<span class="ex-rir rir">RIR 1–2</span>';
+  const rirValida = ex.falha ? 'Falha' : 'RIR 1–2';
+
+  const proto =
+    '<div class="proto">'+
+      '<div class="proto-row header-row"><span></span><span>Série</span><span>Carga</span><span>Reps</span><span>Desc.</span></div>'+
+      '<div class="proto-row"><span class="row-dot aquec"></span><span class="pt-tipo">Aquecimento</span><span class="pt-val">40%</span><span class="pt-val">10</span><span class="pt-val">40s</span></div>'+
+      '<div class="proto-row"><span class="row-dot feeder"></span><span class="pt-tipo">Feeder 1</span><span class="pt-val">70%</span><span class="pt-val">—</span><span class="pt-val">40s</span></div>'+
+      '<div class="proto-row"><span class="row-dot feeder"></span><span class="pt-tipo">Feeder 2</span><span class="pt-val">85%</span><span class="pt-val">—</span><span class="pt-val">40s</span></div>'+
+      '<div class="proto-row"><span class="row-dot valida"></span><span class="pt-tipo is-valida">Válida 1</span><span class="pt-val is-valida">100%</span><span class="pt-val is-rir">'+rirValida+'</span><span class="pt-val is-valida">120s</span></div>'+
+      '<div class="proto-row"><span class="row-dot valida"></span><span class="pt-tipo is-valida">Válida 2</span><span class="pt-val is-valida">100%</span><span class="pt-val is-rir">'+rirValida+'</span><span class="pt-val is-valida">120s</span></div>'+
+    '</div>';
+
+  const inputs = [0,1].map(i=>
+    '<div class="input-row">'+
+      '<div class="il"><span class="vdot"></span>Válida '+(i+1)+'</div>'+
+      '<div class="field"><label>Carga (kg)</label><input type="number" inputmode="decimal" step="0.5" id="'+key+'_c'+i+'" placeholder="0"></div>'+
+      '<div class="field"><label>Reps</label><input type="number" inputmode="numeric" id="'+key+'_r'+i+'" placeholder="0"></div>'+
+    '</div>'
+  ).join('');
+
+  return '<div class="ex-card">'+
+    '<div class="ex-head"><div class="ex-head-l"><span class="ex-num">'+num+'</span><span class="ex-name">'+ex.nome+'</span></div><span class="ex-musc">'+ex.musculo+'</span></div>'+
+    '<div class="ex-tags">'+selo+'</div>'+
+    proto+
+    '<div class="reg-divider">✎ Registrar sessão</div>'+
+    '<div class="last-ref" id="'+key+'_ref"><div class="lr-title">★ Última vez</div>'+renderUltima(key)+'</div>'+
+    '<div class="input-block">'+inputs+
+      '<button class="save-btn" id="'+key+'_btn" onclick="salvarSessao(\''+dia+'\','+idx+')">Salvar sessão de hoje</button>'+
+    '</div>'+
+    '<button class="hist-toggle" onclick="toggleHist(\''+key+'\')">▾ Ver histórico</button>'+
+    '<div class="hist-list" id="'+key+'_hist">'+renderHistorico(key)+'</div>'+
+  '</div>';
+}
+
+function renderPainel(dia){
+  const info = DADOS_TREINO[dia];
+  const muscCount = new Set(info.exercicios.map(e=>e.musculo)).size;
+  let html = '<div class="day-summary"><div class="day-title">'+dia.slice(0,2)+' '+dia.slice(2)+'</div>'+
+    '<div class="day-musc">'+info.resumo+'</div>'+
+    '<div class="day-stats"><div class="stat"><b>'+info.exercicios.length+'</b>exercícios</div>'+
+    '<div class="stat"><b>'+info.tempo+'</b>duração</div>'+
+    '<div class="stat"><b>'+muscCount+'</b>músculos</div></div></div>';
+  html += info.exercicios.map((ex,idx)=>exCard(dia,idx,ex)).join('');
+  document.getElementById('panel-'+dia).innerHTML = html;
+}
+
+function salvarSessao(dia, idx){
+  const key = chaveExercicio(dia, idx);
+  const series = [0,1].map(i=>({
+    carga: document.getElementById(key+'_c'+i).value.trim(),
+    reps: document.getElementById(key+'_r'+i).value.trim()
+  }));
+  if(series.every(s=>!s.carga && !s.reps)){ alert('Preencha pelo menos uma carga ou repetição.'); return; }
+  const reg = carregarRegistros();
+  if(!reg[key]) reg[key] = [];
+  reg[key].push({ data: new Date().toISOString(), series: series });
+  salvarRegistros(reg);
+  const btn = document.getElementById(key+'_btn');
+  btn.textContent = '✓ Salvo!'; btn.classList.add('saved');
+  setTimeout(()=>{ btn.textContent='Salvar sessão de hoje'; btn.classList.remove('saved'); }, 1500);
+  document.getElementById(key+'_ref').innerHTML = '<div class="lr-title">★ Última vez</div>'+renderUltima(key);
+  document.getElementById(key+'_hist').innerHTML = renderHistorico(key);
+  [0,1].forEach(i=>{ document.getElementById(key+'_c'+i).value=''; document.getElementById(key+'_r'+i).value=''; });
+}
+
+function apagarSessao(key, idx){
+  if(!confirm('Apagar esta sessão do histórico?')) return;
+  const reg = carregarRegistros();
+  if(reg[key]){
+    reg[key].splice(idx,1);
+    if(reg[key].length===0) delete reg[key];
+    salvarRegistros(reg);
+    const refEl = document.getElementById(key+'_ref');
+    if(refEl) refEl.innerHTML = '<div class="lr-title">★ Última vez</div>'+renderUltima(key);
+    const histEl = document.getElementById(key+'_hist');
+    if(histEl) histEl.innerHTML = renderHistorico(key);
+  }
+}
+
+function toggleHist(key){
+  const el = document.getElementById(key+'_hist');
+  el.classList.toggle('open');
+  el.previousElementSibling.textContent = el.classList.contains('open') ? '▴ Ocultar histórico' : '▾ Ver histórico';
+}
+
+function exportarDados(){
+  const reg = carregarRegistros();
+  const blob = new Blob([JSON.stringify(reg,null,2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'mgcoach-cargas-'+new Date().toISOString().slice(0,10)+'.json'; a.click();
+  URL.revokeObjectURL(url);
+}
+function importarDados(){ document.getElementById('fileImport').click(); }
+document.getElementById('fileImport').addEventListener('change', function(e){
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    try{
+      const dados = JSON.parse(ev.target.result);
+      if(confirm('Isso vai substituir os registros atuais por este backup. Continuar?')){
+        salvarRegistros(dados);
+        Object.keys(DADOS_TREINO).forEach(renderPainel);
+        alert('Backup importado com sucesso!');
+      }
+    }catch(err){ alert('Arquivo inválido.'); }
+  };
+  reader.readAsText(file);
+});
+
+Object.keys(DADOS_TREINO).forEach(renderPainel);
+</script>
+
+</body>
+</html>
