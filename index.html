@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>MG COACH · Upper/Lower</title>
-<!-- brand-meta: mgcoach-upperlower-v1.0.0 -->
+<title>MG COACH · Full Body 3x</title>
+<!-- brand-meta: mgcoach-fullbody3x-v1.0.0 -->
 <style>
+
   :root{
     --bg:#0a0a0a;--bg-card:#141414;--bg-row-alt:#171717;
     --orange:#ff6b1a;--orange-dim:#ff6b1a22;--orange-line:#ff6b1a55;
@@ -157,6 +158,88 @@
   .footnote b{color:var(--text-dim);}
 
   @media (min-width:680px){.content{max-width:640px;margin:0 auto;}.tabs{justify-content:center;}}
+
+
+  /* ---- calendário semanal ---- */
+  .cal{display:flex;gap:5px;}
+  .cal-d{flex:1;text-align:center;background:#0d0d0d;border:1px solid var(--border);border-radius:8px;padding:8px 2px;}
+  .cal-d .cd{font-size:9px;color:var(--text-faint);font-weight:700;letter-spacing:0.5px;}
+  .cal-d .cs{font-size:9.5px;font-weight:800;margin-top:3px;color:var(--text-dim);}
+  .cal-d.t-treino{border-color:var(--orange-line);background:var(--orange-dim);}
+  .cal-d.t-treino .cs{color:var(--orange);}
+  .cal-d.t-vespera{border-color:#ffd23f44;background:#ffd23f10;}
+  .cal-d.t-vespera .cs{color:var(--carb);}
+  .cal-d.t-descanso .cs{color:var(--text-faint);}
+
+  /* ---- seletor tipo de dia ---- */
+  .dsel{display:flex;gap:6px;padding:0 0 12px;flex-wrap:wrap;}
+  .dbtn{flex:1;min-width:96px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:9px 8px;cursor:pointer;text-align:center;transition:all .15s;}
+  .dbtn.active{background:var(--orange);border-color:var(--orange);}
+  .dbtn .dl{font-size:11.5px;font-weight:800;color:var(--text);}
+  .dbtn.active .dl{color:#0a0a0a;}
+  .dbtn .dq{font-size:8.5px;color:var(--text-faint);margin-top:2px;letter-spacing:0.3px;}
+  .dbtn.active .dq{color:#0a0a0a;opacity:.7;}
+  .dbtn:active{transform:scale(0.96);}
+
+  /* ---- resumo do dia de dieta ---- */
+  .dsum{background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--carb);border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+  .dsum .dt{font-size:17px;font-weight:800;margin-bottom:2px;}
+  .dsum .dw{font-size:11px;color:var(--text-dim);margin-bottom:10px;}
+  .dsum .dtot{display:flex;gap:12px;align-items:flex-end;padding-top:10px;border-top:1px solid var(--border);flex-wrap:wrap;}
+  .dk{font-size:10.5px;color:var(--text-faint);}
+  .dk b{color:var(--orange);font-size:19px;display:block;font-weight:800;line-height:1.1;}
+  .mstrip{display:flex;gap:9px;margin-left:auto;}
+  .mac{text-align:center;font-size:9px;color:var(--text-faint);text-transform:uppercase;letter-spacing:0.5px;}
+  .mac b{display:block;font-size:14px;font-weight:800;}
+  .mac.p b{color:var(--orange);} .mac.c b{color:var(--carb);} .mac.g b{color:var(--rir);}
+  .dnote{font-size:11.5px;color:var(--text-dim);line-height:1.55;margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+
+  /* ---- refeição ---- */
+  .meal{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+  .mhead{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:#181818;border-bottom:1px solid var(--border);gap:8px;}
+  .mh-l{min-width:0;}
+  .mname{font-size:14.5px;font-weight:800;}
+  .mhora{font-size:10px;color:var(--text-faint);font-weight:700;letter-spacing:1px;margin-top:1px;}
+  .mkc{text-align:right;flex:0 0 auto;}
+  .mkc b{font-size:15px;font-weight:800;color:var(--orange);}
+  .mkc span{display:block;font-size:9px;color:var(--text-faint);}
+  .mtag{padding:7px 14px;background:#141210;border-bottom:1px solid var(--border);font-size:10.5px;color:var(--text-dim);}
+  .mtag.star{background:var(--orange-dim);color:var(--orange);font-weight:700;}
+  .mmac{display:flex;gap:10px;padding:7px 14px;background:#100d0a;border-bottom:1px solid var(--border);font-size:10px;}
+  .mmac span{color:var(--text-dim);} .mmac b{font-weight:800;}
+  .mm-p b{color:var(--orange);} .mm-c b{color:var(--carb);} .mm-g b{color:var(--rir);}
+  .frow{padding:10px 14px;border-bottom:1px solid #1c1c1c;}
+  .frow:last-child{border-bottom:none;}
+  .fmain{display:flex;justify-content:space-between;align-items:baseline;gap:10px;}
+  .fname{font-size:13px;font-weight:600;}
+  .fqtd{font-size:12.5px;font-weight:800;color:var(--orange);white-space:nowrap;}
+  .fmac{font-size:9.5px;color:var(--text-faint);margin-top:2px;}
+  .fops{margin-top:5px;}
+  .fops span{display:inline-block;font-size:10px;color:var(--carb);background:#ffd23f12;border:1px solid #ffd23f33;border-radius:4px;padding:1px 7px;margin-right:5px;margin-top:3px;}
+  .supb{padding:10px 14px;background:#0e1420;border-top:1px solid var(--border);}
+  .supt{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--aquec);font-weight:800;margin-bottom:5px;}
+  .supi{font-size:11px;color:var(--text-dim);padding:2px 0;line-height:1.5;}
+
+  .xcard{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:10px;}
+  .xcard .xt{font-size:12.5px;font-weight:800;margin-bottom:4px;}
+  .xcard .xd{font-size:11.5px;color:var(--text-dim);line-height:1.55;}
+
+  .wsum{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;background:var(--bg-card);border:1px solid var(--border);border-left:3px solid var(--orange);border-radius:10px;margin-bottom:12px;}
+  .wsum .wl{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-faint);font-weight:700;}
+  .wsum .wv{font-size:20px;font-weight:800;color:var(--orange);}
+  .wsum .wr{text-align:right;font-size:10.5px;color:var(--text-dim);line-height:1.5;}
+
+  .ex-carga{font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;padding:3px 7px;border-radius:5px;margin-left:6px;}
+  .ex-carga.pesado{color:var(--warn);background:var(--warn-dim);border:1px solid var(--warn-line);}
+  .ex-carga.leve{color:var(--rir);background:var(--rir-dim);border:1px solid var(--rir-line);}
+  .ex-carga.cluster{color:var(--carb);background:#ffd23f14;border:1px solid #ffd23f44;}
+  .ex-carga.polia{color:var(--aquec);background:#3a86ff14;border:1px solid #3a86ff44;}
+  .ex-carga.lento{color:var(--text-dim);background:#ffffff08;border:1px solid var(--border);}
+  .prep-note.cl{background:#161307;}
+  .prep-note.po{background:#0e1420;}
+  .prep-dot.cl{background:var(--carb);}
+  .prep-dot.po{background:var(--aquec);}
+
 </style>
 </head>
 <body>
@@ -164,8 +247,8 @@
 <div class="topbar">
   <span class="star">★</span>
   <div class="brand">MG <strong>COACH</strong></div>
-  <h1>Upper / Lower</h1>
-  <div class="h1-sub">Plano <b>LC TEAM</b> · Matheus Freitas Garrido · Renovação <b>11/01/2027</b></div>
+  <h1>Full Body 3x</h1>
+  <div class="h1-sub">Ter · Qui · Sáb às 13h · Ciclo de carboidratos · <b>20.300 kcal/semana</b></div>
 </div>
 
 <div class="main-switch">
@@ -174,17 +257,16 @@
   <button class="main-btn" id="mb-guia" onclick="selSecao('guia')">📋 GUIA</button>
 </div>
 
-<!-- ============ TREINO ============ -->
 <div id="sec-treino">
   <div class="tabs" id="tabsTreino"></div>
   <div class="content">
     <div class="card">
-      <div class="card-title">★ Divisão Semanal</div>
-      <div class="week-grid" id="weekGrid"></div>
+      <div class="card-title">★ Semana</div>
+      <div class="cal" id="calTreino"></div>
       <p style="margin-top:10px;" id="obsDivisao"></p>
     </div>
     <div class="card">
-      <div class="card-title">⚙ Regulagem de intensidade (RIR)</div>
+      <div class="card-title">⚙ Intensidade</div>
       <div id="rirRegras"></div>
     </div>
     <div class="tools">
@@ -196,209 +278,241 @@
   </div>
 </div>
 
-<!-- ============ DIETA ============ -->
 <div id="sec-dieta" style="display:none;">
   <div class="content">
-    <div class="card">
-      <div class="card-title">🎯 Estratégia</div>
-      <p id="estrategiaTxt"></p>
+    <div class="wsum">
+      <div><div class="wl">Total semanal</div><div class="wv" id="wSem">—</div></div>
+      <div class="wr" id="wDet"></div>
     </div>
+    <div class="card">
+      <div class="card-title">🧠 Por que o ciclo é assim</div>
+      <p id="logicaTxt"></p>
+    </div>
+    <div class="card">
+      <div class="card-title">★ Semana</div>
+      <div class="cal" id="calDieta"></div>
+    </div>
+    <div class="dsel" id="dSel"></div>
     <div id="painelDieta"></div>
     <div id="painelExtras"></div>
     <div class="card">
-      <div class="card-title">💊 Suplementação / Fármacos — resumo</div>
+      <div class="card-title">💊 Suplementação / Fármacos</div>
       <div id="supResumo"></div>
-      <p style="margin-top:8px;font-size:10.5px;color:var(--text-faint);">⚠️ Medicamentos de prescrição (Glifage XR, Trazodona) devem ser usados apenas com receita e acompanhamento médico.</p>
+      <p style="margin-top:8px;font-size:10.5px;color:var(--text-faint);">⚠️ Glifage XR e Trazodona são medicamentos de prescrição — usar apenas com receita e acompanhamento médico.</p>
     </div>
   </div>
 </div>
 
-<!-- ============ GUIA ============ -->
 <div id="sec-guia" style="display:none;">
   <div class="content">
     <div class="card">
-      <div class="card-title">🔥 Aquecimento — primeiro exercício do treino</div>
-      <p style="margin-bottom:10px;">Antes de cargas pesadas, o corpo precisa estar preparado. A ideia do aquecimento não é cansar, e sim preparar. A <b>carga alvo</b> é o peso da sua primeira série válida.</p>
+      <div class="card-title">🔥 Aquecimento — primeiro exercício</div>
+      <p style="margin-bottom:10px;">A <b>carga alvo</b> é o peso da sua primeira série válida. A ideia não é cansar, é preparar.</p>
       <div class="aq-row hdr"><span>Série</span><span>Reps</span><span>Carga</span><span>Desc.</span><span>Objetivo</span></div>
       <div id="aqTabela"></div>
-      <p style="margin-top:10px;">Depois do descanso de 2 min da 3ª série, faz a <b>primeira série válida</b>, até próximo à falha.</p>
     </div>
     <div class="card">
       <div class="card-title">⚡ Demais exercícios (feeder)</div>
       <p id="feederTxt"></p>
     </div>
     <div class="card">
-      <div class="card-title">🏆 Princípios do Treino</div>
+      <div class="card-title">⏱️ Tempo de sessão</div>
+      <p><b>FB A e FB B:</b> 8 exercícios ≈ <b>77 min</b> · <b>FB C:</b> 7 exercícios ≈ <b>67 min</b>.<br><br>Se precisar encurtar, corte o último isolado de braço — nunca um composto pesado nem o exercício leve do meio da sessão (ele é o que segura a qualidade das últimas séries).</p>
     </div>
+    <div class="card">
+      <div class="card-title">🔁 Cluster Set</div>
+      <p id="clusterTxt"></p>
+    </div>
+    <div class="card"><div class="card-title">🏆 Princípios do Treino</div></div>
     <div id="principiosLista" style="margin-top:-6px;"></div>
-    <div class="card" style="margin-top:14px;">
-      <div class="card-title">📌 Instruções do Planejamento Nutricional</div>
-    </div>
-    <div id="instrucoesLista" style="margin-top:-6px;"></div>
-    <div class="card" style="margin-top:14px;">
-      <div class="card-title">🔬 Exames</div>
-      <p id="examesTxt"></p>
-    </div>
   </div>
 </div>
 
 <div class="footnote">
-  <b>★ MG COACH</b> · Plano LC TEAM aplicado à estrutura MG COACH · Upper/Lower 4x + cardio 3x · Registro de cargas com histórico local
+  <b>★ MG COACH</b> · Full Body 3x · Ciclo de carbo ancorado no treino (não no calendário) · Registro de cargas local
 </div>
 
 <script>
-const D = {"treino": {"divisao": [{"dia": "SEG", "sessao": "UPPER 1"}, {"dia": "TER", "sessao": "LOWER 1"}, {"dia": "QUA", "sessao": "Descanso"}, {"dia": "QUI", "sessao": "UPPER 2"}, {"dia": "SEX", "sessao": "LOWER 2"}, {"dia": "SÁB", "sessao": "Descanso"}, {"dia": "DOM", "sessao": "Descanso"}], "obs_divisao": "Estrutura em ciclo contínuo, priorizando um dia de recuperação entre as sessões, devido ao sono limitado e ao início de exaustão relatado. Objetivo: manter intensidade e progressão, reduzindo o desgaste do full body 5x/semana.", "rir_regras": [{"cond": "Sono ruim ou exaustão elevada", "acao": "Manter 1–2 RIR e retirar o backoff"}, {"cond": "Boa recuperação e performance", "acao": "Manter 0–1 RIR nas séries válidas"}], "aquecimento_primeiro": [{"serie": "1ª", "reps": "15", "carga": "50%", "desc": "30s", "obj": "Lubrificar articulações e mandar sangue pro músculo alvo"}, {"serie": "2ª", "reps": "5", "carga": "75%", "desc": "1min", "obj": "Prepara o corpo para o esforço real sem desgaste"}, {"serie": "3ª", "reps": "1-2", "carga": "100%", "desc": "2min", "obj": "Prepara o sistema neuromuscular para o peso real"}], "feeder_demais": {"reps": "2", "carga": "90-100%", "desc": "2min", "obj": "Prepara o sistema neuromuscular para o peso real"}, "desc_validas": "2-3 min", "dias": {"UPPER 1": [{"nome": "Supino Reto", "esquema": "1×5–9 + 1× Backoff 8–12", "series": ["Top set 5–9", "Backoff 8–12"], "primeiro": true, "inst": "Fazer aquecimento e feeders. Progredir carga ao atingir o limite superior da faixa de repetições com execução estável."}, {"nome": "Puxada Pegada Pronada", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Pensa em aproximar o cotovelo ao quadril."}, {"nome": "Supino Inclinado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Pensa em aproximar o bíceps ao queixo."}, {"nome": "Remada Aberta Pronada", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Conduzir os cotovelos para trás, e simultaneamente juntar as escápulas, sem perder a posição do tronco."}, {"nome": "Elevação Lateral com Halteres", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "primeiro": false, "inst": "Evitar impulso excessivo. Subir mantendo tensão no deltoide lateral."}, {"nome": "Rosca Direta", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Cotovelos estáveis e descida controlada."}, {"nome": "Tríceps Testa", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Cotovelos estáveis e descida controlada."}, {"nome": "Abdominal Livre (Supra)", "esquema": "2×5–8", "series": ["S1 5–8", "S2 5–8"], "primeiro": false, "inst": "Qualquer exercício de abdômen que goste de realizar."}], "LOWER 1": [{"nome": "Agachamento", "esquema": "1×5–9 + 1× Backoff 8–12", "series": ["Top set 5–9", "Backoff 8–12"], "primeiro": true, "inst": "Não buscar falha concêntrica. Manter aproximadamente 0–1 RIR técnico e amplitude segura."}, {"nome": "Mesa Flexora", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Controlar a fase excêntrica, conduz o peso na subida."}, {"nome": "Leg Press", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Faz sem ego, máximo de amplitude que conseguir."}, {"nome": "Stiff", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Quadril para trás, coluna estável e amplitude limitada pela mobilidade dos posteriores."}, {"nome": "Elevação Pélvica", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Pausa curta na contração máxima, sem hiperextensão lombar."}, {"nome": "Cadeira Adutora", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "primeiro": false, "inst": "0,5s no pico de contração."}, {"nome": "Panturrilha no Leg", "esquema": "2×5–8", "series": ["S1 5–8", "S2 5–8"], "primeiro": false, "inst": "Todas as repetições até sentir a panturrilha alongar; segurar 1s no alongamento (pra tirar a força elástica do tendão)."}], "UPPER 2": [{"nome": "Remada Neutra", "esquema": "1×5–9 + 1× Backoff 8–12", "series": ["Top set 5–9", "Backoff 8–12"], "primeiro": true, "inst": "Manter tronco estável."}, {"nome": "Supino Declinado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Mantém 1 RIR."}, {"nome": "Puxada Pegada Neutra", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Puxar com os cotovelos em direção ao quadril."}, {"nome": "Voador", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "primeiro": false, "inst": "Priorizar contração do peitoral na primeira série, na segunda o alongamento."}, {"nome": "Desenvolvimento Pegada Neutra", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Pensa em aproximar o bíceps à orelha."}, {"nome": "Elevação Lateral na Polia", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "primeiro": false, "inst": "Manter tensão contínua e evitar inclinar o tronco."}, {"nome": "Rosca no Banco 45°", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Ombros para trás, alongamento controlado e sem retirar o braço da posição."}, {"nome": "Tríceps Francês", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Cotovelos estáveis e descida controlada."}, {"nome": "Crucifixo Inverso (Máquina ou Polia)", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Mantém as escápulas sem movimentar muito."}], "LOWER 2": [{"nome": "Cadeira Extensora", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "primeiro": true, "inst": "Utilizar como primeiro exercício para preparar os joelhos e gerar estímulo sem tanta carga axial."}, {"nome": "Leg Press", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Utilizar posicionamento confortável e controlar a profundidade, faz sem ego."}, {"nome": "Cadeira Flexora", "esquema": "3×5–9", "series": ["S1 5–9", "S2 5–9", "S3 5–9"], "primeiro": false, "inst": "Conduzir na subida e controlar a volta do movimento."}, {"nome": "Elevação Pélvica", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "primeiro": false, "inst": "Progredir carga sem perder a contração de glúteos."}, {"nome": "Cadeira Abdutora", "esquema": "2×10–15", "series": ["S1 10–15", "S2 10–15"], "primeiro": false, "inst": "Evitar impulsos e sustentar brevemente a abertura máxima."}, {"nome": "Panturrilha no Leg", "esquema": "2×5–8", "series": ["S1 5–8", "S2 5–8"], "primeiro": false, "inst": "Todas as repetições até sentir a panturrilha alongar; segurar 1s no alongamento (pra tirar a força elástica do tendão)."}, {"nome": "Abdominal Livre (Supra)", "esquema": "2×5–8", "series": ["S1 5–8", "S2 5–8"], "primeiro": false, "inst": "Qualquer exercício de abdômen que goste de realizar."}]}, "principios": [{"t": "Anotar todas as séries válidas (não o aquecimento)", "d": "Registrar suas séries válidas é essencial para acompanhar a evolução e garantir progressão. Anotar ajuda a lembrar a carga usada, quantas repetições completou e se avançou em relação ao treino anterior. Evita treinar \"no escuro\"."}, {"t": "Progredir devagar, com paciência (1kg ou 1 rep por semana)", "d": "Aumentar 1kg ou fazer uma repetição a mais por semana já é excelente progressão. Adicionar 5kg de uma vez pode prejudicar a execução e atrapalhar o progresso."}, {"t": "Descansar 2–3 minutos nas séries válidas", "d": "O descanso adequado é vital para manter o desempenho. Descanso curto derruba a força e o estímulo. A ansiedade em \"terminar rápido\" faz mais mal do que bem."}, {"t": "Execução perfeita sempre (amplitude, controle, técnica)", "d": "Movimento completo e com controle garante o estímulo no músculo-alvo. Se a forma muda ao colocar mais peso (encurtar movimento, balançar, perder controle), o peso está excessivo."}, {"t": "Toda repetição com máxima intenção de esforço", "d": "Desde a primeira repetição, mover o peso com força e intenção. Isso ativa melhor as fibras e aumenta a eficiência. Se o peso se move muito fácil e rápido, não há estímulo suficiente."}]}, "dieta": {"estrategia": "Superávit controlado, com alimentos simples e compatíveis com o orçamento. Acompanhando peso, cintura, definição, performance, sono, libido e disposição. Próximos ajustes conforme a resposta do corpo, sem aumentos agressivos.", "refeicoes": [{"nome": "Café da Manhã", "emoji": "☕", "itens": [{"nome": "Ovos", "qtd": "4 unidades"}, {"nome": "Pão", "qtd": "4 fatias", "opcoes": ["Tapioca 120g", "Cuscuz 250g"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias"}], "sups": ["Multivitamínico Growth — 2 caps", "Glifage XR — 500mg", "Ômega 3 — 4 caps", "Magnésio glicinato (bisglicinato) — 200mg", "Vitamina C — 500mg"]}, {"nome": "Almoço", "emoji": "🍽️", "itens": [{"nome": "Arroz", "qtd": "300g", "opcoes": ["Macarrão 300g"]}, {"nome": "Feijão", "qtd": "150g", "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g"}], "sups": []}, {"nome": "Lanche da Tarde", "emoji": "🥤", "itens": [{"nome": "Ovos", "qtd": "4 unidades"}, {"nome": "Pão", "qtd": "4 fatias", "opcoes": ["Tapioca 120g", "Cuscuz 250g"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias"}], "sups": []}, {"nome": "Jantar", "emoji": "🌙", "itens": [{"nome": "Arroz", "qtd": "300g", "opcoes": ["Macarrão 300g"]}, {"nome": "Feijão", "qtd": "150g", "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g"}], "sups": ["45 min antes de dormir: Magnésio glicinato — 200mg", "45 min antes: Melatonina — 0,5mg", "Trazodona — 100mg às 21h"]}], "extras": [{"t": "🍕 Refeição Livre", "d": "2 refeições livres por semana, sem exageros. Serve pra aliviar a rotina, não pra anular a semana. Uma refeição fora não deve virar um final de semana descontrolado."}, {"t": "🥬 Verduras e Legumes", "d": "Livres — use e varie à vontade. Sem exagerar em molhos e azeite: use apenas no preparo, não como tempero."}, {"t": "💧 Água", "d": "Consumir em média 3–4L por dia. Diminuir o consumo à noite."}, {"t": "🏃 Cardio", "d": "25 minutos, 3x na semana, em dias que NÃO treina. Intensidade média (120–140 bpm)."}], "suplementacao_resumo": ["Multivitamínico Growth — 2 caps (café da manhã)", "Glifage XR — 500mg (café da manhã)", "Ômega 3 — 4 caps (café da manhã)", "Magnésio glicinato (bisglicinato) — 200mg (café + antes de dormir)", "Vitamina C — 500mg (café da manhã)", "Melatonina — 0,5mg (45 min antes de dormir)", "Trazodona — 100mg (às 21h)"], "instrucoes": [{"t": "Siga o plano com precisão", "d": "Cada refeição e alimento foi escolhido por um motivo. Não faça substituições, cortes ou adições por conta própria. Se precisar mudar algo, avise antes — o plano é flexível, mas com direção."}, {"t": "Coma tudo o que está no protocolo", "d": "Nada aqui é \"opcional\" — cada refeição tem função dentro da estratégia: energia, recuperação ou ajuste metabólico. Se não conseguir comer algo, avise pra ajustar junto."}, {"t": "Verduras e legumes são livres", "d": "Use e varie à vontade, mas sem exagerar em molhos e azeite — use apenas no preparo, não como tempero."}, {"t": "Organização é chave", "d": "Comida não desaparece da geladeira. Programe-se para não faltar nada e evitar improvisos. A falha começa quando falta preparo."}, {"t": "Refeição livre com consciência", "d": "Não é permissão pra exagero. Aproveite, mas com controle: uma refeição fora não deve virar um final de semana descontrolado."}, {"t": "Não tenha medo de ajustar o orçamento", "d": "Se algum item pesar no bolso, avise. O plano precisa caber na sua realidade pra ser sustentável — o ajuste é parte do processo, com comunicação."}, {"t": "Registre sua adesão", "d": "Anote o que seguiu, o que não conseguiu e o que alterou. Essas informações permitem entender por que o corpo responde (ou não). Sem esse retorno, o acompanhamento perde força."}, {"t": "Feedback e dúvidas", "d": "Sempre pergunte. Não existe dúvida boba, existe dúvida não resolvida."}], "exames": "Como já existem exames recentes, neste primeiro momento vamos acompanhar a resposta do corpo aos ajustes de dieta, treino, recuperação e rotina. Peso, medidas, linha de cintura, performance, sono, libido, disposição e possíveis sintomas serão avaliados nos próximos check-ins. Novos exames serão solicitados depois, de forma direcionada."}, "meta": {"aluno": "Matheus Freitas Garrido", "coach": "LC TEAM", "renovacao": "11/01/2027"}};
-const STORAGE_KEY = 'mgcoach_upperlower_v1';
-let secao = 'treino';
-let sessaoAtiva = 'UPPER 1';
+const D = {"treino": {"divisao": [{"dia": "SEG", "sessao": "Descanso", "tipo": "vespera"}, {"dia": "TER", "sessao": "FB A", "tipo": "treino"}, {"dia": "QUA", "sessao": "Descanso", "tipo": "vespera"}, {"dia": "QUI", "sessao": "FB B", "tipo": "treino"}, {"dia": "SEX", "sessao": "Descanso", "tipo": "vespera"}, {"dia": "SÁB", "sessao": "FB C", "tipo": "treino"}, {"dia": "DOM", "sessao": "Descanso", "tipo": "descanso"}], "obs_divisao": "Full body 3x. Frequência semanal: peito 4, dorsal 4, ombro 4, quadríceps 4, posterior 4, tríceps 3, glúteo 2, bíceps 2, adutor 1. SÁBADO é o dia longo: concentra os exercícios de setup demorado e maior custo sistêmico (agachamento, elevação pélvica), porque você tem mais tempo e ele é seguido por 2 dias de descanso. QUINTA é a sessão mais curta. Ordem: ativação leve → superiores pesados descansado → perna pesada no fim → braços por último.", "rir_regras": [{"cond": "Compostos pesados (supinos, puxadas, remadas, agachamento, leg, stiff)", "acao": "RIR 1–2"}, {"cond": "Isolados de baixa demanda (crucifixo, extensora, flexoras, abdutora, braços)", "acao": "Falha liberada"}], "aquecimento_primeiro": [{"serie": "1ª", "reps": "15", "carga": "50%", "desc": "30s", "obj": "Lubrificar articulações e mandar sangue pro músculo alvo"}, {"serie": "2ª", "reps": "5", "carga": "75%", "desc": "1min", "obj": "Prepara o corpo para o esforço real sem desgaste"}, {"serie": "3ª", "reps": "1-2", "carga": "100%", "desc": "2min", "obj": "Prepara o sistema neuromuscular para o peso real"}], "feeder_demais": {"reps": "2", "carga": "90-100%", "desc": "2min", "obj": "Prepara o sistema neuromuscular para o peso real"}, "desc_validas": "2-3 min", "dias": {"FB A": [{"nome": "Cadeira Flexora", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Abertura leve de ativação da cadeia posterior e do joelho.", "primeiro": true, "cluster": false, "polia": false, "lento": false}, {"nome": "Supino Reto", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Peito pesado com você descansado — prioridade do dia. Escápulas retraídas, RIR 1–2.", "primeiro": false, "cluster": false, "polia": false, "lento": true}, {"nome": "Puxada Aberta Pronada", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Aproximar o cotovelo do quadril. Puxar com o dorsal, não com o braço.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Cadeira Abdutora", "carga": "leve", "esquema": "Cluster 3×10–15", "series": ["B1 10–15", "B2 10–15", "B3 10–15"], "inst": "Alívio entre os pesados e trabalho de glúteo. CLUSTER: 3 blocos, 20–30s entre eles.", "primeiro": false, "cluster": true, "polia": false, "lento": false}, {"nome": "Desenvolvimento de Ombros", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Empurrão vertical pesado. Vem depois do supino para não roubar o deltoide dele. Core firme, sem arquear a lombar.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Elevação Lateral Halter", "carga": "leve", "esquema": "Cluster 3×8–10", "series": ["B1 8–10", "B2 8–10", "B3 8–10"], "inst": "Encadeia direto com o desenvolvimento — ombro já aquecido. CLUSTER: mesma carga nos 3 blocos.", "primeiro": false, "cluster": true, "polia": false, "lento": false}, {"nome": "Leg Press", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Perna pesada no fim, com o joelho já preparado. Sem ego, máxima amplitude controlável.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Tríceps Testa", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Sinergista — por último. Cotovelos estáveis, descida controlada.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Rosca Direta", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Sinergista das puxadas — por último. Cotovelos fixos, sem balanço.", "primeiro": false, "cluster": false, "polia": false, "lento": false}], "FB B": [{"nome": "Cadeira Flexora", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Abertura leve de ativação da cadeia posterior.", "primeiro": true, "cluster": false, "polia": false, "lento": false}, {"nome": "Supino Inclinado", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Peito pesado, descansado. Pensa em aproximar o bíceps ao queixo.", "primeiro": false, "cluster": false, "polia": false, "lento": true}, {"nome": "Remada Neutra", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Cotovelos para trás e escápulas juntas, sem perder a posição do tronco.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Elevação Lateral Polia", "carga": "leve", "esquema": "Cluster 3×8–10", "series": ["B1 8–10", "B2 8–10", "B3 8–10"], "inst": "Monta a estação de cabo aqui — o próximo exercício é no mesmo aparelho. CLUSTER: 3 blocos, 20–30s.", "primeiro": false, "cluster": true, "polia": true, "lento": false}, {"nome": "Tríceps Pulley", "carga": "leve", "esquema": "Cluster 3×8–10", "series": ["B1 8–10", "B2 8–10", "B3 8–10"], "inst": "MESMA polia do anterior, sem trocar de estação. CLUSTER. Cotovelos colados ao tronco.", "primeiro": false, "cluster": true, "polia": true, "lento": false}, {"nome": "Cadeira Extensora", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Prepara o joelho para o leg press que vem em seguida.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Leg Press", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Perna pesada com a sessão já aquecida.", "primeiro": false, "cluster": false, "polia": false, "lento": true}, {"nome": "Stiff", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Nunca no início — precisa da cadeia aquecida, e o leg press fez esse papel. Quadril para trás, coluna estável.", "primeiro": false, "cluster": false, "polia": false, "lento": true}, {"nome": "Rosca Banco 45°", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Ombros para trás, alongamento controlado, sem retirar o braço da posição.", "primeiro": false, "cluster": false, "polia": false, "lento": false}], "FB C": [{"nome": "Mesa Flexora", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Abertura leve de ativação — hoje ela prepara a cadeia para o agachamento no fim.", "primeiro": true, "cluster": false, "polia": false, "lento": false}, {"nome": "Supino Declinado", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Peito pesado, descansado. Mantém 1 RIR.", "primeiro": false, "cluster": false, "polia": false, "lento": true}, {"nome": "Puxada Triângulo", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Puxada vertical. Cotovelos em direção ao quadril, peito estufado.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Cadeira Adutora", "carga": "leve", "esquema": "Cluster 3×10–15", "series": ["B1 10–15", "B2 10–15", "B3 10–15"], "inst": "Alívio entre pesados e único trabalho direto de adutor da semana. CLUSTER: 3 blocos, 0,5s no pico.", "primeiro": false, "cluster": true, "polia": false, "lento": false}, {"nome": "Desenvolvimento Pegada Neutra", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Pegada neutra é mais amigável ao ombro. Pensa em aproximar o bíceps à orelha.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Remada Aberta Pronada", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Puxada horizontal — padrão diferente da triângulo, evita empilhar fadiga local.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Crucifixo Máquina", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Alívio antes do bloco pesado de perna. Priorizar contração e alongamento.", "primeiro": false, "cluster": false, "polia": false, "lento": false}, {"nome": "Agachamento", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Fica no sábado de propósito: setup demorado, maior custo sistêmico, e é seguido por 2 dias de descanso. RIR 1–2, amplitude segura.", "primeiro": false, "cluster": false, "polia": false, "lento": true}, {"nome": "Elevação Pélvica", "carga": "pesado", "esquema": "2×5–9", "series": ["S1 5–9", "S2 5–9"], "inst": "Cadeia posterior já ativada pelo agachamento. Setup de barra também é demorado — por isso mora aqui. Pausa na contração, sem hiperextensão lombar.", "primeiro": false, "cluster": false, "polia": false, "lento": true}, {"nome": "Tríceps Francês", "carga": "leve", "esquema": "2×8–12", "series": ["S1 8–12", "S2 8–12"], "inst": "Cotovelos estáveis, alongamento da cabeça longa.", "primeiro": false, "cluster": false, "polia": false, "lento": false}]}, "principios": [{"t": "Anotar todas as séries válidas (não o aquecimento)", "d": "Registrar as válidas é o que permite acompanhar a evolução e garantir progressão. Sem anotação você treina no escuro."}, {"t": "Progredir devagar (1kg ou 1 rep por semana)", "d": "Aumentar 1kg ou uma repetição por semana já é excelente progressão. Saltos de 5kg prejudicam a execução."}, {"t": "Descansar 2–3 minutos nas séries válidas", "d": "Descanso curto derruba a força e o estímulo. A ansiedade de terminar rápido faz mais mal do que bem."}, {"t": "Execução perfeita sempre", "d": "Se a forma muda ao colocar mais peso (encurtar movimento, balançar, perder controle), o peso está excessivo."}, {"t": "Toda repetição com máxima intenção de esforço", "d": "Desde a primeira repetição. Se o peso se move fácil e rápido demais, não há estímulo suficiente."}, {"t": "Máximo 2 exercícios pesados consecutivos", "d": "A ordem foi montada com um exercício leve de máquina quebrando os blocos pesados. Não reordene sem considerar isso — é o que mantém a sessão dentro do tempo e a qualidade das últimas séries."}, {"t": "Sábado é o dia longo", "d": "Agachamento e elevação pélvica ficam no sábado porque têm o setup mais demorado e o maior custo de recuperação — e você tem 2 dias de descanso na sequência. Terça e quinta ficam mais enxutas para não comerem seu tempo de estudo."}, {"t": "Exercícios de polia ficam adjacentes", "d": "Na quinta, elevação lateral na polia e tríceps pulley são consecutivos e ambos em cluster: você monta a estação de cabo uma vez só e resolve os dois."}], "cluster": {"titulo": "Cluster set", "d": "Uma série longa fracionada em 3 blocos com a MESMA carga e 20–30s de pausa entre eles. Substitui as 2 séries válidas e economiza cerca de 4 min por exercício, mantendo volume e qualidade de repetição. Aplicado na elevação lateral (halter e polia), tríceps pulley, adutora e abdutora — exercícios de alta repetição e baixo custo articular, onde o cluster funciona melhor."}, "tempos": {"FB A": 81, "FB B": 81, "FB C": 96}, "diasemana": {"FB A": "Terça", "FB B": "Quinta", "FB C": "Sábado"}}, "dieta": {"logica": "O ciclo é ancorado no treino, não no calendário. Glicogênio muscular leva horas para ser sintetizado — com treino às 13h, quem enche o tanque é o JANTAR DA VÉSPERA (22h, ~15h de janela) e o CAFÉ (6h, 7h de janela). O almoço das 12h é apenas um top-off: fica moderado de propósito, para não pesar 1h antes de agachar.", "dias": {"treino": {"label": "DIA DE TREINO", "emoji": "🔥", "quando": "Terça · Quinta · Sábado", "kcal": 3180, "p": 201, "c": 401, "g": 83, "nota": "Café reforçado (7h de janela até o treino) + almoço moderado (só top-off) + pós-treino de recarga. O tanque já vem cheio do jantar de ontem.", "refeicoes": [{"nome": "Café da Manhã", "hora": "06h", "emoji": "☕", "kcal": 957, "p": 48, "c": 105, "g": 38, "tag": "Carga — 7h de janela até o treino", "itens": [{"nome": "Ovos mexidos", "qtd": "4 unidades", "kcal": 308, "p": 26, "c": 2, "g": 22}, {"nome": "Pão de sal (francês)", "qtd": "3 unidades (150g)", "kcal": 450, "p": 12.0, "c": 87.9, "g": 4.7, "opcoes": ["6 fatias de pão de forma", "Tapioca 180g", "Cuscuz 350g"]}, {"nome": "Biscoito Maisena", "qtd": "3 unidades (18g)", "kcal": 79, "p": 1.3, "c": 13.5, "g": 2.2, "opcoes": ["1/2 banana prata", "2 fatias de pão de forma"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias", "kcal": 120, "p": 8.8, "c": 1.2, "g": 8.8}], "sups": ["Multivitamínico Growth — 2 caps", "Glifage XR — 500mg", "Ômega 3 — 4 caps", "Magnésio glicinato — 200mg", "Vitamina C — 500mg"]}, {"nome": "Almoço", "hora": "12h", "emoji": "🍽️", "kcal": 689, "p": 53, "c": 105, "g": 5, "tag": "Top-off — 1h antes do treino, moderado de propósito", "itens": [{"nome": "Arroz", "qtd": "300g", "kcal": 384, "p": 7.5, "c": 84.3, "g": 0.6, "opcoes": ["Macarrão 300g"]}, {"nome": "Feijão", "qtd": "150g", "kcal": 114, "p": 7.2, "c": 20.4, "g": 0.75, "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g", "kcal": 191, "p": 38.4, "c": 0, "g": 3.6}], "sups": []}, {"nome": "Pós-treino", "hora": "16h", "emoji": "🥤", "kcal": 948, "p": 49, "c": 109, "g": 35, "tag": "Recarga — janela de reposição", "itens": [{"nome": "Ovos mexidos", "qtd": "4 unidades", "kcal": 308, "p": 26, "c": 2, "g": 22}, {"nome": "Pão", "qtd": "4 fatias", "kcal": 264, "p": 8.8, "c": 50, "g": 3.6, "opcoes": ["Tapioca 120g", "Cuscuz 250g"]}, {"nome": "Arroz", "qtd": "200g", "kcal": 256, "p": 5, "c": 56.2, "g": 0.4, "opcoes": ["Macarrão 200g"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias", "kcal": 120, "p": 8.8, "c": 1.2, "g": 8.8}], "sups": []}, {"nome": "Jantar", "hora": "22h", "emoji": "🌙", "kcal": 586, "p": 51, "c": 82, "g": 5, "tag": "Moderado — amanhã é descanso", "itens": [{"nome": "Arroz", "qtd": "220g", "kcal": 282, "p": 5.5, "c": 61.8, "g": 0.4, "opcoes": ["Macarrão 220g"]}, {"nome": "Feijão", "qtd": "150g", "kcal": 114, "p": 7.2, "c": 20.4, "g": 0.75, "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g", "kcal": 191, "p": 38.4, "c": 0, "g": 3.6}], "sups": ["45 min antes de dormir: Magnésio glicinato — 200mg", "45 min antes: Melatonina — 0,5mg", "Trazodona — 100mg às 21h"]}]}, "vespera": {"label": "VÉSPERA DE TREINO", "emoji": "⚡", "quando": "Segunda · Quarta · Sexta", "kcal": 2889, "p": 193, "c": 355, "g": 77, "nota": "Dia de descanso, mas NÃO é dia baixo. O jantar das 22h é a refeição mais carregada da semana — é ela que enche o glicogênio para o treino de amanhã às 13h.", "refeicoes": [{"nome": "Café da Manhã", "hora": "06h", "emoji": "☕", "kcal": 692, "p": 44, "c": 53, "g": 34, "tag": "Base", "itens": [{"nome": "Ovos mexidos", "qtd": "4 unidades", "kcal": 308, "p": 26, "c": 2, "g": 22}, {"nome": "Pão", "qtd": "4 fatias", "kcal": 264, "p": 8.8, "c": 50, "g": 3.6, "opcoes": ["Tapioca 120g", "Cuscuz 250g"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias", "kcal": 120, "p": 8.8, "c": 1.2, "g": 8.8}], "sups": ["Multivitamínico Growth — 2 caps", "Glifage XR — 500mg", "Ômega 3 — 4 caps", "Magnésio glicinato — 200mg", "Vitamina C — 500mg"]}, {"nome": "Almoço", "hora": "12h", "emoji": "🍽️", "kcal": 651, "p": 52, "c": 96, "g": 5, "tag": "Base", "itens": [{"nome": "Arroz", "qtd": "270g", "kcal": 346, "p": 6.8, "c": 75.9, "g": 0.5, "opcoes": ["Macarrão 270g"]}, {"nome": "Feijão", "qtd": "150g", "kcal": 114, "p": 7.2, "c": 20.4, "g": 0.75, "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g", "kcal": 191, "p": 38.4, "c": 0, "g": 3.6}], "sups": []}, {"nome": "Lanche", "hora": "16h", "emoji": "🥤", "kcal": 560, "p": 39, "c": 28, "g": 33, "tag": "Leve — poupa carbo para o jantar", "itens": [{"nome": "Ovos mexidos", "qtd": "4 unidades", "kcal": 308, "p": 26, "c": 2, "g": 22}, {"nome": "Pão", "qtd": "2 fatias", "kcal": 132, "p": 4.4, "c": 25, "g": 1.8, "opcoes": ["Tapioca 60g", "Cuscuz 125g"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias", "kcal": 120, "p": 8.8, "c": 1.2, "g": 8.8}], "sups": []}, {"nome": "Jantar — CARGA", "hora": "22h", "emoji": "🔋", "kcal": 986, "p": 58, "c": 178, "g": 5, "tag": "★ A refeição mais importante da semana — dividida em arroz + fruta para caber", "itens": [{"nome": "Arroz", "qtd": "400g", "kcal": 512, "p": 10.0, "c": 112.4, "g": 0.8, "opcoes": ["Macarrão 400g"]}, {"nome": "Banana prata", "qtd": "2 unidades (172g)", "kcal": 169, "p": 2.2, "c": 44.7, "g": 0.2, "opcoes": ["8 biscoitos Maisena (48g)", "Tapioca 75g"]}, {"nome": "Feijão", "qtd": "150g", "kcal": 114, "p": 7.2, "c": 20.4, "g": 0.75, "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g", "kcal": 191, "p": 38.4, "c": 0, "g": 3.6}], "sups": ["45 min antes de dormir: Magnésio glicinato — 200mg", "45 min antes: Melatonina — 0,5mg", "Trazodona — 100mg às 21h"]}]}, "descanso": {"label": "DESCANSO PLENO", "emoji": "💤", "quando": "Domingo", "kcal": 2101, "p": 172, "c": 196, "g": 70, "nota": "Único dia realmente baixo da semana, porque segunda ainda é descanso. Aproveita para melhorar sensibilidade à insulina e flexibilidade metabólica.", "refeicoes": [{"nome": "Café da Manhã", "hora": "06h", "emoji": "☕", "kcal": 560, "p": 39, "c": 28, "g": 33, "tag": "Baixo", "itens": [{"nome": "Ovos mexidos", "qtd": "4 unidades", "kcal": 308, "p": 26, "c": 2, "g": 22}, {"nome": "Pão", "qtd": "2 fatias", "kcal": 132, "p": 4.4, "c": 25, "g": 1.8, "opcoes": ["Tapioca 60g", "Cuscuz 125g"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias", "kcal": 120, "p": 8.8, "c": 1.2, "g": 8.8}], "sups": ["Multivitamínico Growth — 2 caps", "Glifage XR — 500mg", "Ômega 3 — 4 caps", "Magnésio glicinato — 200mg", "Vitamina C — 500mg"]}, {"nome": "Almoço", "hora": "12h", "emoji": "🍽️", "kcal": 561, "p": 51, "c": 77, "g": 5, "tag": "Baixo", "itens": [{"nome": "Arroz", "qtd": "200g", "kcal": 256, "p": 5, "c": 56.2, "g": 0.4, "opcoes": ["Macarrão 200g"]}, {"nome": "Feijão", "qtd": "150g", "kcal": 114, "p": 7.2, "c": 20.4, "g": 0.75, "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g", "kcal": 191, "p": 38.4, "c": 0, "g": 3.6}], "sups": []}, {"nome": "Lanche", "hora": "16h", "emoji": "🥤", "kcal": 483, "p": 33, "c": 28, "g": 27, "tag": "Baixo", "itens": [{"nome": "Ovos mexidos", "qtd": "3 unidades", "kcal": 231, "p": 19.5, "c": 1.5, "g": 16.5}, {"nome": "Pão", "qtd": "2 fatias", "kcal": 132, "p": 4.4, "c": 25, "g": 1.8, "opcoes": ["Tapioca 60g", "Cuscuz 125g"]}, {"nome": "Queijo mussarela", "qtd": "2 fatias", "kcal": 120, "p": 8.8, "c": 1.2, "g": 8.8}], "sups": []}, {"nome": "Jantar", "hora": "22h", "emoji": "🌙", "kcal": 497, "p": 49, "c": 63, "g": 5, "tag": "Baixo", "itens": [{"nome": "Arroz", "qtd": "150g", "kcal": 192, "p": 3.8, "c": 42.2, "g": 0.3, "opcoes": ["Macarrão 150g"]}, {"nome": "Feijão", "qtd": "150g", "kcal": 114, "p": 7.2, "c": 20.4, "g": 0.75, "opcoes": ["Se não tiver: +70g de arroz"]}, {"nome": "Frango ou carne", "qtd": "120g", "kcal": 191, "p": 38.4, "c": 0, "g": 3.6}], "sups": []}]}}, "semana": [{"dia": "SEG", "tipo": "vespera"}, {"dia": "TER", "tipo": "treino"}, {"dia": "QUA", "tipo": "vespera"}, {"dia": "QUI", "tipo": "treino"}, {"dia": "SEX", "tipo": "vespera"}, {"dia": "SÁB", "tipo": "treino"}, {"dia": "DOM", "tipo": "descanso"}], "total_semanal": 20308, "meta_semanal": 20300, "extras": [{"t": "🍕 Refeição Livre", "d": "2 refeições livres por semana, sem exageros. Se possível, encaixe no jantar de véspera (Seg/Qua/Sex) — é o momento em que o carbo extra tem melhor destino."}, {"t": "🥬 Verduras e Legumes", "d": "Livres — use e varie à vontade. Sem exagerar em molhos e azeite: apenas no preparo, não como tempero."}, {"t": "💧 Água", "d": "3–4L por dia. Diminuir o consumo à noite. Glicogênio armazena junto com água — hidratação importa direto na reserva."}, {"t": "🏃 Cardio", "d": "25 minutos, intensidade média (120–140 bpm), nos dias que não treina. Preferir Domingo e Segunda; evitar véspera pesada de treino se sentir que atrapalha."}], "suplementacao_resumo": ["Multivitamínico Growth — 2 caps (café da manhã)", "Glifage XR — 500mg (café da manhã)", "Ômega 3 — 4 caps (café da manhã)", "Magnésio glicinato (bisglicinato) — 200mg (café + antes de dormir)", "Vitamina C — 500mg (café da manhã)", "Melatonina — 0,5mg (45 min antes de dormir)", "Trazodona — 100mg (às 21h)"]}, "meta": {"aluno": "Matheus Freitas Garrido", "plano": "Full Body 3x · Ciclo de Carboidratos", "kcal_semana": 20295}};
+const STORAGE_KEY = 'mgcoach_fb3x_v1';
+let sessaoAtiva = 'FB A';
+let dietAtivo = 'treino';
 
-/* ===== STORAGE ===== */
 function carregarRegistros(){ try{ const r=localStorage.getItem(STORAGE_KEY); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
-function salvarRegistros(reg){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(reg)); }catch(e){ alert('Não foi possível salvar. Evite o modo privado/anônimo.'); } }
-function chaveEx(sessao, idx){ return 'k_'+sessao.replace(' ','')+'_'+idx; }
+function salvarRegistros(reg){ try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(reg)); }catch(e){ alert('Nao foi possivel salvar. Evite o modo privado.'); } }
+function chaveEx(s, i){ return 'k_'+s.replace(/\s/g,'')+'_'+i; }
 function fmtData(iso){ const d=new Date(iso); return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'); }
 
-function renderUltima(key, nSeries){
-  const reg=carregarRegistros(); const h=reg[key];
-  if(!h||h.length===0) return '<div class="lr-none">Sem registro — sua primeira sessão será a referência.</div>';
+function renderUltima(key){
+  const h=carregarRegistros()[key];
+  if(!h||h.length===0) return '<div class="lr-none">Sem registro — sua primeira sessao sera a referencia.</div>';
   const u=h[h.length-1];
   const t=u.series.map((s,i)=>(u.labels&&u.labels[i]?u.labels[i]:'S'+(i+1))+': <b>'+(s.carga||'—')+'</b>kg × <b>'+(s.reps||'—')+'</b>').join('  ·  ');
   return '<div class="lr-data">'+t+' <span class="lr-date">('+fmtData(u.data)+')</span></div>';
 }
 function renderHistorico(key){
-  const reg=carregarRegistros(); const h=reg[key];
-  if(!h||h.length===0) return '<div class="hist-item"><span class="hi-date">Nenhuma sessão registrada</span></div>';
+  const h=carregarRegistros()[key];
+  if(!h||h.length===0) return '<div class="hist-item"><span class="hi-date">Nenhuma sessao registrada</span></div>';
   return h.slice().reverse().map((sess,ri)=>{
-    const realIdx=h.length-1-ri;
+    const real=h.length-1-ri;
     const d=sess.series.map((s,i)=>(sess.labels&&sess.labels[i]?sess.labels[i]:'S'+(i+1))+' '+(s.carga||'—')+'kg×'+(s.reps||'—')).join(' · ');
-    return '<div class="hist-item"><span class="hi-date">'+fmtData(sess.data)+'</span><span class="hi-data">'+d+'</span><button class="hist-del" onclick="apagarSessao(\''+key+'\','+realIdx+')">×</button></div>';
+    return '<div class="hist-item"><span class="hi-date">'+fmtData(sess.data)+'</span><span class="hi-data">'+d+'</span><button class="hist-del" onclick="apagarSessao(\''+key+'\','+real+')">×</button></div>';
   }).join('');
 }
-
-/* ===== TREINO ===== */
-function labelCurto(s){
-  // "Top set 5–9" -> {lab:"Top set", faixa:"5–9"}
-  const m = s.match(/^(Top set|Backoff|S\d)\s+(.+)$/);
-  if(m) return {lab:m[1], faixa:m[2]};
-  return {lab:s, faixa:''};
-}
+function lc(s){ const m=s.match(/^(S\d|B\d)\s+(.+)$/); return m?{lab:m[1],faixa:m[2]}:{lab:s,faixa:''}; }
 
 function exCard(sessao, idx, ex){
   const key=chaveEx(sessao,idx);
   const num=String(idx+1).padStart(2,'0');
-  let prep='';
-  if(ex.primeiro){
-    prep='<div class="prep-note aq"><span class="prep-dot aq"></span><span><b>Aquecimento completo</b> antes: 15×50% (30s) → 5×75% (1min) → 1-2×100% (2min). Ver GUIA.</span></div>';
-  } else {
-    prep='<div class="prep-note fd"><span class="prep-dot fd"></span><span><b>Feeder:</b> 1× 2 reps @ 90-100% · descanso 2min antes da 1ª válida.</span></div>';
-  }
+  let prep = ex.primeiro
+    ? '<div class="prep-note aq"><span class="prep-dot aq"></span><span><b>Aquecimento completo:</b> 15×50% (30s) → 5×75% (1min) → 1-2×100% (2min). Ver GUIA.</span></div>'
+    : '<div class="prep-note fd"><span class="prep-dot fd"></span><span><b>Feeder:</b> 1× 2 reps @ 90-100% · descanso 2min antes da 1ª valida.</span></div>';
+  if(ex.cluster) prep += '<div class="prep-note cl"><span class="prep-dot cl"></span><span><b>CLUSTER:</b> 3 blocos com a MESMA carga · 20-30s entre blocos · substitui as 2 validas.</span></div>';
+  if(ex.polia) prep += '<div class="prep-note po"><span class="prep-dot po"></span><span><b>Polia:</b> encadeado na mesma estacao de cabo do exercicio vizinho.</span></div>';
+  let rir = ex.carga==='pesado'
+    ? '<span class="ex-carga pesado">RIR 1-2</span>'
+    : '<span class="ex-carga leve">Falha liberada</span>';
+  if(ex.cluster) rir += '<span class="ex-carga cluster">Cluster</span>';
+  if(ex.polia)   rir += '<span class="ex-carga polia">Polia</span>';
+  if(ex.lento)   rir += '<span class="ex-carga lento">Setup longo</span>';
   const inputs=ex.series.map((s,i)=>{
-    const lc=labelCurto(s);
-    return '<div class="input-row"><div class="il"><span class="vdot"></span>'+lc.lab+' <span style="color:var(--text-faint);font-weight:500;">'+lc.faixa+'</span></div>'+
+    const l=lc(s);
+    return '<div class="input-row"><div class="il"><span class="vdot"></span>'+l.lab+' <span style="color:var(--text-faint);font-weight:500;">'+l.faixa+'</span></div>'+
     '<div class="field"><label>Carga (kg)</label><input type="number" inputmode="decimal" step="0.5" id="'+key+'_c'+i+'" placeholder="0"></div>'+
     '<div class="field"><label>Reps</label><input type="number" inputmode="numeric" id="'+key+'_r'+i+'" placeholder="0"></div></div>';
   }).join('');
-  const labels=JSON.stringify(ex.series.map(s=>labelCurto(s).lab));
+  const labels=JSON.stringify(ex.series.map(s=>lc(s).lab));
   return '<div class="ex-card">'+
     '<div class="ex-head"><div class="ex-head-l"><span class="ex-num">'+num+'</span><span class="ex-name">'+ex.nome+'</span></div><span class="ex-scheme">'+ex.esquema+'</span></div>'+
-    '<div class="ex-inst"><b>Instrução do coach</b>'+ex.inst+'</div>'+prep+
-    '<div class="reg-divider">✎ Registrar séries válidas · desc. '+D.treino.desc_validas+'</div>'+
-    '<div class="last-ref" id="'+key+'_ref"><div class="lr-title">★ Última vez</div>'+renderUltima(key,ex.series.length)+'</div>'+
-    '<div class="input-block">'+inputs+'<button class="save-btn" id="'+key+'_btn" onclick=\'salvarSessao("'+sessao+'",'+idx+','+labels+')\'>Salvar sessão de hoje</button></div>'+
-    '<button class="hist-toggle" onclick="toggleHist(\''+key+'\')">▾ Ver histórico</button>'+
+    '<div class="ex-tags" style="padding:0 14px 10px;background:#181818;">'+rir+'</div>'+
+    '<div class="ex-inst"><b>Por que esta aqui</b>'+ex.inst+'</div>'+prep+
+    '<div class="reg-divider">✎ Registrar series validas · desc. '+D.treino.desc_validas+'</div>'+
+    '<div class="last-ref" id="'+key+'_ref"><div class="lr-title">★ Ultima vez</div>'+renderUltima(key)+'</div>'+
+    '<div class="input-block">'+inputs+'<button class="save-btn" id="'+key+'_btn" onclick=\'salvarSessao("'+sessao+'",'+idx+','+labels+')\'>Salvar sessao de hoje</button></div>'+
+    '<button class="hist-toggle" onclick="toggleHist(\''+key+'\')">▾ Ver historico</button>'+
     '<div class="hist-list" id="'+key+'_hist">'+renderHistorico(key)+'</div></div>';
 }
-
 function renderTabs(){
-  const sessoes=Object.keys(D.treino.dias);
-  document.getElementById('tabsTreino').innerHTML=sessoes.map(s=>'<div class="tab'+(s===sessaoAtiva?' active':'')+'" onclick="selSessao(\''+s+'\')">'+s+'</div>').join('');
+  document.getElementById('tabsTreino').innerHTML=Object.keys(D.treino.dias).map(s=>
+    '<div class="tab'+(s===sessaoAtiva?' active':'')+'" onclick="selSessao(\''+s+'\')">'+s+'</div>').join('');
 }
 function renderPainelTreino(){
   const exs=D.treino.dias[sessaoAtiva];
-  const nSeries=exs.reduce((a,e)=>a+e.series.length,0);
-  let html='<div class="day-summary"><div class="day-title">'+sessaoAtiva+'</div>'+
-    '<div class="day-stats"><div class="stat"><b>'+exs.length+'</b>exercícios</div><div class="stat"><b>'+nSeries+'</b>séries válidas</div></div></div>';
-  html+=exs.map((ex,i)=>exCard(sessaoAtiva,i,ex)).join('');
-  document.getElementById('painelTreino').innerHTML=html;
+  const pes=exs.filter(e=>e.carga==='pesado').length;
+  const mins=D.treino.tempos[sessaoAtiva];
+  const diasem=D.treino.diasemana[sessaoAtiva];
+  let h='<div class="day-summary"><div class="day-title">'+sessaoAtiva+' <span style="font-size:12px;color:var(--text-dim);font-weight:600;">· '+diasem+'</span></div>'+
+    '<div class="day-stats"><div class="stat"><b>'+exs.length+'</b>exercicios</div><div class="stat"><b>'+pes+'</b>pesados</div><div class="stat"><b>~'+mins+'min</b>duracao</div></div></div>';
+  h+=exs.map((ex,i)=>exCard(sessaoAtiva,i,ex)).join('');
+  document.getElementById('painelTreino').innerHTML=h;
 }
 function selSessao(s){ sessaoAtiva=s; renderTabs(); renderPainelTreino(); window.scrollTo(0,0); }
 
 function salvarSessao(sessao, idx, labels){
-  const ex=D.treino.dias[sessao][idx];
-  const key=chaveEx(sessao,idx);
+  const ex=D.treino.dias[sessao][idx], key=chaveEx(sessao,idx);
   const series=ex.series.map((s,i)=>({carga:document.getElementById(key+'_c'+i).value.trim(),reps:document.getElementById(key+'_r'+i).value.trim()}));
-  if(series.every(s=>!s.carga&&!s.reps)){ alert('Preencha pelo menos uma carga ou repetição.'); return; }
+  if(series.every(s=>!s.carga&&!s.reps)){ alert('Preencha pelo menos uma carga ou repeticao.'); return; }
   const reg=carregarRegistros(); if(!reg[key]) reg[key]=[];
   reg[key].push({data:new Date().toISOString(),series:series,labels:labels}); salvarRegistros(reg);
   const b=document.getElementById(key+'_btn'); b.textContent='✓ Salvo!'; b.classList.add('saved');
-  setTimeout(()=>{ b.textContent='Salvar sessão de hoje'; b.classList.remove('saved'); },1500);
-  document.getElementById(key+'_ref').innerHTML='<div class="lr-title">★ Última vez</div>'+renderUltima(key,ex.series.length);
+  setTimeout(()=>{ b.textContent='Salvar sessao de hoje'; b.classList.remove('saved'); },1500);
+  document.getElementById(key+'_ref').innerHTML='<div class="lr-title">★ Ultima vez</div>'+renderUltima(key);
   document.getElementById(key+'_hist').innerHTML=renderHistorico(key);
   ex.series.forEach((s,i)=>{ document.getElementById(key+'_c'+i).value=''; document.getElementById(key+'_r'+i).value=''; });
 }
 function apagarSessao(key, idx){
-  if(!confirm('Apagar esta sessão do histórico?')) return;
+  if(!confirm('Apagar esta sessao do historico?')) return;
   const reg=carregarRegistros();
   if(reg[key]){ reg[key].splice(idx,1); if(reg[key].length===0) delete reg[key]; salvarRegistros(reg);
     const h=document.getElementById(key+'_hist'); if(h) h.innerHTML=renderHistorico(key);
-    const r=document.getElementById(key+'_ref'); if(r) r.innerHTML='<div class="lr-title">★ Última vez</div>'+renderUltima(key,0); }
+    const r=document.getElementById(key+'_ref'); if(r) r.innerHTML='<div class="lr-title">★ Ultima vez</div>'+renderUltima(key); }
 }
-function toggleHist(key){ const el=document.getElementById(key+'_hist'); el.classList.toggle('open'); el.previousElementSibling.textContent=el.classList.contains('open')?'▴ Ocultar histórico':'▾ Ver histórico'; }
+function toggleHist(key){ const el=document.getElementById(key+'_hist'); el.classList.toggle('open');
+  el.previousElementSibling.textContent=el.classList.contains('open')?'▴ Ocultar historico':'▾ Ver historico'; }
 
 function exportarDados(){
-  const reg=carregarRegistros(); const blob=new Blob([JSON.stringify(reg,null,2)],{type:'application/json'});
+  const blob=new Blob([JSON.stringify(carregarRegistros(),null,2)],{type:'application/json'});
   const url=URL.createObjectURL(blob); const a=document.createElement('a');
-  a.href=url; a.download='mgcoach-upperlower-'+new Date().toISOString().slice(0,10)+'.json'; a.click(); URL.revokeObjectURL(url);
+  a.href=url; a.download='mgcoach-fb3x-'+new Date().toISOString().slice(0,10)+'.json'; a.click(); URL.revokeObjectURL(url);
 }
 function importarDados(){ document.getElementById('fileImport').click(); }
 document.getElementById('fileImport').addEventListener('change',function(e){
   const f=e.target.files[0]; if(!f) return; const rd=new FileReader();
-  rd.onload=function(ev){ try{ const d=JSON.parse(ev.target.result); if(confirm('Substituir os registros atuais por este backup?')){ salvarRegistros(d); renderPainelTreino(); alert('Backup importado!'); } }catch(err){ alert('Arquivo inválido.'); } };
+  rd.onload=function(ev){ try{ const d=JSON.parse(ev.target.result);
+    if(confirm('Substituir os registros atuais por este backup?')){ salvarRegistros(d); renderPainelTreino(); alert('Backup importado!'); } }
+    catch(err){ alert('Arquivo invalido.'); } };
   rd.readAsText(f);
 });
 
-/* ===== estáticos ===== */
-function renderEstaticos(){
-  // divisão semanal
-  document.getElementById('weekGrid').innerHTML=D.treino.divisao.map(d=>{
-    const t=d.sessao!=='Descanso';
-    return '<div class="wk'+(t?' treino':'')+'"><div class="wk-d">'+d.dia+'</div><div class="wk-s">'+(t?d.sessao.replace(' ',''):'—')+'</div></div>';
+/* ===== DIETA ===== */
+function renderCal(elId, arr, mapa){
+  document.getElementById(elId).innerHTML=arr.map(d=>{
+    const tipo = d.tipo;
+    const lab = mapa[tipo] || '—';
+    return '<div class="cal-d t-'+tipo+'"><div class="cd">'+d.dia+'</div><div class="cs">'+lab+'</div></div>';
   }).join('');
+}
+function renderDSel(){
+  const ordem=['treino','vespera','descanso'];
+  document.getElementById('dSel').innerHTML=ordem.map(k=>{
+    const d=D.dieta.dias[k];
+    return '<div class="dbtn'+(k===dietAtivo?' active':'')+'" onclick="selDieta(\''+k+'\')">'+
+      '<div class="dl">'+d.emoji+' '+d.label.replace('DIA DE ','').replace(' DE TREINO','')+'</div>'+
+      '<div class="dq">'+d.kcal+' kcal</div></div>';
+  }).join('');
+}
+function renderPainelDieta(){
+  const d=D.dieta.dias[dietAtivo];
+  let h='<div class="dsum"><div class="dt">'+d.emoji+' '+d.label+'</div><div class="dw">'+d.quando+'</div>'+
+    '<div class="dtot"><div class="dk"><b>'+d.kcal+'</b>kcal</div>'+
+    '<div class="mstrip"><div class="mac p">P<b>'+d.p+'</b></div><div class="mac c">C<b>'+d.c+'</b></div><div class="mac g">G<b>'+d.g+'</b></div></div></div>'+
+    '<div class="dnote">'+d.nota+'</div></div>';
+  d.refeicoes.forEach(r=>{
+    const star = r.tag && r.tag.indexOf('★')===0;
+    h+='<div class="meal"><div class="mhead"><div class="mh-l"><div class="mname">'+r.emoji+' '+r.nome+'</div><div class="mhora">'+r.hora+'</div></div>'+
+      '<div class="mkc"><b>'+r.kcal+'</b><span>kcal</span></div></div>';
+    if(r.tag) h+='<div class="mtag'+(star?' star':'')+'">'+r.tag+'</div>';
+    h+='<div class="mmac"><span class="mm-p">P <b>'+r.p+'g</b></span><span class="mm-c">C <b>'+r.c+'g</b></span><span class="mm-g">G <b>'+r.g+'g</b></span></div>';
+    r.itens.forEach(it=>{
+      h+='<div class="frow"><div class="fmain"><span class="fname">'+it.nome+'</span><span class="fqtd">'+it.qtd+'</span></div>'+
+         '<div class="fmac">'+it.kcal+' kcal · P'+it.p+' · C'+it.c+' · G'+it.g+'</div>';
+      if(it.opcoes) h+='<div class="fops">'+it.opcoes.map(o=>'<span>⇄ '+o+'</span>').join('')+'</div>';
+      h+='</div>';
+    });
+    if(r.sups&&r.sups.length) h+='<div class="supb"><div class="supt">💊 Suplementacao</div>'+r.sups.map(s=>'<div class="supi">• '+s+'</div>').join('')+'</div>';
+    h+='</div>';
+  });
+  document.getElementById('painelDieta').innerHTML=h;
+}
+function selDieta(k){ dietAtivo=k; renderDSel(); renderPainelDieta(); }
+
+function renderEstaticos(){
+  const mapaT={treino:'TREINO',vespera:'—',descanso:'—'};
+  const calT=D.treino.divisao.map(d=>({dia:d.dia,tipo:d.tipo}));
+  document.getElementById('calTreino').innerHTML=D.treino.divisao.map(d=>
+    '<div class="cal-d t-'+d.tipo+'"><div class="cd">'+d.dia+'</div><div class="cs">'+(d.tipo==='treino'?d.sessao.replace('FB ','FB'):'—')+'</div></div>').join('');
   document.getElementById('obsDivisao').textContent=D.treino.obs_divisao;
-  // RIR
   document.getElementById('rirRegras').innerHTML=D.treino.rir_regras.map((r,i)=>
     '<div class="rir-row"><div class="rir-cond">'+r.cond+'</div><div class="rir-acao '+(i===0?'warn':'ok')+'">'+r.acao+'</div></div>').join('');
-  // aquecimento (guia)
   document.getElementById('aqTabela').innerHTML=D.treino.aquecimento_primeiro.map(a=>
     '<div class="aq-row"><span class="aq-s">'+a.serie+'</span><span class="aq-v">'+a.reps+'</span><span class="aq-v">'+a.carga+'</span><span class="aq-v">'+a.desc+'</span><span class="aq-o">'+a.obj+'</span></div>').join('');
   const f=D.treino.feeder_demais;
-  document.getElementById('feederTxt').innerHTML='Nos demais exercícios: <b>1 série de '+f.reps+' repetições com '+f.carga+' da carga alvo</b>, descanso '+f.desc+'. '+f.obj+'.';
-  // princípios
+  document.getElementById('feederTxt').innerHTML='<b>1 serie de '+f.reps+' repeticoes com '+f.carga+' da carga alvo</b>, descanso '+f.desc+'. '+f.obj+'.';
+  document.getElementById('clusterTxt').textContent=D.treino.cluster.d;
   document.getElementById('principiosLista').innerHTML=D.treino.principios.map((p,i)=>
     '<div class="guide-item"><div class="guide-num">'+(i+1)+'</div><div class="guide-body"><div class="gt">'+p.t+'</div><div class="gd">'+p.d+'</div></div></div>').join('');
-  // instruções nutricionais
-  document.getElementById('instrucoesLista').innerHTML=D.dieta.instrucoes.map((p,i)=>
-    '<div class="guide-item"><div class="guide-num">'+(i+1)+'</div><div class="guide-body"><div class="gt">'+p.t+'</div><div class="gd">'+p.d+'</div></div></div>').join('');
-  document.getElementById('examesTxt').textContent=D.dieta.exames;
   // dieta
-  document.getElementById('estrategiaTxt').textContent=D.dieta.estrategia;
-  document.getElementById('painelDieta').innerHTML=D.dieta.refeicoes.map(r=>{
-    let h='<div class="meal-card"><div class="meal-head"><div class="meal-name">'+r.emoji+' '+r.nome+'</div></div>';
-    h+=r.itens.map(it=>{
-      let ops=it.opcoes?'<div class="food-ops">'+it.opcoes.map(o=>'<span>⇄ '+o+'</span>').join('')+'</div>':'';
-      return '<div class="food-row"><div class="food-main"><span class="food-name">'+it.nome+'</span><span class="food-qtd">'+it.qtd+'</span></div>'+ops+'</div>';
-    }).join('');
-    if(r.sups&&r.sups.length) h+='<div class="sup-block"><div class="sup-title">💊 Suplementação / Fármacos</div>'+r.sups.map(s=>'<div class="sup-item">• '+s+'</div>').join('')+'</div>';
-    return h+'</div>';
-  }).join('');
+  document.getElementById('logicaTxt').textContent=D.dieta.logica;
+  const mapaD={treino:'TREINO',vespera:'CARGA',descanso:'BAIXO'};
+  renderCal('calDieta', D.dieta.semana, mapaD);
+  document.getElementById('wSem').textContent=D.dieta.total_semanal.toLocaleString('pt-BR')+' kcal';
+  document.getElementById('wDet').innerHTML='3× treino (3179) + 3× vespera (2886) + 1× descanso (2101)<br>Media <b>'+Math.round(D.dieta.total_semanal/7)+' kcal/dia</b>';
   document.getElementById('painelExtras').innerHTML=D.dieta.extras.map(x=>
-    '<div class="extra-card"><div class="xt">'+x.t+'</div><div class="xd">'+x.d+'</div></div>').join('');
-  document.getElementById('supResumo').innerHTML=D.dieta.suplementacao_resumo.map(s=>'<div class="sup-item">• '+s+'</div>').join('');
+    '<div class="xcard"><div class="xt">'+x.t+'</div><div class="xd">'+x.d+'</div></div>').join('');
+  document.getElementById('supResumo').innerHTML=D.dieta.suplementacao_resumo.map(s=>'<div class="supi">• '+s+'</div>').join('');
 }
 
-/* ===== seções ===== */
 function selSecao(s){
-  secao=s;
   ['treino','dieta','guia'].forEach(x=>{
     document.getElementById('mb-'+x).classList.toggle('active', x===s);
     document.getElementById('sec-'+x).style.display = x===s?'block':'none';
@@ -406,7 +520,7 @@ function selSecao(s){
   window.scrollTo(0,0);
 }
 
-renderTabs(); renderPainelTreino(); renderEstaticos();
+renderTabs(); renderPainelTreino(); renderDSel(); renderPainelDieta(); renderEstaticos();
 </script>
 </body>
 </html>
