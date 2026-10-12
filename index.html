@@ -184,7 +184,7 @@ body{
 
 <div class="bar"><div class="wrap bar-in">
   <span class="mark">MG <b>COACH</b></span>
-  <button class="linkbtn" id="btnProto" onclick="verProtocolo()">Protocolo</button>
+  <button class="linkbtn" id="btnProto" onclick="alternar()">Protocolo</button>
 </div></div>
 
 <main class="wrap">
@@ -330,7 +330,8 @@ function irPara(s){
   atual = s; vendoProto = false;
   document.getElementById('viewTreino').style.display = '';
   document.getElementById('viewProto').style.display = 'none';
-  document.getElementById('btnProto').classList.remove('on');
+  const bp = document.getElementById('btnProto');
+  bp.classList.remove('on'); bp.textContent = 'Protocolo';
   renderWeek(); renderHead(); renderLista();
   window.scrollTo({top:0});
 }
@@ -360,10 +361,12 @@ function verProtocolo(){
   vendoProto = true;
   document.getElementById('viewTreino').style.display = 'none';
   document.getElementById('viewProto').style.display = '';
-  document.getElementById('btnProto').classList.add('on');
+  const b = document.getElementById('btnProto');
+  b.classList.add('on'); b.textContent = 'Voltar ao treino';
   renderProto();
   window.scrollTo({top:0});
 }
+function alternar(){ vendoProto ? irPara(atual) : verProtocolo(); }
 function exportar(){
   const blob = new Blob([JSON.stringify(ler(),null,2)], {type:'application/json'});
   const url = URL.createObjectURL(blob), a = document.createElement('a');
