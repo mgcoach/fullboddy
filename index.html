@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Upper / Lower 3× — MG COACH</title>
-<!-- brand-meta: mgcoach-upperlower3x-v1.1.0 -->
+<title>PPL 2× — MG COACH</title>
+<!-- brand-meta: mgcoach-ppl2x-v2.0.0 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -225,7 +225,25 @@ body{
 .ver{margin-top:14px;font-size:12px;color:var(--ink-3);text-align:center}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
-</head>
+
+<style>
+/* seletor de formato do exercício */
+.fmt{display:flex;flex-wrap:wrap;gap:5px;padding:12px 15px 0 42px}
+.fmt button{
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;
+  padding:5px 11px;font-family:inherit;font-size:12px;font-weight:500;color:var(--ink-2);
+  cursor:pointer;transition:background .12s,color .12s,border-color .12s;
+}
+.fmt button:hover{border-color:var(--ink-3)}
+.fmt button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.fmt button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.fmt-alt{color:var(--accent);font-weight:600}
+.migr{
+  background:var(--accent-soft);border:1px solid #FFD0B4;border-radius:var(--r-card);
+  padding:13px 15px;margin:14px 0;font-size:13.5px;color:#8A3200;line-height:1.5;
+}
+</style>
+
 <body>
 
 <div class="bar"><div class="wrap bar-in">
@@ -249,8 +267,7 @@ body{
 </main>
 
 <script>
-/* Remove service workers e caches herdados de versoes antigas deste endereco.
-   Sem isso, o atalho da tela inicial continua servindo a pagina velha. */
+/* Remove service workers e caches herdados de versões antigas deste endereço. */
 (function limpar(){
   if(!('serviceWorker' in navigator)) return;
   navigator.serviceWorker.getRegistrations().then(function(regs){
@@ -261,37 +278,77 @@ body{
       }
     }).then(function(){
       try{
-        if(!sessionStorage.getItem('sw_limpo')){
-          sessionStorage.setItem('sw_limpo','1');
-          location.reload();
-        }
+        if(!sessionStorage.getItem('sw_limpo')){ sessionStorage.setItem('sw_limpo','1'); location.reload(); }
       }catch(e){}
     });
   }).catch(function(){});
 })();
 
-const D = {"sessoes": {"Upper 1": {"dia": "Segunda", "foco": "Empurrar e puxar com carga máxima", "exs": [{"nome": "Supino reto", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Primeiro exercício do dia: aquecimento completo antes. Escápulas retraídas, pés firmes."}, {"nome": "Puxada aberta pronada", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Conduza o cotovelo em direção ao quadril. Tronco levemente inclinado, sem balanço."}, {"nome": "Pullover", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Cotovelos com flexão fixa do começo ao fim. Sinta o dorsal alongar na parte alta."}, {"nome": "Remada cavalinho", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Peito apoiado ou tronco estável. Cotovelos para trás, escápulas se aproximando no fim."}, {"nome": "Desenvolvimento de ombros", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Core firme, sem arquear a lombar. Vem depois do supino para não roubar o deltoide dele."}, {"nome": "Elevação lateral", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Sem impulso de tronco. Cotovelo lidera o movimento, tensão no deltoide médio."}, {"nome": "Tríceps francês halter", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Cotovelos apontados para cima e fixos. Alongamento completo da cabeça longa."}, {"nome": "Rosca direta", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Cotovelos colados ao tronco. Descida controlada, sem jogar o quadril."}]}, "Lower 1": {"dia": "Terça", "foco": "Agachamento e cadeia posterior", "exs": [{"nome": "Cadeira abdutora", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Abre a sessão ativando o glúteo médio e o quadril antes do agachamento."}, {"nome": "Agachamento", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Com o quadril já ativado. Amplitude segura, sem buscar falha concêntrica."}, {"nome": "Cadeira flexora", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Conduza na subida, controle a volta. Quadril colado no assento."}, {"nome": "Cadeira extensora", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Sem ego. Pausa curta no topo, descida lenta."}, {"nome": "Stiff", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Nunca no início — a cadeia já está aquecida. Quadril para trás, coluna estável."}, {"nome": "Elevação pélvica", "tipo": "reta2", "esquema": "2 válidas", "sets": ["1", "2"], "nota": "Pausa na contração máxima. Costelas para baixo, sem hiperextender a lombar."}, {"nome": "Panturrilha", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Pausa de 1s no alongamento para tirar a força elástica do tendão."}, {"nome": "Abdominal", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Escolha o exercício que você executa melhor. Progrida carga ou amplitude."}]}, "Upper 2": {"dia": "Quarta", "foco": "Peito superior, dorsal e ombro na polia", "exs": [{"nome": "Supino inclinado", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Primeiro exercício do dia: aquecimento completo. Banco a 30–45°."}, {"nome": "Puxada triângulo", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Pegada neutra. Peito estufado, cotovelos descendo junto ao corpo."}, {"nome": "Crucifixo", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Na máquina: 2 válidas + backoff. Com halteres: faça 3 válidas e ignore o backoff."}, {"nome": "Remada curvada pronada", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Tronco a 45°, lombar neutra. Puxe em direção ao umbigo."}, {"nome": "Elevação lateral polia", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Tensão contínua na parte baixa do movimento. Sem inclinar o tronco."}, {"nome": "Elevação frontal polia", "tipo": "cluster", "esquema": "cluster", "sets": ["Bloco 1", "Bloco 2", "Bloco 3"], "nota": "Mesma polia da elevação lateral — não troque de estação."}, {"nome": "Tríceps pulley", "tipo": "cluster", "esquema": "cluster", "sets": ["Bloco 1", "Bloco 2", "Bloco 3"], "nota": "Ainda na polia. Cotovelos colados, extensão completa."}, {"nome": "Rosca banco 45", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Ombros para trás e braço fixo. O alongamento é o ponto do exercício."}]}, "Lower 2": {"dia": "Quinta", "foco": "Terra, leg press e isquiotibiais", "exs": [{"nome": "Mesa flexora", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Abre a sessão aquecendo o isquiotibial antes do terra."}, {"nome": "Leg press", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Profundidade que você controla, sem tirar o quadril do encosto."}, {"nome": "Levantamento terra sumô", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Pés abertos, barra rente às canelas. Empurre o chão em vez de puxar a barra."}, {"nome": "Cadeira extensora", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Depois do terra, com o joelho já aquecido."}, {"nome": "Banco romano", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Suba até alinhar o tronco com as pernas. Não hiperextenda."}, {"nome": "Panturrilha", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Pausa de 1s no alongamento."}, {"nome": "Abdominal", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Mesmo exercício do Lower 1, ou varie o padrão."}]}, "Upper 3": {"dia": "Sexta", "foco": "Volume de puxada e peito inferior", "exs": [{"nome": "Supino declinado", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Primeiro exercício do dia: aquecimento completo."}, {"nome": "Remada neutra", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Tronco estável. Cotovelos rente ao corpo."}, {"nome": "Crucifixo", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Na máquina: 2 válidas + backoff. Com halteres: 3 válidas sem backoff."}, {"nome": "Remada curvada", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Quarta puxada da semana — cuide da lombar. Se a técnica cair, reduza a carga."}, {"nome": "Elevação lateral", "tipo": "cluster", "esquema": "cluster", "sets": ["Bloco 1", "Bloco 2", "Bloco 3"], "nota": "Terceira sessão de elevação lateral na semana; em cluster para economizar tempo."}, {"nome": "Crucifixo inverso", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Escápulas quase imóveis. O movimento é do ombro, não das costas."}, {"nome": "Tríceps testa", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Cotovelos fixos e descida controlada."}, {"nome": "Rosca martelo", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Pegada neutra. Pega braquial e braquiorradial."}]}, "Lower 3": {"dia": "Sábado", "foco": "Agachamento, unilateral e stiff", "exs": [{"nome": "Agachamento", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Segunda vez na semana. Se a quinta deixou resíduo, comece mais conservador."}, {"nome": "Cadeira flexora", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Conduza na subida, controle a volta."}, {"nome": "Cadeira extensora", "tipo": "cluster", "esquema": "cluster", "sets": ["Bloco 1", "Bloco 2", "Bloco 3"], "nota": "Em cluster: 3 blocos com a mesma carga, 20–30s entre eles."}, {"nome": "Stiff", "tipo": "backoff", "esquema": "2 válidas + backoff", "sets": ["1", "2", "Backoff"], "nota": "Cadeia já aquecida pelo agachamento e pela flexora."}, {"nome": "Búlgaro", "tipo": "reta2", "esquema": "2 válidas", "sets": ["1", "2"], "nota": "Pé de trás apoiado, tronco ereto. Trabalho unilateral fecha os desequilíbrios da semana."}, {"nome": "Panturrilha", "tipo": "cluster", "esquema": "cluster", "sets": ["Bloco 1", "Bloco 2", "Bloco 3"], "nota": "Em cluster, 3 blocos. Pausa no alongamento em toda repetição."}, {"nome": "Abdominal", "tipo": "reta3", "esquema": "3 válidas", "sets": ["1", "2", "3"], "nota": "Fecha a semana."}]}}, "semana": [{"dia": "Seg", "sessao": "Upper 1"}, {"dia": "Ter", "sessao": "Lower 1"}, {"dia": "Qua", "sessao": "Upper 2"}, {"dia": "Qui", "sessao": "Lower 2"}, {"dia": "Sex", "sessao": "Upper 3"}, {"dia": "Sáb", "sessao": "Lower 3"}, {"dia": "Dom", "sessao": null}], "protocolo": {"reps": "5 a 9 repetições em todas as séries válidas.", "aquecimento": [{"serie": "1ª", "reps": "15", "carga": "50%", "desc": "30s"}, {"serie": "2ª", "reps": "5", "carga": "75%", "desc": "1 min"}, {"serie": "3ª", "reps": "1–2", "carga": "100%", "desc": "2 min"}], "feeder": "Nos demais exercícios: 1 série de 2 repetições com 90–100% da carga alvo, 2 min de descanso antes da primeira válida.", "descanso": "2 a 3 minutos entre as séries válidas.", "backoff": "Backoff é a mesma série com 10–15% menos carga, mantendo a faixa de 5–9 repetições. Serve para acrescentar volume sem repetir o custo da série pesada.", "cluster": "Cluster é uma série longa quebrada em 3 blocos com a mesma carga e 20–30s de pausa entre eles. Economiza cerca de 4 minutos por exercício.", "rir": [{"quando": "Compostos pesados", "o_que": "1 a 2 repetições na reserva"}, {"quando": "Isolados e máquinas", "o_que": "Pode levar à falha técnica"}, {"quando": "Sono ruim ou fadiga alta", "o_que": "Mantenha 2 na reserva e corte o backoff"}]}};
+const D = {"sessoes": {"Push 1": {"dia": "Segunda", "foco": "Peito, ombro e tríceps", "exs": [{"nome": "Supino reto", "id": "supino-reto", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo antes. Escápulas retraídas, pés firmes."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Peito em alongamento. Cotovelos com flexão fixa, sem empurrar com o tríceps."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados do começo ao fim. Sinta o dorsal e o peitoral alongarem na parte alta."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Core firme, sem arquear a lombar. Vem depois do peito, então ajuste a carga."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Cotovelo lidera, sem impulso."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos apontados para cima e fixos. Alongamento completo da cabeça longa."}, {"nome": "Tríceps pulley", "id": "triceps-pulley", "fmt": "cluster", "nota": "Cotovelos colados ao tronco, extensão completa em cada bloco."}], "min": 81}, "Pull 1": {"dia": "Terça", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada aberta pronada", "id": "puxada-aberta-pronada", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Conduza o cotovelo em direção ao quadril."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Peito apoiado ou tronco estável. Cotovelos para trás, escápulas se aproximando no fim."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Tronco a 45°, lombar neutra. Puxe em direção ao umbigo."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Escápulas quase imóveis."}, {"nome": "Rosca direta", "id": "rosca-direta", "fmt": "cluster", "nota": "Cotovelos colados ao tronco. Descida controlada em cada bloco."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Pegada neutra. Pega braquial e braquiorradial."}], "min": 61}, "Legs 1": {"dia": "Quarta", "foco": "Agachamento e cadeia completa", "exs": [{"nome": "Cadeira abdutora 45°", "id": "cadeira-abdutora-45", "fmt": "backoff", "nota": "Abre a sessão ativando o glúteo médio antes do agachamento."}, {"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Com o quadril já ativado. Amplitude segura, sem buscar falha concêntrica."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Profundidade que você controla, sem tirar o quadril do encosto."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta. Quadril colado no assento."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos. Pausa curta no topo de cada repetição."}, {"nome": "Stiff", "id": "stiff", "fmt": "backoff", "nota": "Quadril para trás, coluna estável, amplitude limitada pela mobilidade dos posteriores."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento em toda repetição."}], "min": 81}, "Push 2": {"dia": "Quinta", "foco": "Peito superior, ombro e tríceps", "exs": [{"nome": "Supino inclinado", "id": "supino-inclinado", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Banco a 30–45°."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Segunda vez na semana. Priorize o alongamento."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados. Amplitude completa."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Segunda vez na semana, depois do inclinado."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos fixos, alongamento completo."}, {"nome": "Tríceps testa", "id": "triceps-testa", "fmt": "cluster", "nota": "Cotovelos estáveis e descida controlada em cada bloco."}], "min": 81}, "Pull 2": {"dia": "Sexta", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada triângulo", "id": "puxada-triangulo", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Pegada neutra, peito estufado."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Segunda vez na semana. Tronco estável."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Cuide da lombar — é a quarta remada pesada da semana."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Rosca banco 45", "id": "rosca-banco-45", "fmt": "cluster", "nota": "Ombros para trás, braço fixo. O alongamento é o ponto do exercício."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Segunda vez na semana."}], "min": 61}, "Legs 2": {"dia": "Sábado", "foco": "Agachamento, glúteo e posterior", "exs": [{"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Segunda vez na semana — se a quarta deixou resíduo, comece conservador."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Sem ego, máxima amplitude que você controla."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos."}, {"nome": "Banco romano", "id": "banco-romano", "fmt": "reta3", "nota": "Suba até alinhar o tronco com as pernas. Não hiperextenda."}, {"nome": "Elevação pélvica", "id": "elevacao-pelvica", "fmt": "cluster", "nota": "Pausa na contração máxima em cada bloco, sem hiperextender a lombar."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento."}], "min": 74}}, "semana": [{"dia": "Seg", "sessao": "Push 1"}, {"dia": "Ter", "sessao": "Pull 1"}, {"dia": "Qua", "sessao": "Legs 1"}, {"dia": "Qui", "sessao": "Push 2"}, {"dia": "Sex", "sessao": "Pull 2"}, {"dia": "Sáb", "sessao": "Legs 2"}, {"dia": "Dom", "sessao": null}], "protocolo": {"reps": "5 a 9 repetições nas séries normais e no backoff. Nos clusters, 4 repetições por bloco.", "aquecimento": [{"serie": "1ª", "reps": "15", "carga": "50%", "desc": "30s"}, {"serie": "2ª", "reps": "5", "carga": "75%", "desc": "1 min"}, {"serie": "3ª", "reps": "1–2", "carga": "100%", "desc": "2 min"}], "feeder": "Nos demais exercícios: 1 série de 2 repetições com 90–100% da carga alvo, 2 min de descanso antes da primeira válida.", "descanso": "2 a 3 minutos entre as séries válidas. Dentro de um cluster, 10 a 20 segundos entre os blocos.", "backoff": "Backoff é a mesma série com 10–15% menos carga, mantendo a faixa de 5–9 repetições. Acrescenta volume sem repetir o custo da série pesada.", "cluster": "Cluster é uma série longa quebrada em 6 blocos de 4 repetições com a mesma carga e 10 a 20 segundos de pausa entre eles. Entrega 24 repetições com qualidade alta em pouco tempo.", "formato": "Cada exercício vem com um formato sugerido, mas você pode trocar na hora pelo seletor do próprio exercício. O registro guarda o formato que você usou naquele dia.", "rir": [{"quando": "Compostos pesados", "o_que": "1 a 2 repetições na reserva"}, {"quando": "Isolados e máquinas", "o_que": "Pode levar à falha técnica"}, {"quando": "Sono ruim ou fadiga alta", "o_que": "Mantenha 2 na reserva e corte o backoff"}]}, "formatos": {"reta2": {"nome": "2 séries", "sets": ["1", "2"]}, "reta3": {"nome": "3 séries", "sets": ["1", "2", "3"]}, "backoff": {"nome": "2 + backoff", "sets": ["1", "2", "Backoff"]}, "cluster": {"nome": "Cluster 6×4", "sets": ["B1", "B2", "B3", "B4", "B5", "B6"]}}, "migra": {"Upper1_0": "supino-reto", "Upper1_1": "puxada-aberta-pronada", "Upper1_2": "pullover", "Upper1_3": "remada-cavalinho", "Upper1_4": "desenvolvimento-de-ombros", "Upper1_5": "elevacao-lateral", "Upper1_6": "triceps-frances", "Upper1_7": "rosca-direta", "Lower1_0": "cadeira-abdutora-45", "Lower1_1": "agachamento", "Lower1_2": "cadeira-flexora", "Lower1_3": "cadeira-extensora", "Lower1_4": "stiff", "Lower1_5": "elevacao-pelvica", "Lower1_6": "panturrilha", "Lower1_7": "abdominal", "Upper2_0": "supino-inclinado", "Upper2_1": "puxada-triangulo", "Upper2_2": "voador", "Upper2_3": "remada-curvada", "Upper2_4": "elevacao-lateral", "Upper2_5": "elevacao-frontal", "Upper2_6": "triceps-pulley", "Upper2_7": "rosca-banco-45", "Lower2_0": "mesa-flexora", "Lower2_1": "leg-press", "Lower2_2": "levantamento-terra-sumo", "Lower2_3": "cadeira-extensora", "Lower2_4": "banco-romano", "Lower2_5": "panturrilha", "Lower2_6": "abdominal", "Upper3_0": "supino-declinado", "Upper3_1": "remada-neutra", "Upper3_2": "voador", "Upper3_3": "remada-curvada", "Upper3_4": "elevacao-lateral", "Upper3_5": "crucifixo-inverso", "Upper3_6": "triceps-testa", "Upper3_7": "rosca-martelo", "Lower3_0": "agachamento", "Lower3_1": "cadeira-flexora", "Lower3_2": "cadeira-extensora", "Lower3_3": "stiff", "Lower3_4": "bulgaro", "Lower3_5": "panturrilha", "Lower3_6": "abdominal"}};
 const DIETA = {"alvo": {"k": 2500, "p": 140, "c": 344, "g": 62, "peso": 78, "regra_p": "1,8 g por kg", "regra_g": "0,8 g por kg"}, "refeicoes": [{"id": "cafe", "nome": "Café da manhã", "quando": "logo após o treino", "nota": "Esta é a sua refeição pós-treino. Carboidrato alto para repor o que o treino em jejum gastou.", "fixos": [{"nome": "Ovos", "qtd": "3 unidades", "k": 231, "p": 19.5, "c": 1.5, "g": 16.5}, {"nome": "Queijo mussarela", "qtd": "1 fatia (20 g)", "k": 60, "p": 4.4, "c": 0.6, "g": 4.4}], "troca_rotulo": "Escolha o carboidrato", "trocas": [{"nome": "Pão francês", "qtd": "3 unidades (150 g)", "k": 450, "p": 12.0, "c": 87.9, "g": 4.7}, {"nome": "Cuscuz", "qtd": "350 g pronto", "k": 396, "p": 8.0, "c": 87.5, "g": 1.4}, {"nome": "Tapioca", "qtd": "145 g de goma", "k": 348, "p": 0.0, "c": 87.0, "g": 0.0}]}, {"id": "almoco", "nome": "Almoço", "quando": "meio do dia", "nota": "Carboidrato moderado. O trabalho pesado do dia já passou.", "fixos": [{"nome": "Frango ou carne", "qtd": "90 g", "k": 143, "p": 28.8, "c": 0.0, "g": 2.7}, {"nome": "Azeite no preparo", "qtd": "1 colher de chá (5 g)", "k": 44, "p": 0.0, "c": 0.0, "g": 5.0}], "troca_rotulo": "Escolha o acompanhamento", "trocas": [{"nome": "Arroz + feijão", "qtd": "arroz 240 g · feijão 120 g", "k": 398, "p": 11.8, "c": 83.8, "g": 1.1}, {"nome": "Arroz", "qtd": "300 g", "k": 384, "p": 7.5, "c": 84.3, "g": 0.6}, {"nome": "Macarrão + feijão", "qtd": "macarrão 220 g · feijão 120 g", "k": 439, "p": 18.5, "c": 84.3, "g": 2.6}, {"nome": "Macarrão", "qtd": "270 g", "k": 427, "p": 15.7, "c": 83.4, "g": 2.4}]}, {"id": "lanche", "nome": "Lanche da tarde", "quando": "meio da tarde", "nota": "A menor refeição do dia e a de menos carboidrato. É o fundo do U.", "fixos": [{"nome": "Ovos", "qtd": "2 unidades", "k": 154, "p": 13.0, "c": 1.0, "g": 11.0}, {"nome": "Queijo mussarela", "qtd": "1 fatia (20 g)", "k": 60, "p": 4.4, "c": 0.6, "g": 4.4}], "troca_rotulo": "Escolha o carboidrato", "trocas": [{"nome": "Cuscuz", "qtd": "200 g pronto", "k": 226, "p": 4.6, "c": 50.0, "g": 0.8}, {"nome": "Pão francês", "qtd": "85 g (quase 2 unidades)", "k": 255, "p": 6.8, "c": 49.8, "g": 2.6}, {"nome": "Tapioca", "qtd": "85 g de goma", "k": 204, "p": 0.0, "c": 51.0, "g": 0.0}]}, {"id": "jantar", "nome": "Jantar", "quando": "última refeição", "nota": "A refeição mais carregada do dia. É ela que enche o glicogênio para o treino de amanhã de manhã — você vai treinar sem comer nada antes.", "fixos": [{"nome": "Frango ou carne", "qtd": "90 g", "k": 143, "p": 28.8, "c": 0.0, "g": 2.7}, {"nome": "Azeite no preparo", "qtd": "1 colher de chá (5 g)", "k": 44, "p": 0.0, "c": 0.0, "g": 5.0}], "troca_rotulo": "Escolha o acompanhamento", "trocas": [{"nome": "Arroz + feijão", "qtd": "arroz 340 g · feijão 120 g", "k": 526, "p": 14.3, "c": 111.9, "g": 1.3}, {"nome": "Arroz", "qtd": "400 g", "k": 512, "p": 10.0, "c": 112.4, "g": 0.8}, {"nome": "Macarrão + feijão", "qtd": "macarrão 310 g · feijão 120 g", "k": 581, "p": 23.7, "c": 112.1, "g": 3.4}, {"nome": "Macarrão", "qtd": "360 g", "k": 569, "p": 20.9, "c": 111.2, "g": 3.2}]}], "logica": "Você treina logo ao acordar, sem comer. Então o café da manhã é, na prática, a refeição pós-treino — e o jantar da véspera é o que abastece o treino. Por isso o carboidrato fica alto nas duas pontas do dia e mais baixo no meio.", "notas": [{"t": "Frango ou carne", "d": "Frango tem menos gordura que carne vermelha magra — cerca de 3 g a menos por porção de 90 g. Se usar carne nas duas refeições, tire o azeite de uma delas."}, {"t": "Trocas de carboidrato", "d": "As quantidades foram calculadas para dar o mesmo carboidrato, não as mesmas calorias. Tapioca e cuscuz ficam 50 a 100 kcal abaixo do pão porque têm menos proteína. Se usar tapioca no café com frequência, acrescente 30 g de arroz no jantar."}, {"t": "Macarrão", "d": "O macarrão entrega mais proteína e cerca de 40 a 55 kcal a mais que o arroz na mesma quantidade de carboidrato. É a opção mais calórica das quatro."}, {"t": "Verduras e legumes", "d": "À vontade no almoço e no jantar. Sem acrescentar óleo além do que já está contado."}, {"t": "Água", "d": "3 a 4 litros por dia. Glicogênio é armazenado junto com água."}]};
-const VERSAO = 'v1.1.0';
-const KEY = 'mgcoach_ul3x_v1';
-let atual = 'Upper 1';
+const VERSAO = 'v2.0.0';
+const KEY   = 'mgcoach_ul3x_v1';     // registros (mesma chave de sempre)
+const KEY_F = 'mgcoach_ppl_fmt_v1';  // formato escolhido por exercício
+const KEY_D = 'mgcoach_ul3x_dieta_v1';
+
 let vista = 'treino';
+let atual = 'Push 1';
 let escolhas = {};
+let formatos = {};
+let migrados = 0;
 let STORAGE_OK = true;
 try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); }catch(e){ STORAGE_OK = false; }
 
 function ler(){ try{ const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : {}; }catch(e){ return {}; } }
 function gravar(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); return true; }catch(e){ return false; } }
-function chave(s,i){ return s.replace(/[^A-Za-z0-9]/g,'') + '_' + i; }
 function data(iso){ const d = new Date(iso); return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'); }
 function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+/* ---------- migração: chaves antigas (Sessao_indice) viram id do exercício ---------- */
+(function migrar(){
+  if(!STORAGE_OK) return;
+  try{
+    const reg = ler();
+    const antigas = Object.keys(reg).filter(k => D.migra[k]);
+    if(!antigas.length) return;
+    antigas.forEach(k => {
+      const destino = D.migra[k];
+      if(!reg[destino]) reg[destino] = [];
+      reg[destino] = reg[destino].concat(reg[k]);
+      delete reg[k];
+      migrados++;
+    });
+    // mescla por data e remove duplicatas exatas
+    Object.keys(reg).forEach(k => {
+      const visto = new Set();
+      reg[k] = reg[k]
+        .sort((a,b) => a.data.localeCompare(b.data))
+        .filter(s => { const f = s.data + JSON.stringify(s.sets); if(visto.has(f)) return false; visto.add(f); return true; });
+    });
+    gravar(reg);
+  }catch(e){ migrados = 0; }
+})();
+
+/* ---------- formato por exercício ---------- */
+function lerFmt(){ try{ const r = localStorage.getItem(KEY_F); return r ? JSON.parse(r) : {}; }catch(e){ return {}; } }
+function gravarFmt(o){ try{ localStorage.setItem(KEY_F, JSON.stringify(o)); }catch(e){} }
+function fmtDe(e){ return formatos[e.id] || e.fmt; }
+function setsDe(e){ return D.formatos[fmtDe(e)].sets; }
+
+function trocarFmt(exId, f){
+  const e = D.sessoes[atual].exs.find(x => x.id === exId);
+  formatos[exId] = f; gravarFmt(formatos);
+  renderLista();
+  const el = document.getElementById(exId + '_card');
+  if(el) el.scrollIntoView({block:'nearest'});
+}
 
 /* ---------- semana ---------- */
 function renderWeek(){
   document.getElementById('week').innerHTML = D.semana.map(d => {
     if(!d.sessao) return '<div class="day off"><span class="d">'+d.dia+'</span><span class="s">—</span></div>';
     const on = d.sessao === atual && vista === 'treino';
-    const curto = d.sessao.replace('Upper','U').replace('Lower','L').replace(' ','');
+    const curto = d.sessao.replace('Push','P').replace('Pull','L').replace('Legs','G').replace(' ','');
     return '<button class="day'+(on?' on':'')+'" onclick="irPara(\''+d.sessao+'\')" aria-label="'+d.sessao+'">'
          + '<span class="d">'+d.dia+'</span><span class="s">'+curto+'</span></button>';
   }).join('');
@@ -300,58 +357,66 @@ function renderWeek(){
 /* ---------- cabeçalho ---------- */
 function renderHead(){
   const s = D.sessoes[atual];
-  const nser = s.exs.reduce((a,e)=>a+e.sets.length,0);
+  const nser = s.exs.reduce((a,e) => a + setsDe(e).length, 0);
   document.getElementById('head').innerHTML =
     '<h1>'+atual+'</h1>'
   + '<p class="foco">'+esc(s.foco)+'</p>'
   + '<div class="stats">'
   + '<div class="stat"><span class="n">'+s.exs.length+'</span><span class="l">exercícios</span></div>'
-  + '<div class="stat"><span class="n">'+nser+'</span><span class="l">séries válidas</span></div>'
-  + '<div class="stat"><span class="n">5–9</span><span class="l">repetições</span></div>'
+  + '<div class="stat"><span class="n">'+nser+'</span><span class="l">séries</span></div>'
+  + '<div class="stat"><span class="n">~'+s.min+' min</span><span class="l">duração</span></div>'
   + '</div>';
 }
 
-/* ---------- último registro ---------- */
+/* ---------- registros ---------- */
 function ultimo(k){
   const h = ler()[k];
   if(!h || !h.length) return '';
   const u = h[h.length-1];
   const txt = u.sets.map(s => '<span class="v"><b>'+(s.carga||'—')+'</b>×<b>'+(s.reps||'—')+'</b></span>').join('<span class="sep">·</span>');
-  return '<span class="k">Última '+data(u.data)+'</span>' + txt;
+  const nomeF = u.fmt && D.formatos[u.fmt] ? D.formatos[u.fmt].nome : '';
+  return '<span class="k">Última '+data(u.data)+(nomeF?' · '+nomeF:'')+'</span>' + txt;
 }
 function historico(k){
   const h = ler()[k];
   if(!h || !h.length) return '<div class="hrow"><span class="hd">—</span><span class="hv">Nada registrado ainda.</span></div>';
   return h.slice().reverse().map((s,ri) => {
     const real = h.length-1-ri;
-    const v = s.sets.map(x => esc(x.lab)+' '+(x.carga||'—')+'kg×'+(x.reps||'—')).join(' · ');
-    return '<div class="hrow"><span class="hd">'+data(s.data)+'</span><span class="hv">'+v+'</span>'
+    const v = s.sets.map(x => (x.carga||'—')+'×'+(x.reps||'—')).join(' · ');
+    const f = s.fmt && D.formatos[s.fmt] ? ' <span class="hd">'+D.formatos[s.fmt].nome+'</span>' : '';
+    return '<div class="hrow"><span class="hd">'+data(s.data)+'</span><span class="hv">'+v+f+'</span>'
          + '<button class="hx" onclick="apagar(\''+k+'\','+real+')" aria-label="Apagar registro">×</button></div>';
   }).join('');
 }
 
-/* ---------- lista de exercícios ---------- */
+/* ---------- lista ---------- */
 function renderLista(){
   const s = D.sessoes[atual];
   document.getElementById('lista').innerHTML = s.exs.map((e,i) => {
-    const k = chave(atual,i);
+    const k = e.id, f = fmtDe(e), sets = setsDe(e);
     const h = ler()[k];
     const prev = (h && h.length) ? h[h.length-1].sets : null;
-    const linhas = e.sets.map((lab,j) => {
+    const linhas = sets.map((lab,j) => {
       const ph = prev && prev[j] && prev[j].carga ? prev[j].carga : '';
       return '<div class="row"><span class="lab">'+esc(lab)+'</span>'
            + '<input type="number" inputmode="decimal" step="0.5" id="'+k+'_c'+j+'" placeholder="'+(ph||'kg')+'" aria-label="Carga série '+esc(lab)+'">'
            + '<input type="number" inputmode="numeric" id="'+k+'_r'+j+'" placeholder="reps" aria-label="Repetições série '+esc(lab)+'"></div>';
     }).join('');
-    const chip = '<span class="chip'+(e.tipo==='cluster'?' cl':'')+'">'+esc(e.esquema)+'</span>';
-    return '<article class="ex">'
+    const botoes = Object.keys(D.formatos).map(key =>
+      '<button class="'+(key===f?'on':'')+'" onclick="trocarFmt(\''+k+'\',\''+key+'\')">'+esc(D.formatos[key].nome)+'</button>').join('');
+    const alterado = f !== e.fmt
+      ? ' <span class="fmt-alt">· alterado, o padrão é '+esc(D.formatos[e.fmt].nome)+'</span>' : '';
+    const ult = ultimo(k);
+    return '<article class="ex" id="'+k+'_card">'
       + '<div class="ex-top"><span class="ex-n">'+(i+1)+'</span>'
-      + '<div class="ex-main"><h2 class="ex-name">'+esc(e.nome)+'</h2>'+chip+'</div></div>'
+      + '<div class="ex-main"><h2 class="ex-name">'+esc(e.nome)+'</h2></div></div>'
       + (e.nota ? '<p class="ex-nota">'+esc(e.nota)+'</p>' : '')
-      + '<p class="prev" id="'+k+'_p"'+(ultimo(k)?'':' hidden')+'>'+ultimo(k)+'</p>'
+      + '<div class="fmt">'+botoes+'</div>'
+      + (alterado ? '<p class="ex-nota" style="padding-top:6px;font-size:12px">'+alterado+'</p>' : '')
+      + '<p class="prev" id="'+k+'_p"'+(ult?'':' hidden')+'>'+ult+'</p>'
       + '<div class="log"><div class="log-h"><span>Série</span><span>Carga</span><span>Reps</span></div>'
       + linhas
-      + '<button class="save" id="'+k+'_b" onclick="registrar(\''+atual+'\','+i+')">Registrar</button></div>'
+      + '<button class="save" id="'+k+'_b" onclick="registrar(\''+k+'\')">Registrar</button></div>'
       + '<button class="hist-t" onclick="verHist(\''+k+'\')" aria-expanded="false">Histórico</button>'
       + '<div class="hist" id="'+k+'_h">'+historico(k)+'</div>'
       + '</article>';
@@ -359,20 +424,18 @@ function renderLista(){
 }
 
 /* ---------- ações ---------- */
-function registrar(sessao, i){
-  const e = D.sessoes[sessao].exs[i], k = chave(sessao,i);
-  const sets = e.sets.map((lab,j) => ({
+function registrar(k){
+  const e = D.sessoes[atual].exs.find(x => x.id === k);
+  const f = fmtDe(e), sets = setsDe(e);
+  const vals = sets.map((lab,j) => ({
     lab: lab,
     carga: document.getElementById(k+'_c'+j).value.trim(),
     reps:  document.getElementById(k+'_r'+j).value.trim()
   }));
-  if(sets.every(s => !s.carga && !s.reps)){
-    alert('Preencha ao menos uma carga ou repetição antes de registrar.');
-    return;
-  }
+  if(vals.every(s => !s.carga && !s.reps)){ alert('Preencha ao menos uma carga ou repetição antes de registrar.'); return; }
   const reg = ler();
   if(!reg[k]) reg[k] = [];
-  reg[k].push({data:new Date().toISOString(), sets:sets});
+  reg[k].push({data:new Date().toISOString(), sets:vals, fmt:f});
   if(!gravar(reg)){ alert('Este navegador não está salvando dados. Abra no Safari normal, fora da aba privada.'); return; }
   const b = document.getElementById(k+'_b');
   b.textContent = 'Registrado'; b.classList.add('ok');
@@ -380,7 +443,7 @@ function registrar(sessao, i){
   const pel = document.getElementById(k+'_p');
   pel.innerHTML = ultimo(k); pel.hidden = !ultimo(k);
   document.getElementById(k+'_h').innerHTML = historico(k);
-  e.sets.forEach((lab,j) => {
+  sets.forEach((lab,j) => {
     const ci = document.getElementById(k+'_c'+j);
     ci.placeholder = ci.value.trim() || ci.placeholder;
     ci.value = ''; document.getElementById(k+'_r'+j).value = '';
@@ -394,7 +457,8 @@ function apagar(k, idx){
   if(!reg[k].length) delete reg[k];
   gravar(reg);
   document.getElementById(k+'_h').innerHTML = historico(k);
-  const p = document.getElementById(k+'_p'); if(p){ p.innerHTML = ultimo(k); p.hidden = !ultimo(k); }
+  const p = document.getElementById(k+'_p');
+  if(p){ p.innerHTML = ultimo(k); p.hidden = !ultimo(k); }
 }
 function verHist(k){
   const el = document.getElementById(k+'_h');
@@ -415,12 +479,9 @@ function abrir(v){
   window.scrollTo({top:0});
 }
 
-
 /* ---------- dieta ---------- */
-const KEY_D = 'mgcoach_ul3x_dieta_v1';
 function lerEscolhas(){ try{ const r = localStorage.getItem(KEY_D); return r ? JSON.parse(r) : {}; }catch(e){ return {}; } }
 function gravarEscolhas(o){ try{ localStorage.setItem(KEY_D, JSON.stringify(o)); }catch(e){} }
-
 function somaRef(r, idx){
   const t = {k:0,p:0,c:0,g:0};
   r.fixos.concat([r.trocas[idx]]).forEach(i => { t.k+=i.k; t.p+=i.p; t.c+=i.c; t.g+=i.g; });
@@ -428,19 +489,15 @@ function somaRef(r, idx){
 }
 function totalDia(){
   const t = {k:0,p:0,c:0,g:0};
-  DIETA.refeicoes.forEach(r => {
-    const s = somaRef(r, escolhas[r.id] || 0);
-    t.k+=s.k; t.p+=s.p; t.c+=s.c; t.g+=s.g;
-  });
+  DIETA.refeicoes.forEach(r => { const s = somaRef(r, escolhas[r.id] || 0); t.k+=s.k; t.p+=s.p; t.c+=s.c; t.g+=s.g; });
   return t;
 }
 function atualizarTotal(){
   const t = totalDia(), a = DIETA.alvo, dif = Math.round(t.k - a.k);
-  const sinal = dif > 0 ? '+' : '';
   document.getElementById('hojeK').textContent = Math.round(t.k) + ' kcal';
   document.getElementById('hojeM').textContent =
     'P ' + Math.round(t.p) + ' g · C ' + Math.round(t.c) + ' g · G ' + Math.round(t.g) + ' g'
-    + (Math.abs(dif) >= 45 ? '  (' + sinal + dif + ' do alvo)' : '');
+    + (Math.abs(dif) >= 45 ? '  (' + (dif>0?'+':'') + dif + ' do alvo)' : '');
 }
 function escolher(id, idx){
   escolhas[id] = idx; gravarEscolhas(escolhas);
@@ -452,7 +509,6 @@ function escolher(id, idx){
   document.getElementById('d_'+id).innerHTML = '<b>' + esc(o.nome) + '</b> — ' + esc(o.qtd);
   atualizarTotal();
 }
-
 function renderDieta(){
   escolhas = lerEscolhas();
   const a = DIETA.alvo;
@@ -463,10 +519,7 @@ function renderDieta(){
     + '<div class="macro"><span class="mv">' + a.c + ' g</span><span class="ml">carboidrato</span><span class="mg">o que sobra</span></div>'
     + '<div class="macro"><span class="mv">' + a.g + ' g</span><span class="ml">gordura</span><span class="mg">' + esc(a.regra_g) + '</span></div>'
     + '</div></section>';
-
-  h += '<div class="hoje"><span class="hl">Seu dia</span><div class="hv" id="hojeK">—</div>'
-     + '<div class="hm" id="hojeM"></div></div>';
-
+  h += '<div class="hoje"><span class="hl">Seu dia</span><div class="hv" id="hojeK">—</div><div class="hm" id="hojeM"></div></div>';
   DIETA.refeicoes.forEach(r => {
     const idx = escolhas[r.id] || 0;
     const s = somaRef(r, idx), o = r.trocas[idx];
@@ -476,21 +529,15 @@ function renderDieta(){
       + '<div class="ref-k" id="k_' + r.id + '">' + Math.round(s.k) + '<span>kcal</span></div></div>'
       + '<p class="ref-nota">' + esc(r.nota) + '</p>'
       + '<p class="ref-mac" id="m_' + r.id + '">P <b>' + Math.round(s.p) + ' g</b> · C <b>' + Math.round(s.c) + ' g</b> · G <b>' + Math.round(s.g) + ' g</b></p>'
-      + '<div class="fixos">' + r.fixos.map(i =>
-          '<div class="fx"><span>' + esc(i.nome) + '</span><span class="fq">' + esc(i.qtd) + '</span></div>').join('')
-        + '</div>'
+      + '<div class="fixos">' + r.fixos.map(i => '<div class="fx"><span>' + esc(i.nome) + '</span><span class="fq">' + esc(i.qtd) + '</span></div>').join('') + '</div>'
       + '<div class="troca"><div class="troca-l">' + esc(r.troca_rotulo) + '</div>'
       + '<div class="opts">' + r.trocas.map((t,i) =>
-          '<button class="opt' + (i===idx?' on':'') + '" data-opt="' + r.id + '" onclick="escolher(\'' + r.id + '\',' + i + ')">' + esc(t.nome) + '</button>').join('')
-        + '</div>'
+          '<button class="opt' + (i===idx?' on':'') + '" data-opt="' + r.id + '" onclick="escolher(\'' + r.id + '\',' + i + ')">' + esc(t.nome) + '</button>').join('') + '</div>'
       + '<p class="opt-det" id="d_' + r.id + '"><b>' + esc(o.nome) + '</b> — ' + esc(o.qtd) + '</p>'
       + '</div></article>';
   });
-
   h += '<div class="sheet" style="padding-top:16px">'
-    + DIETA.notas.map(n => '<div class="block"><h3>' + esc(n.t) + '</h3><p>' + esc(n.d) + '</p></div>').join('')
-    + '</div>';
-
+    + DIETA.notas.map(n => '<div class="block"><h3>' + esc(n.t) + '</h3><p>' + esc(n.d) + '</p></div>').join('') + '</div>';
   document.getElementById('viewDieta').innerHTML = h;
   atualizarTotal();
 }
@@ -509,6 +556,7 @@ function renderProto(){
     + '<div class="block"><h3>Demais exercícios</h3><p>'+esc(p.feeder)+'</p></div>'
     + '<div class="block"><h3>Backoff</h3><p>'+esc(p.backoff)+'</p></div>'
     + '<div class="block"><h3>Cluster</h3><p>'+esc(p.cluster)+'</p></div>'
+    + '<div class="block"><h3>Trocar o formato</h3><p>'+esc(p.formato)+'</p></div>'
     + '<div class="block"><h3>Intensidade</h3>'+rir+'</div>'
     + '<div class="tools"><button onclick="exportar()">Exportar backup</button>'
     + '<button onclick="document.getElementById(\'imp\').click()">Importar backup</button></div>'
@@ -520,7 +568,7 @@ function renderProto(){
 function exportar(){
   const blob = new Blob([JSON.stringify(ler(),null,2)], {type:'application/json'});
   const url = URL.createObjectURL(blob), a = document.createElement('a');
-  a.href = url; a.download = 'mgcoach-ul3x-'+new Date().toISOString().slice(0,10)+'.json';
+  a.href = url; a.download = 'mgcoach-ppl-'+new Date().toISOString().slice(0,10)+'.json';
   a.click(); URL.revokeObjectURL(url);
 }
 function importar(ev){
@@ -529,7 +577,7 @@ function importar(ev){
   r.onload = e => {
     try{
       const d = JSON.parse(e.target.result);
-      if(confirm('Isso substitui os registros atuais. Continuar?')){ gravar(d); alert('Backup importado.'); irPara(atual); }
+      if(confirm('Isso substitui os registros atuais. Continuar?')){ gravar(d); alert('Backup importado.'); abrir('treino'); }
     }catch(err){ alert('Arquivo inválido.'); }
   };
   r.readAsText(f);
@@ -537,15 +585,21 @@ function importar(ev){
 
 /* ---------- início ---------- */
 (function(){
-  const hoje = new Date().getDay();          // 0 dom … 6 sáb
-  const mapa = [null,'Upper 1','Lower 1','Upper 2','Lower 2','Upper 3','Lower 3'];
+  formatos = lerFmt();
+  const hoje = new Date().getDay();
+  const mapa = [null,'Push 1','Pull 1','Legs 1','Push 2','Pull 2','Legs 2'];
   if(mapa[hoje]) atual = mapa[hoje];
   renderWeek(); renderHead(); renderLista();
+  const v = document.getElementById('viewTreino');
   if(!STORAGE_OK){
     const d = document.createElement('div');
-    d.className = 'aviso';
+    d.className = 'migr';
     d.textContent = 'Este navegador não está salvando dados — provavelmente é uma aba privada. Abra no Safari normal para os registros serem gravados.';
-    const v = document.getElementById('viewTreino');
+    v.insertBefore(d, v.firstChild);
+  } else if(migrados){
+    const d = document.createElement('div');
+    d.className = 'migr';
+    d.textContent = 'Suas cargas foram transferidas para a nova divisão: ' + migrados + ' exercícios reaproveitados. O histórico agora segue o exercício, não o dia.';
     v.insertBefore(d, v.firstChild);
   }
 })();
