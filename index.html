@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PPL 2× — MG COACH</title>
-<!-- brand-meta: mgcoach-ppl2x-v2.0.0 -->
+<!-- brand-meta: mgcoach-ppl2x-v2.1.0 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -227,6 +227,92 @@ body{
 </style>
 
 <style>
+.prev{overflow-wrap:anywhere}
+.prev .k{display:block;margin-bottom:3px}
+.prev .v{white-space:nowrap;display:inline-block}
+.prev .v i{font-style:normal;color:var(--ink-3);font-weight:500;margin-left:1px}
+.prev .sep{margin:0 6px}
+.hrow .hv{overflow-wrap:anywhere}
+
+/* botão editar e telas do editor */
+.editar{
+  margin-top:14px;background:none;border:1px solid var(--rule);border-radius:var(--r-field);
+  padding:9px 15px;font-family:inherit;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer;
+}
+.editar:hover{border-color:var(--ink-3);color:var(--ink)}
+.editar:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.voltar{
+  background:none;border:none;padding:0 0 10px;font-family:inherit;font-size:13.5px;
+  font-weight:500;color:var(--ink-2);cursor:pointer;
+}
+.voltar::before{content:'← '}
+.voltar:hover{color:var(--ink)}
+.dia-row{display:flex;align-items:center;gap:12px;padding:6px 0;border-bottom:1px solid var(--rule-soft)}
+.dia-row:last-child{border-bottom:none}
+.dia-n{flex:0 0 38px;font-size:13.5px;font-weight:600;color:var(--ink-2)}
+.dia-row select{
+  flex:1;font-family:inherit;font-size:14px;color:var(--ink);background:var(--paper);
+  border:1px solid var(--rule);border-radius:var(--r-field);padding:8px 10px;
+}
+.dia-row select:focus{outline:none;border-color:var(--accent)}
+.sess-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule-soft)}
+.sess-row:last-child{border-bottom:none}
+.sess-i b{display:block;font-size:14.5px;font-weight:600}
+.sess-i span{font-size:12.5px;color:var(--ink-3)}
+.sess-b{display:flex;gap:6px;flex:0 0 auto}
+.sess-b button{
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:6px 12px;
+  font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;
+}
+.sess-b button:hover{border-color:var(--ink-3);color:var(--ink)}
+.campo{display:block;font-size:12.5px;color:var(--ink-3);font-weight:500;margin-bottom:10px}
+.campo input{
+  display:block;width:100%;margin-top:4px;font-family:inherit;font-size:15px;color:var(--ink);
+  background:var(--paper);border:1px solid var(--rule);border-radius:var(--r-field);padding:9px 11px;
+}
+.campo input:focus{outline:none;border-color:var(--accent);background:#fff}
+.ed-ex{padding:10px 0;border-bottom:1px solid var(--rule-soft)}
+.ed-ex:last-child{border-bottom:none}
+.ed-top{display:flex;align-items:center;gap:9px}
+.ed-n{font-size:12px;color:var(--ink-3);font-weight:600;flex:0 0 14px}
+.ed-nome{flex:1;font-size:15px;font-weight:600;letter-spacing:-.015em}
+.ed-mv{display:flex;gap:3px;flex:0 0 auto}
+.ed-mv button{
+  width:30px;height:30px;background:var(--paper);border:1px solid var(--rule);border-radius:8px;
+  font-family:inherit;font-size:14px;color:var(--ink-2);cursor:pointer;line-height:1;
+}
+.ed-mv button:disabled{opacity:.35;cursor:default}
+.ed-mv button:not(:disabled):hover{border-color:var(--ink-3);color:var(--ink)}
+.ed-fmt{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;padding-left:23px}
+.ed-fmt button{
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:4px 10px;
+  font-family:inherit;font-size:11.5px;font-weight:500;color:var(--ink-2);cursor:pointer;
+}
+.ed-fmt button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.busca{
+  width:100%;font-family:inherit;font-size:15px;color:var(--ink);background:var(--paper);
+  border:1px solid var(--rule);border-radius:var(--r-field);padding:10px 12px;margin-bottom:10px;
+}
+.busca:focus{outline:none;border-color:var(--accent);background:#fff}
+.cat{display:flex;flex-wrap:wrap;gap:6px}
+.cat button{
+  background:var(--paper);border:1px solid var(--rule);border-radius:999px;padding:7px 13px;
+  font-family:inherit;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer;
+}
+.cat button:hover{border-color:var(--ink-3);color:var(--ink)}
+.cat-mais{
+  display:block;width:100%;margin-top:9px;background:none;border:1px solid var(--rule);
+  border-radius:var(--r-field);padding:9px;font-family:inherit;font-size:13px;font-weight:500;
+  color:var(--ink-2);cursor:pointer;
+}
+.cat-mais:hover{border-color:var(--ink-3);color:var(--ink)}
+.cat-novo{
+  display:block;width:100%;margin-bottom:10px;background:var(--ink);color:#fff;border:none;
+  border-radius:var(--r-field);padding:11px;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;
+}
+.vazio-card{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-card);padding:22px 16px;text-align:center}
+.vazio-card p{font-size:14px;color:var(--ink-2);margin-bottom:14px}
+
 /* seletor de formato do exercício */
 .fmt{display:flex;flex-wrap:wrap;gap:5px;padding:12px 15px 0 42px}
 .fmt button{
@@ -262,6 +348,7 @@ body{
     <div id="lista"></div>
   </div>
   <div id="viewDieta" style="display:none"></div>
+  <div id="viewEditor" style="display:none"></div>
   <div id="viewProto" style="display:none"></div>
   <p class="foot">Registre as séries válidas, não o aquecimento. Progrida 1&nbsp;kg ou 1 repetição por semana — o salto grande custa a execução.</p>
 </main>
@@ -284,21 +371,45 @@ body{
   }).catch(function(){});
 })();
 
-const D = {"sessoes": {"Push 1": {"dia": "Segunda", "foco": "Peito, ombro e tríceps", "exs": [{"nome": "Supino reto", "id": "supino-reto", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo antes. Escápulas retraídas, pés firmes."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Peito em alongamento. Cotovelos com flexão fixa, sem empurrar com o tríceps."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados do começo ao fim. Sinta o dorsal e o peitoral alongarem na parte alta."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Core firme, sem arquear a lombar. Vem depois do peito, então ajuste a carga."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Cotovelo lidera, sem impulso."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos apontados para cima e fixos. Alongamento completo da cabeça longa."}, {"nome": "Tríceps pulley", "id": "triceps-pulley", "fmt": "cluster", "nota": "Cotovelos colados ao tronco, extensão completa em cada bloco."}], "min": 81}, "Pull 1": {"dia": "Terça", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada aberta pronada", "id": "puxada-aberta-pronada", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Conduza o cotovelo em direção ao quadril."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Peito apoiado ou tronco estável. Cotovelos para trás, escápulas se aproximando no fim."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Tronco a 45°, lombar neutra. Puxe em direção ao umbigo."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Escápulas quase imóveis."}, {"nome": "Rosca direta", "id": "rosca-direta", "fmt": "cluster", "nota": "Cotovelos colados ao tronco. Descida controlada em cada bloco."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Pegada neutra. Pega braquial e braquiorradial."}], "min": 61}, "Legs 1": {"dia": "Quarta", "foco": "Agachamento e cadeia completa", "exs": [{"nome": "Cadeira abdutora 45°", "id": "cadeira-abdutora-45", "fmt": "backoff", "nota": "Abre a sessão ativando o glúteo médio antes do agachamento."}, {"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Com o quadril já ativado. Amplitude segura, sem buscar falha concêntrica."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Profundidade que você controla, sem tirar o quadril do encosto."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta. Quadril colado no assento."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos. Pausa curta no topo de cada repetição."}, {"nome": "Stiff", "id": "stiff", "fmt": "backoff", "nota": "Quadril para trás, coluna estável, amplitude limitada pela mobilidade dos posteriores."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento em toda repetição."}], "min": 81}, "Push 2": {"dia": "Quinta", "foco": "Peito superior, ombro e tríceps", "exs": [{"nome": "Supino inclinado", "id": "supino-inclinado", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Banco a 30–45°."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Segunda vez na semana. Priorize o alongamento."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados. Amplitude completa."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Segunda vez na semana, depois do inclinado."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos fixos, alongamento completo."}, {"nome": "Tríceps testa", "id": "triceps-testa", "fmt": "cluster", "nota": "Cotovelos estáveis e descida controlada em cada bloco."}], "min": 81}, "Pull 2": {"dia": "Sexta", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada triângulo", "id": "puxada-triangulo", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Pegada neutra, peito estufado."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Segunda vez na semana. Tronco estável."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Cuide da lombar — é a quarta remada pesada da semana."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Rosca banco 45", "id": "rosca-banco-45", "fmt": "cluster", "nota": "Ombros para trás, braço fixo. O alongamento é o ponto do exercício."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Segunda vez na semana."}], "min": 61}, "Legs 2": {"dia": "Sábado", "foco": "Agachamento, glúteo e posterior", "exs": [{"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Segunda vez na semana — se a quarta deixou resíduo, comece conservador."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Sem ego, máxima amplitude que você controla."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos."}, {"nome": "Banco romano", "id": "banco-romano", "fmt": "reta3", "nota": "Suba até alinhar o tronco com as pernas. Não hiperextenda."}, {"nome": "Elevação pélvica", "id": "elevacao-pelvica", "fmt": "cluster", "nota": "Pausa na contração máxima em cada bloco, sem hiperextender a lombar."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento."}], "min": 74}}, "semana": [{"dia": "Seg", "sessao": "Push 1"}, {"dia": "Ter", "sessao": "Pull 1"}, {"dia": "Qua", "sessao": "Legs 1"}, {"dia": "Qui", "sessao": "Push 2"}, {"dia": "Sex", "sessao": "Pull 2"}, {"dia": "Sáb", "sessao": "Legs 2"}, {"dia": "Dom", "sessao": null}], "protocolo": {"reps": "5 a 9 repetições nas séries normais e no backoff. Nos clusters, 4 repetições por bloco.", "aquecimento": [{"serie": "1ª", "reps": "15", "carga": "50%", "desc": "30s"}, {"serie": "2ª", "reps": "5", "carga": "75%", "desc": "1 min"}, {"serie": "3ª", "reps": "1–2", "carga": "100%", "desc": "2 min"}], "feeder": "Nos demais exercícios: 1 série de 2 repetições com 90–100% da carga alvo, 2 min de descanso antes da primeira válida.", "descanso": "2 a 3 minutos entre as séries válidas. Dentro de um cluster, 10 a 20 segundos entre os blocos.", "backoff": "Backoff é a mesma série com 10–15% menos carga, mantendo a faixa de 5–9 repetições. Acrescenta volume sem repetir o custo da série pesada.", "cluster": "Cluster é uma série longa quebrada em 6 blocos de 4 repetições com a mesma carga e 10 a 20 segundos de pausa entre eles. Entrega 24 repetições com qualidade alta em pouco tempo.", "formato": "Cada exercício vem com um formato sugerido, mas você pode trocar na hora pelo seletor do próprio exercício. O registro guarda o formato que você usou naquele dia.", "rir": [{"quando": "Compostos pesados", "o_que": "1 a 2 repetições na reserva"}, {"quando": "Isolados e máquinas", "o_que": "Pode levar à falha técnica"}, {"quando": "Sono ruim ou fadiga alta", "o_que": "Mantenha 2 na reserva e corte o backoff"}]}, "formatos": {"reta2": {"nome": "2 séries", "sets": ["1", "2"]}, "reta3": {"nome": "3 séries", "sets": ["1", "2", "3"]}, "backoff": {"nome": "2 + backoff", "sets": ["1", "2", "Backoff"]}, "cluster": {"nome": "Cluster 6×4", "sets": ["B1", "B2", "B3", "B4", "B5", "B6"]}}, "migra": {"Upper1_0": "supino-reto", "Upper1_1": "puxada-aberta-pronada", "Upper1_2": "pullover", "Upper1_3": "remada-cavalinho", "Upper1_4": "desenvolvimento-de-ombros", "Upper1_5": "elevacao-lateral", "Upper1_6": "triceps-frances", "Upper1_7": "rosca-direta", "Lower1_0": "cadeira-abdutora-45", "Lower1_1": "agachamento", "Lower1_2": "cadeira-flexora", "Lower1_3": "cadeira-extensora", "Lower1_4": "stiff", "Lower1_5": "elevacao-pelvica", "Lower1_6": "panturrilha", "Lower1_7": "abdominal", "Upper2_0": "supino-inclinado", "Upper2_1": "puxada-triangulo", "Upper2_2": "voador", "Upper2_3": "remada-curvada", "Upper2_4": "elevacao-lateral", "Upper2_5": "elevacao-frontal", "Upper2_6": "triceps-pulley", "Upper2_7": "rosca-banco-45", "Lower2_0": "mesa-flexora", "Lower2_1": "leg-press", "Lower2_2": "levantamento-terra-sumo", "Lower2_3": "cadeira-extensora", "Lower2_4": "banco-romano", "Lower2_5": "panturrilha", "Lower2_6": "abdominal", "Upper3_0": "supino-declinado", "Upper3_1": "remada-neutra", "Upper3_2": "voador", "Upper3_3": "remada-curvada", "Upper3_4": "elevacao-lateral", "Upper3_5": "crucifixo-inverso", "Upper3_6": "triceps-testa", "Upper3_7": "rosca-martelo", "Lower3_0": "agachamento", "Lower3_1": "cadeira-flexora", "Lower3_2": "cadeira-extensora", "Lower3_3": "stiff", "Lower3_4": "bulgaro", "Lower3_5": "panturrilha", "Lower3_6": "abdominal"}};
+const D = {"sessoes": {"Push 1": {"dia": "Segunda", "foco": "Peito, ombro e tríceps", "exs": [{"nome": "Supino reto", "id": "supino-reto", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo antes. Escápulas retraídas, pés firmes."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Peito em alongamento. Cotovelos com flexão fixa, sem empurrar com o tríceps."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados do começo ao fim. Sinta o dorsal e o peitoral alongarem na parte alta."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Core firme, sem arquear a lombar. Vem depois do peito, então ajuste a carga."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Cotovelo lidera, sem impulso."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos apontados para cima e fixos. Alongamento completo da cabeça longa."}, {"nome": "Tríceps pulley", "id": "triceps-pulley", "fmt": "cluster", "nota": "Cotovelos colados ao tronco, extensão completa em cada bloco."}], "min": 81}, "Pull 1": {"dia": "Terça", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada aberta pronada", "id": "puxada-aberta-pronada", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Conduza o cotovelo em direção ao quadril."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Peito apoiado ou tronco estável. Cotovelos para trás, escápulas se aproximando no fim."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Tronco a 45°, lombar neutra. Puxe em direção ao umbigo."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Escápulas quase imóveis."}, {"nome": "Rosca direta", "id": "rosca-direta", "fmt": "cluster", "nota": "Cotovelos colados ao tronco. Descida controlada em cada bloco."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Pegada neutra. Pega braquial e braquiorradial."}], "min": 61}, "Legs 1": {"dia": "Quarta", "foco": "Agachamento e cadeia completa", "exs": [{"nome": "Cadeira abdutora 45°", "id": "cadeira-abdutora-45", "fmt": "backoff", "nota": "Abre a sessão ativando o glúteo médio antes do agachamento."}, {"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Com o quadril já ativado. Amplitude segura, sem buscar falha concêntrica."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Profundidade que você controla, sem tirar o quadril do encosto."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta. Quadril colado no assento."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos. Pausa curta no topo de cada repetição."}, {"nome": "Stiff", "id": "stiff", "fmt": "backoff", "nota": "Quadril para trás, coluna estável, amplitude limitada pela mobilidade dos posteriores."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento em toda repetição."}], "min": 81}, "Push 2": {"dia": "Quinta", "foco": "Peito superior, ombro e tríceps", "exs": [{"nome": "Supino inclinado", "id": "supino-inclinado", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Banco a 30–45°."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Segunda vez na semana. Priorize o alongamento."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados. Amplitude completa."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Segunda vez na semana, depois do inclinado."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos fixos, alongamento completo."}, {"nome": "Tríceps testa", "id": "triceps-testa", "fmt": "cluster", "nota": "Cotovelos estáveis e descida controlada em cada bloco."}], "min": 81}, "Pull 2": {"dia": "Sexta", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada triângulo", "id": "puxada-triangulo", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Pegada neutra, peito estufado."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Segunda vez na semana. Tronco estável."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Cuide da lombar — é a quarta remada pesada da semana."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Rosca banco 45", "id": "rosca-banco-45", "fmt": "cluster", "nota": "Ombros para trás, braço fixo. O alongamento é o ponto do exercício."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Segunda vez na semana."}], "min": 61}, "Legs 2": {"dia": "Sábado", "foco": "Agachamento, glúteo e posterior", "exs": [{"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Segunda vez na semana — se a quarta deixou resíduo, comece conservador."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Sem ego, máxima amplitude que você controla."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos."}, {"nome": "Banco romano", "id": "banco-romano", "fmt": "reta3", "nota": "Suba até alinhar o tronco com as pernas. Não hiperextenda."}, {"nome": "Elevação pélvica", "id": "elevacao-pelvica", "fmt": "cluster", "nota": "Pausa na contração máxima em cada bloco, sem hiperextender a lombar."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento."}], "min": 74}}, "semana": [{"dia": "Seg", "sessao": "Push 1"}, {"dia": "Ter", "sessao": "Pull 1"}, {"dia": "Qua", "sessao": "Legs 1"}, {"dia": "Qui", "sessao": "Push 2"}, {"dia": "Sex", "sessao": "Pull 2"}, {"dia": "Sáb", "sessao": "Legs 2"}, {"dia": "Dom", "sessao": null}], "protocolo": {"reps": "5 a 9 repetições nas séries normais e no backoff. Nos clusters, 4 repetições por bloco.", "aquecimento": [{"serie": "1ª", "reps": "15", "carga": "50%", "desc": "30s"}, {"serie": "2ª", "reps": "5", "carga": "75%", "desc": "1 min"}, {"serie": "3ª", "reps": "1–2", "carga": "100%", "desc": "2 min"}], "feeder": "Nos demais exercícios: 1 série de 2 repetições com 90–100% da carga alvo, 2 min de descanso antes da primeira válida.", "descanso": "2 a 3 minutos entre as séries válidas. Dentro de um cluster, 10 a 20 segundos entre os blocos.", "backoff": "Backoff é a mesma série com 10–15% menos carga, mantendo a faixa de 5–9 repetições. Acrescenta volume sem repetir o custo da série pesada.", "cluster": "Cluster é uma série longa quebrada em 6 blocos de 4 repetições com a mesma carga e 10 a 20 segundos de pausa entre eles. Entrega 24 repetições com qualidade alta em pouco tempo.", "formato": "Cada exercício vem com um formato sugerido, mas você pode trocar na hora pelo seletor do próprio exercício. O registro guarda o formato que você usou naquele dia.", "rir": [{"quando": "Compostos pesados", "o_que": "1 a 2 repetições na reserva"}, {"quando": "Isolados e máquinas", "o_que": "Pode levar à falha técnica"}, {"quando": "Sono ruim ou fadiga alta", "o_que": "Mantenha 2 na reserva e corte o backoff"}]}, "formatos": {"reta2": {"nome": "2 séries", "sets": ["1", "2"]}, "reta3": {"nome": "3 séries", "sets": ["1", "2", "3"]}, "backoff": {"nome": "2 + backoff", "sets": ["1", "2", "Backoff"]}, "cluster": {"nome": "Cluster 6×4", "sets": ["B1", "B2", "B3", "B4", "B5", "B6"]}}, "migra": {"Upper1_0": "supino-reto", "Upper1_1": "puxada-aberta-pronada", "Upper1_2": "pullover", "Upper1_3": "remada-cavalinho", "Upper1_4": "desenvolvimento-de-ombros", "Upper1_5": "elevacao-lateral", "Upper1_6": "triceps-frances", "Upper1_7": "rosca-direta", "Lower1_0": "cadeira-abdutora-45", "Lower1_1": "agachamento", "Lower1_2": "cadeira-flexora", "Lower1_3": "cadeira-extensora", "Lower1_4": "stiff", "Lower1_5": "elevacao-pelvica", "Lower1_6": "panturrilha", "Lower1_7": "abdominal", "Upper2_0": "supino-inclinado", "Upper2_1": "puxada-triangulo", "Upper2_2": "voador", "Upper2_3": "remada-curvada", "Upper2_4": "elevacao-lateral", "Upper2_5": "elevacao-frontal", "Upper2_6": "triceps-pulley", "Upper2_7": "rosca-banco-45", "Lower2_0": "mesa-flexora", "Lower2_1": "leg-press", "Lower2_2": "levantamento-terra-sumo", "Lower2_3": "cadeira-extensora", "Lower2_4": "banco-romano", "Lower2_5": "panturrilha", "Lower2_6": "abdominal", "Upper3_0": "supino-declinado", "Upper3_1": "remada-neutra", "Upper3_2": "voador", "Upper3_3": "remada-curvada", "Upper3_4": "elevacao-lateral", "Upper3_5": "crucifixo-inverso", "Upper3_6": "triceps-testa", "Upper3_7": "rosca-martelo", "Lower3_0": "agachamento", "Lower3_1": "cadeira-flexora", "Lower3_2": "cadeira-extensora", "Lower3_3": "stiff", "Lower3_4": "bulgaro", "Lower3_5": "panturrilha", "Lower3_6": "abdominal"}, "catalogo": [{"id": "abdominal", "nome": "Abdominal"}, {"id": "abdominal-infra", "nome": "Abdominal infra"}, {"id": "afundo", "nome": "Afundo"}, {"id": "agachamento", "nome": "Agachamento"}, {"id": "banco-romano", "nome": "Banco romano"}, {"id": "bulgaro", "nome": "Búlgaro"}, {"id": "cadeira-abdutora-45", "nome": "Cadeira abdutora 45°"}, {"id": "cadeira-adutora", "nome": "Cadeira adutora"}, {"id": "cadeira-extensora", "nome": "Cadeira extensora"}, {"id": "cadeira-flexora", "nome": "Cadeira flexora"}, {"id": "crucifixo", "nome": "Crucifixo"}, {"id": "crucifixo-inverso", "nome": "Crucifixo inverso"}, {"id": "desenvolvimento-de-ombros", "nome": "Desenvolvimento de ombros"}, {"id": "desenvolvimento-pegada-neutra", "nome": "Desenvolvimento pegada neutra"}, {"id": "elevacao-frontal", "nome": "Elevação frontal"}, {"id": "elevacao-lateral", "nome": "Elevação lateral"}, {"id": "elevacao-lateral-polia", "nome": "Elevação lateral polia"}, {"id": "elevacao-pelvica", "nome": "Elevação pélvica"}, {"id": "encolhimento", "nome": "Encolhimento"}, {"id": "face-pull", "nome": "Face pull"}, {"id": "hack-machine", "nome": "Hack machine"}, {"id": "leg-press", "nome": "Leg press"}, {"id": "levantamento-terra-sumo", "nome": "Levantamento terra sumô"}, {"id": "mesa-flexora", "nome": "Mesa flexora"}, {"id": "panturrilha", "nome": "Panturrilha"}, {"id": "panturrilha-sentado", "nome": "Panturrilha sentado"}, {"id": "prancha", "nome": "Prancha"}, {"id": "pullover", "nome": "Pullover"}, {"id": "puxada-aberta-pronada", "nome": "Puxada aberta pronada"}, {"id": "puxada-supinada", "nome": "Puxada supinada"}, {"id": "puxada-triangulo", "nome": "Puxada triângulo"}, {"id": "remada-cavalinho", "nome": "Remada cavalinho"}, {"id": "remada-curvada", "nome": "Remada curvada"}, {"id": "remada-neutra", "nome": "Remada neutra"}, {"id": "remada-unilateral", "nome": "Remada unilateral"}, {"id": "rosca-banco-45", "nome": "Rosca banco 45"}, {"id": "rosca-direta", "nome": "Rosca direta"}, {"id": "rosca-martelo", "nome": "Rosca martelo"}, {"id": "rosca-scott", "nome": "Rosca scott"}, {"id": "stiff", "nome": "Stiff"}, {"id": "supino-declinado", "nome": "Supino declinado"}, {"id": "supino-inclinado", "nome": "Supino inclinado"}, {"id": "supino-reto", "nome": "Supino reto"}, {"id": "triceps-corda", "nome": "Tríceps corda"}, {"id": "triceps-frances", "nome": "Tríceps francês"}, {"id": "triceps-pulley", "nome": "Tríceps pulley"}, {"id": "triceps-testa", "nome": "Tríceps testa"}, {"id": "voador", "nome": "Voador"}]};
 const DIETA = {"alvo": {"k": 2500, "p": 140, "c": 344, "g": 62, "peso": 78, "regra_p": "1,8 g por kg", "regra_g": "0,8 g por kg"}, "refeicoes": [{"id": "cafe", "nome": "Café da manhã", "quando": "logo após o treino", "nota": "Esta é a sua refeição pós-treino. Carboidrato alto para repor o que o treino em jejum gastou.", "fixos": [{"nome": "Ovos", "qtd": "3 unidades", "k": 231, "p": 19.5, "c": 1.5, "g": 16.5}, {"nome": "Queijo mussarela", "qtd": "1 fatia (20 g)", "k": 60, "p": 4.4, "c": 0.6, "g": 4.4}], "troca_rotulo": "Escolha o carboidrato", "trocas": [{"nome": "Pão francês", "qtd": "3 unidades (150 g)", "k": 450, "p": 12.0, "c": 87.9, "g": 4.7}, {"nome": "Cuscuz", "qtd": "350 g pronto", "k": 396, "p": 8.0, "c": 87.5, "g": 1.4}, {"nome": "Tapioca", "qtd": "145 g de goma", "k": 348, "p": 0.0, "c": 87.0, "g": 0.0}]}, {"id": "almoco", "nome": "Almoço", "quando": "meio do dia", "nota": "Carboidrato moderado. O trabalho pesado do dia já passou.", "fixos": [{"nome": "Frango ou carne", "qtd": "90 g", "k": 143, "p": 28.8, "c": 0.0, "g": 2.7}, {"nome": "Azeite no preparo", "qtd": "1 colher de chá (5 g)", "k": 44, "p": 0.0, "c": 0.0, "g": 5.0}], "troca_rotulo": "Escolha o acompanhamento", "trocas": [{"nome": "Arroz + feijão", "qtd": "arroz 240 g · feijão 120 g", "k": 398, "p": 11.8, "c": 83.8, "g": 1.1}, {"nome": "Arroz", "qtd": "300 g", "k": 384, "p": 7.5, "c": 84.3, "g": 0.6}, {"nome": "Macarrão + feijão", "qtd": "macarrão 220 g · feijão 120 g", "k": 439, "p": 18.5, "c": 84.3, "g": 2.6}, {"nome": "Macarrão", "qtd": "270 g", "k": 427, "p": 15.7, "c": 83.4, "g": 2.4}]}, {"id": "lanche", "nome": "Lanche da tarde", "quando": "meio da tarde", "nota": "A menor refeição do dia e a de menos carboidrato. É o fundo do U.", "fixos": [{"nome": "Ovos", "qtd": "2 unidades", "k": 154, "p": 13.0, "c": 1.0, "g": 11.0}, {"nome": "Queijo mussarela", "qtd": "1 fatia (20 g)", "k": 60, "p": 4.4, "c": 0.6, "g": 4.4}], "troca_rotulo": "Escolha o carboidrato", "trocas": [{"nome": "Cuscuz", "qtd": "200 g pronto", "k": 226, "p": 4.6, "c": 50.0, "g": 0.8}, {"nome": "Pão francês", "qtd": "85 g (quase 2 unidades)", "k": 255, "p": 6.8, "c": 49.8, "g": 2.6}, {"nome": "Tapioca", "qtd": "85 g de goma", "k": 204, "p": 0.0, "c": 51.0, "g": 0.0}]}, {"id": "jantar", "nome": "Jantar", "quando": "última refeição", "nota": "A refeição mais carregada do dia. É ela que enche o glicogênio para o treino de amanhã de manhã — você vai treinar sem comer nada antes.", "fixos": [{"nome": "Frango ou carne", "qtd": "90 g", "k": 143, "p": 28.8, "c": 0.0, "g": 2.7}, {"nome": "Azeite no preparo", "qtd": "1 colher de chá (5 g)", "k": 44, "p": 0.0, "c": 0.0, "g": 5.0}], "troca_rotulo": "Escolha o acompanhamento", "trocas": [{"nome": "Arroz + feijão", "qtd": "arroz 340 g · feijão 120 g", "k": 526, "p": 14.3, "c": 111.9, "g": 1.3}, {"nome": "Arroz", "qtd": "400 g", "k": 512, "p": 10.0, "c": 112.4, "g": 0.8}, {"nome": "Macarrão + feijão", "qtd": "macarrão 310 g · feijão 120 g", "k": 581, "p": 23.7, "c": 112.1, "g": 3.4}, {"nome": "Macarrão", "qtd": "360 g", "k": 569, "p": 20.9, "c": 111.2, "g": 3.2}]}], "logica": "Você treina logo ao acordar, sem comer. Então o café da manhã é, na prática, a refeição pós-treino — e o jantar da véspera é o que abastece o treino. Por isso o carboidrato fica alto nas duas pontas do dia e mais baixo no meio.", "notas": [{"t": "Frango ou carne", "d": "Frango tem menos gordura que carne vermelha magra — cerca de 3 g a menos por porção de 90 g. Se usar carne nas duas refeições, tire o azeite de uma delas."}, {"t": "Trocas de carboidrato", "d": "As quantidades foram calculadas para dar o mesmo carboidrato, não as mesmas calorias. Tapioca e cuscuz ficam 50 a 100 kcal abaixo do pão porque têm menos proteína. Se usar tapioca no café com frequência, acrescente 30 g de arroz no jantar."}, {"t": "Macarrão", "d": "O macarrão entrega mais proteína e cerca de 40 a 55 kcal a mais que o arroz na mesma quantidade de carboidrato. É a opção mais calórica das quatro."}, {"t": "Verduras e legumes", "d": "À vontade no almoço e no jantar. Sem acrescentar óleo além do que já está contado."}, {"t": "Água", "d": "3 a 4 litros por dia. Glicogênio é armazenado junto com água."}]};
-const VERSAO = 'v2.0.0';
+const VERSAO = 'v2.1.0';
 const KEY   = 'mgcoach_ul3x_v1';     // registros (mesma chave de sempre)
 const KEY_F = 'mgcoach_ppl_fmt_v1';  // formato escolhido por exercício
 const KEY_D = 'mgcoach_ul3x_dieta_v1';
+const KEY_P = 'mgcoach_plano_v1';     // plano editado pelo usuário
 
 let vista = 'treino';
 let atual = 'Push 1';
+let plano = null;
+let editando = null;      // nome da sessão em edição
+let buscaEx = '';
 let escolhas = {};
 let formatos = {};
 let migrados = 0;
 let STORAGE_OK = true;
 try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); }catch(e){ STORAGE_OK = false; }
 
+function fabrica(){ return JSON.parse(JSON.stringify({sessoes:D.sessoes, semana:D.semana})); }
+function lerPlano(){ try{ const r = localStorage.getItem(KEY_P); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+function gravarPlano(){ try{ localStorage.setItem(KEY_P, JSON.stringify(plano)); }catch(e){} }
+function nomesSessoes(){ return Object.keys(plano.sessoes); }
+function slugify(s){
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+          .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+}
+/* duração estimada, recalculada quando o plano muda */
+function duracao(exs){
+  let t = 0;
+  exs.forEach((e,i) => {
+    const f = e.fmt, cl = f === 'cluster';
+    if(i === 0) t += (45+30)+(45+60)+(45+120);
+    else t += cl ? (45+75) : (45+110);
+    t += cl ? (6*22 + 5*15) : D.formatos[f].sets.length * (45+140);
+    if(i) t += 75;
+  });
+  return Math.round(t/60);
+}
 function ler(){ try{ const r = localStorage.getItem(KEY); return r ? JSON.parse(r) : {}; }catch(e){ return {}; } }
 function gravar(o){ try{ localStorage.setItem(KEY, JSON.stringify(o)); return true; }catch(e){ return false; } }
 function data(iso){ const d = new Date(iso); return String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0'); }
@@ -333,30 +444,66 @@ function esc(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&l
 function lerFmt(){ try{ const r = localStorage.getItem(KEY_F); return r ? JSON.parse(r) : {}; }catch(e){ return {}; } }
 function gravarFmt(o){ try{ localStorage.setItem(KEY_F, JSON.stringify(o)); }catch(e){} }
 function fmtDe(e){ return formatos[e.id] || e.fmt; }
+function exsDe(s){ return (plano.sessoes[s] || {exs:[]}).exs; }
 function setsDe(e){ return D.formatos[fmtDe(e)].sets; }
 
 function trocarFmt(exId, f){
-  const e = D.sessoes[atual].exs.find(x => x.id === exId);
   formatos[exId] = f; gravarFmt(formatos);
   renderLista();
   const el = document.getElementById(exId + '_card');
   if(el) el.scrollIntoView({block:'nearest'});
 }
 
+/* abreviações curtas e únicas entre si: Push 1 e Pull 1 não podem virar a mesma coisa */
+function abrevs(){
+  const nomes = nomesSessoes();
+  const menores = ['e','de','do','da','dos','das','com'];
+  const partes = nomes.map(n => {
+    const t = n.trim();
+    const m = t.match(/^(.*\S)[\s-]+([0-9]+|[A-Za-z])$/);   // sufixo só depois de espaço
+    const corpo = m ? m[1] : t;
+    const suf   = m ? m[2].toUpperCase() : '';
+    const palavras = corpo.split(/[\s-]+/).filter(w => w && menores.indexOf(w.toLowerCase()) < 0);
+    const base = palavras.length > 1
+      ? palavras.map(w => w.charAt(0).toUpperCase()).join('')    // "Peito e Ombro" -> "PO"
+      : (palavras[0] || corpo);
+    return {nome:n, base:base, composto:palavras.length > 1, suf:suf};
+  });
+  const out = {};
+  partes.forEach(p => {
+    const max = p.composto ? p.base.length : 4;
+    for(let L = p.composto ? p.base.length : 1; L <= max; L++){
+      const cand = p.base.slice(0, L);
+      const meu = (cand + p.suf).toLowerCase();
+      const choca = partes.some(q => {
+        if(q.nome === p.nome) return false;
+        const qc = q.composto ? q.base : q.base.slice(0, L);
+        return (qc + q.suf).toLowerCase() === meu;
+      });
+      if(!choca || L === max){
+        out[p.nome] = (p.composto ? cand : cand.charAt(0).toUpperCase() + cand.slice(1).toLowerCase()) + p.suf;
+        break;
+      }
+    }
+  });
+  return out;
+}
 /* ---------- semana ---------- */
 function renderWeek(){
-  document.getElementById('week').innerHTML = D.semana.map(d => {
+  const AB = abrevs();
+  document.getElementById('week').innerHTML = plano.semana.map(d => {
     if(!d.sessao) return '<div class="day off"><span class="d">'+d.dia+'</span><span class="s">—</span></div>';
     const on = d.sessao === atual && vista === 'treino';
-    const curto = d.sessao.replace('Push','P').replace('Pull','L').replace('Legs','G').replace(' ','');
+    const curto = AB[d.sessao] || d.sessao.slice(0,3);
     return '<button class="day'+(on?' on':'')+'" onclick="irPara(\''+d.sessao+'\')" aria-label="'+d.sessao+'">'
-         + '<span class="d">'+d.dia+'</span><span class="s">'+curto+'</span></button>';
+         + '<span class="d">'+d.dia+'</span><span class="s'+(curto.length>3?' lg':'')+'">'+esc(curto)+'</span></button>';
   }).join('');
 }
 
 /* ---------- cabeçalho ---------- */
 function renderHead(){
-  const s = D.sessoes[atual];
+  const s = plano.sessoes[atual];
+  if(!s){ atual = nomesSessoes()[0]; return renderHead(); }
   const nser = s.exs.reduce((a,e) => a + setsDe(e).length, 0);
   document.getElementById('head').innerHTML =
     '<h1>'+atual+'</h1>'
@@ -364,25 +511,35 @@ function renderHead(){
   + '<div class="stats">'
   + '<div class="stat"><span class="n">'+s.exs.length+'</span><span class="l">exercícios</span></div>'
   + '<div class="stat"><span class="n">'+nser+'</span><span class="l">séries</span></div>'
-  + '<div class="stat"><span class="n">~'+s.min+' min</span><span class="l">duração</span></div>'
-  + '</div>';
+  + '<div class="stat"><span class="n">~'+duracao(s.exs)+' min</span><span class="l">duração</span></div>'
+  + '</div>'
+  + '<button class="editar" onclick="abrir(\'editor\')">Editar plano</button>';
 }
 
 /* ---------- registros ---------- */
+/* agrupa séries consecutivas iguais: 14×4 ×3 · 12×4 ×3 */
+function resumoSets(sets){
+  const g = [];
+  sets.forEach(s => {
+    const v = (s.carga||'—') + '×' + (s.reps||'—');
+    if(g.length && g[g.length-1].v === v) g[g.length-1].n++;
+    else g.push({v:v, n:1});
+  });
+  return g.map(x => '<span class="v"><b>'+x.v+'</b>'+(x.n>1 ? '<i>×'+x.n+'</i>' : '')+'</span>').join('<span class="sep">·</span>');
+}
 function ultimo(k){
   const h = ler()[k];
   if(!h || !h.length) return '';
   const u = h[h.length-1];
-  const txt = u.sets.map(s => '<span class="v"><b>'+(s.carga||'—')+'</b>×<b>'+(s.reps||'—')+'</b></span>').join('<span class="sep">·</span>');
   const nomeF = u.fmt && D.formatos[u.fmt] ? D.formatos[u.fmt].nome : '';
-  return '<span class="k">Última '+data(u.data)+(nomeF?' · '+nomeF:'')+'</span>' + txt;
+  return '<span class="k">Última '+data(u.data)+(nomeF?' · '+nomeF:'')+'</span>' + resumoSets(u.sets);
 }
 function historico(k){
   const h = ler()[k];
   if(!h || !h.length) return '<div class="hrow"><span class="hd">—</span><span class="hv">Nada registrado ainda.</span></div>';
   return h.slice().reverse().map((s,ri) => {
     const real = h.length-1-ri;
-    const v = s.sets.map(x => (x.carga||'—')+'×'+(x.reps||'—')).join(' · ');
+    const v = resumoSets(s.sets).replace(/<\/?span[^>]*>/g,' ').replace(/<i>/g,' ').replace(/<\/i>/g,'').replace(/<\/?b>/g,'').replace(/\s+/g,' ').trim();
     const f = s.fmt && D.formatos[s.fmt] ? ' <span class="hd">'+D.formatos[s.fmt].nome+'</span>' : '';
     return '<div class="hrow"><span class="hd">'+data(s.data)+'</span><span class="hv">'+v+f+'</span>'
          + '<button class="hx" onclick="apagar(\''+k+'\','+real+')" aria-label="Apagar registro">×</button></div>';
@@ -391,7 +548,13 @@ function historico(k){
 
 /* ---------- lista ---------- */
 function renderLista(){
-  const s = D.sessoes[atual];
+  const s = plano.sessoes[atual];
+  if(!s || !s.exs.length){
+    document.getElementById('lista').innerHTML =
+      '<div class="vazio-card"><p>Esta sessão ainda não tem exercícios.</p>'
+      + '<button class="save" onclick="editarSessao(\''+(s?atual:'')+'\')">Adicionar exercícios</button></div>';
+    return;
+  }
   document.getElementById('lista').innerHTML = s.exs.map((e,i) => {
     const k = e.id, f = fmtDe(e), sets = setsDe(e);
     const h = ler()[k];
@@ -425,7 +588,7 @@ function renderLista(){
 
 /* ---------- ações ---------- */
 function registrar(k){
-  const e = D.sessoes[atual].exs.find(x => x.id === k);
+  const e = exsDe(atual).find(x => x.id === k);
   const f = fmtDe(e), sets = setsDe(e);
   const vals = sets.map((lab,j) => ({
     lab: lab,
@@ -469,14 +632,177 @@ function irPara(s){ atual = s; abrir('treino'); }
 
 function abrir(v){
   vista = v;
-  ['treino','dieta','proto'].forEach(x => document.getElementById('nav-'+x).classList.toggle('on', x===v));
+  const aceso = v === 'editor' ? 'treino' : v;
+  ['treino','dieta','proto'].forEach(x => document.getElementById('nav-'+x).classList.toggle('on', x===aceso));
   document.getElementById('viewTreino').style.display = v==='treino' ? '' : 'none';
   document.getElementById('viewDieta').style.display  = v==='dieta'  ? '' : 'none';
   document.getElementById('viewProto').style.display  = v==='proto'  ? '' : 'none';
+  document.getElementById('viewEditor').style.display = v==='editor' ? '' : 'none';
+  if(v!=='editor') editando = null;
   if(v==='treino'){ renderWeek(); renderHead(); renderLista(); }
   if(v==='dieta') renderDieta();
   if(v==='proto') renderProto();
+  if(v==='editor') renderEditor();
   window.scrollTo({top:0});
+}
+
+
+/* ---------- editor do plano ---------- */
+function renderEditor(){
+  if(editando) return renderEditSessao();
+  const nomes = nomesSessoes();
+  const opts = s => '<option value="">Descanso</option>' +
+      nomes.map(n => '<option value="'+esc(n)+'"'+(n===s?' selected':'')+'>'+esc(n)+'</option>').join('');
+  let h = '<div class="sheet"><h2>Editar plano</h2>'
+    + '<div class="block"><h3>Semana</h3><p style="margin-bottom:10px">Escolha o que você treina em cada dia.</p>'
+    + plano.semana.map((d,i) =>
+        '<div class="dia-row"><span class="dia-n">'+d.dia+'</span>'
+        + '<select onchange="setDia('+i+',this.value)" aria-label="Sessão de '+d.dia+'">'+opts(d.sessao)+'</select></div>').join('')
+    + '</div>';
+
+  h += '<div class="block"><h3>Sessões</h3>'
+    + (nomes.length ? nomes.map(n =>
+        '<div class="sess-row"><div class="sess-i"><b>'+esc(n)+'</b>'
+        + '<span>'+plano.sessoes[n].exs.length+' exercícios · ~'+duracao(plano.sessoes[n].exs)+' min</span></div>'
+        + '<div class="sess-b"><button onclick="editarSessao(\''+esc(n)+'\')">Editar</button>'
+        + '<button onclick="apagarSessao(\''+esc(n)+'\')" aria-label="Apagar '+esc(n)+'">Apagar</button></div></div>').join('')
+      : '<p>Nenhuma sessão. Crie a primeira abaixo.</p>')
+    + '<button class="save" style="margin-top:12px" onclick="novaSessao()">Criar sessão</button></div>';
+
+  h += '<div class="block"><h3>Voltar ao original</h3>'
+    + '<p>Restaura a divisão PPL 2× como foi entregue. Suas cargas registradas não são apagadas.</p>'
+    + '<div class="tools" style="margin-top:12px"><button onclick="restaurar()">Restaurar plano original</button></div></div>'
+    + '</div>';
+  document.getElementById('viewEditor').innerHTML = h;
+}
+
+function setDia(i, nome){ plano.semana[i].sessao = nome || null; gravarPlano(); renderEditor(); }
+
+function novaSessao(){
+  const n = (prompt('Nome da sessão (ex: Push 1, Treino A, Peito e tríceps)') || '').trim();
+  if(!n) return;
+  if(plano.sessoes[n]){ alert('Já existe uma sessão com esse nome.'); return; }
+  plano.sessoes[n] = {dia:'', foco:'', exs:[]};
+  gravarPlano(); editarSessao(n);
+}
+function apagarSessao(n){
+  if(!confirm('Apagar a sessão "'+n+'"? As cargas dos exercícios continuam salvas.')) return;
+  delete plano.sessoes[n];
+  plano.semana.forEach(d => { if(d.sessao === n) d.sessao = null; });
+  if(atual === n) atual = nomesSessoes()[0] || '';
+  gravarPlano(); renderEditor();
+}
+function restaurar(){
+  if(!confirm('Restaurar a divisão PPL 2× original? Suas cargas registradas não são apagadas.')) return;
+  plano = fabrica(); gravarPlano(); editando = null;
+  atual = nomesSessoes()[0];
+  abrir('treino');
+}
+
+/* ----- editar uma sessão ----- */
+function editarSessao(n){ editando = n; buscaEx = ''; verTodos = false; abrir('editor'); }
+
+function renderEditSessao(){
+  const n = editando, s = plano.sessoes[n];
+  if(!s){ editando = null; return renderEditor(); }
+  let h = '<div class="sheet">'
+    + '<button class="voltar" onclick="editando=null;renderEditor()">Voltar</button>'
+    + '<h2>'+esc(n)+'</h2>'
+    + '<div class="block"><h3>Identificação</h3>'
+    + '<label class="campo">Nome<input id="ed-nome" value="'+esc(n)+'" onchange="renomear(this.value)"></label>'
+    + '<label class="campo">Descrição<input id="ed-foco" value="'+esc(s.foco||'')+'" placeholder="ex: Peito, ombro e tríceps" onchange="setFoco(this.value)"></label>'
+    + '</div>';
+
+  h += '<div class="block"><h3>Exercícios</h3>'
+    + (s.exs.length ? s.exs.map((e,i) =>
+        '<div class="ed-ex"><div class="ed-top"><span class="ed-n">'+(i+1)+'</span>'
+        + '<span class="ed-nome">'+esc(e.nome)+'</span>'
+        + '<div class="ed-mv">'
+        + '<button onclick="mover('+i+',-1)" '+(i===0?'disabled':'')+' aria-label="Subir">↑</button>'
+        + '<button onclick="mover('+i+',1)" '+(i===s.exs.length-1?'disabled':'')+' aria-label="Descer">↓</button>'
+        + '<button onclick="removerEx('+i+')" aria-label="Remover">×</button></div></div>'
+        + '<div class="ed-fmt">'
+        + Object.keys(D.formatos).map(k =>
+            '<button class="'+(k===e.fmt?'on':'')+'" onclick="setFmtPadrao('+i+',\''+k+'\')">'+esc(D.formatos[k].nome)+'</button>').join('')
+        + '</div></div>').join('')
+      : '<p>Nenhum exercício ainda.</p>')
+    + '</div>';
+
+  const termo = buscaEx.trim().toLowerCase();
+  const usados = new Set(s.exs.map(e => e.id));
+  const lista = D.catalogo.filter(c => !usados.has(c.id) && (!termo || c.nome.toLowerCase().includes(termo)));
+  const existe = D.catalogo.some(c => c.nome.toLowerCase() === termo);
+  h += '<div class="block"><h3>Adicionar exercício</h3>'
+    + '<input class="busca" id="ed-busca" value="'+esc(buscaEx)+'" placeholder="Buscar ou digitar um novo" oninput="buscaEx=this.value;filtrarCat()">'
+    + '<div id="ed-cat">' + renderCat(lista, termo, existe) + '</div></div>';
+
+  h += '<div class="tools"><button onclick="editando=null;renderEditor()">Concluir</button></div></div>';
+  document.getElementById('viewEditor').innerHTML = h;
+  const campo = document.getElementById('ed-busca');
+  if(campo && buscaEx){ campo.focus(); campo.setSelectionRange(buscaEx.length, buscaEx.length); }
+}
+let verTodos = false;
+function renderCat(lista, termo, existe){
+  let h = '';
+  if(termo && !existe) h += '<button class="cat-novo" onclick="addEx(null)">Criar “'+esc(buscaEx.trim())+'”</button>';
+  const corta = !termo && !verTodos && lista.length > 12;
+  const mostra = corta ? lista.slice(0,12) : lista;
+  h += '<div class="cat">' + (mostra.length
+      ? mostra.map(c => '<button onclick="addEx(\''+c.id+'\')">'+esc(c.nome)+'</button>').join('')
+      : '<p style="font-size:13px;color:var(--ink-3)">Nada encontrado. Digite o nome para criar.</p>') + '</div>';
+  if(corta) h += '<button class="cat-mais" onclick="verTodos=true;filtrarCat()">Ver os outros '+(lista.length-12)+'</button>';
+  return h;
+}
+function filtrarCat(){
+  const s = plano.sessoes[editando];
+  const termo = buscaEx.trim().toLowerCase();
+  const usados = new Set(s.exs.map(e => e.id));
+  const lista = D.catalogo.filter(c => !usados.has(c.id) && (!termo || c.nome.toLowerCase().includes(termo)));
+  const existe = D.catalogo.some(c => c.nome.toLowerCase() === termo);
+  document.getElementById('ed-cat').innerHTML = renderCat(lista, termo, existe);
+}
+function addEx(id){
+  const s = plano.sessoes[editando];
+  let nome, exId;
+  if(id){ const c = D.catalogo.find(x => x.id === id); nome = c.nome; exId = c.id; }
+  else {
+    nome = buscaEx.trim(); if(!nome) return;
+    exId = slugify(nome);
+    if(!D.catalogo.some(c => c.id === exId)) D.catalogo.push({id:exId, nome:nome});
+  }
+  if(s.exs.some(e => e.id === exId)){ alert('Este exercício já está na sessão.'); return; }
+  s.exs.push({nome:nome, id:exId, fmt:'reta3', nota:''});
+  buscaEx = ''; gravarPlano(); renderEditSessao();
+}
+function removerEx(i){
+  const s = plano.sessoes[editando];
+  if(!confirm('Remover "'+s.exs[i].nome+'" desta sessão? As cargas registradas continuam salvas.')) return;
+  s.exs.splice(i,1); gravarPlano(); renderEditSessao();
+}
+function mover(i, d){
+  const s = plano.sessoes[editando], j = i + d;
+  if(j < 0 || j >= s.exs.length) return;
+  const t = s.exs[i]; s.exs[i] = s.exs[j]; s.exs[j] = t;
+  gravarPlano(); renderEditSessao();
+}
+function setFmtPadrao(i, f){
+  const s = plano.sessoes[editando];
+  s.exs[i].fmt = f;
+  delete formatos[s.exs[i].id];      // o padrão novo passa a valer
+  gravarFmt(formatos); gravarPlano(); renderEditSessao();
+}
+function setFoco(v){ plano.sessoes[editando].foco = v.trim(); gravarPlano(); }
+function renomear(novo){
+  novo = (novo||'').trim();
+  if(!novo || novo === editando) return;
+  if(plano.sessoes[novo]){ alert('Já existe uma sessão com esse nome.'); renderEditSessao(); return; }
+  const ordem = nomesSessoes();
+  const refeito = {};
+  ordem.forEach(k => { refeito[k === editando ? novo : k] = plano.sessoes[k]; });
+  plano.sessoes = refeito;
+  plano.semana.forEach(d => { if(d.sessao === editando) d.sessao = novo; });
+  if(atual === editando) atual = novo;
+  editando = novo; gravarPlano(); renderEditSessao();
 }
 
 /* ---------- dieta ---------- */
@@ -586,9 +912,10 @@ function importar(ev){
 /* ---------- início ---------- */
 (function(){
   formatos = lerFmt();
+  plano = lerPlano() || fabrica();
   const hoje = new Date().getDay();
-  const mapa = [null,'Push 1','Pull 1','Legs 1','Push 2','Pull 2','Legs 2'];
-  if(mapa[hoje]) atual = mapa[hoje];
+  const doDia = plano.semana.find(d => d.dia === ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'][hoje]);
+  atual = (doDia && doDia.sessao) || nomesSessoes()[0];
   renderWeek(); renderHead(); renderLista();
   const v = document.getElementById('viewTreino');
   if(!STORAGE_OK){
