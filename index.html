@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PPL 2× — MG COACH</title>
-<!-- brand-meta: mgcoach-ppl2x-v2.1.0 -->
+<!-- brand-meta: mgcoach-ppl2x-v2.2.0 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -51,7 +51,9 @@ body{
   font-family:inherit;font-size:13px;font-weight:500;cursor:pointer;
   padding:6px 1px;border-bottom:1.5px solid transparent;white-space:nowrap;
 }
-@media (max-width:349px){ .navs{gap:11px} .linkbtn{font-size:12.5px} .mark{font-size:12px} }
+@media (max-width:379px){ .navs{gap:10px} .linkbtn{font-size:12.5px} }
+@media (max-width:349px){ .navs{gap:7px} .linkbtn{font-size:12px} .mark{font-size:11.5px} .bar-in{gap:8px} }
+.mark{white-space:nowrap}
 .linkbtn:hover{color:var(--ink)}
 .linkbtn.on{color:var(--ink);border-bottom-color:var(--accent)}
 .linkbtn:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
@@ -329,13 +331,173 @@ body{
   padding:13px 15px;margin:14px 0;font-size:13.5px;color:#8A3200;line-height:1.5;
 }
 </style>
+<style>/* ===================== PROGRESSO ===================== */
+:root{
+  --data:#1668A8;          /* série de dados — validada contra o branco */
+  --data-track:#D8E5F1;    /* passo claro da mesma rampa */
+  --data-wash:rgba(22,104,168,.09);
+  --grid:#E6EAEE;
+  --pr:#FF5A00;            /* recorde: o laranja da marca, só aqui */
+  --pr-text:#C24400;
+  --up:#157A4A;
+  --down:#B8381F;
+}
+.pg .pg-filtro,.pg .pg-met{display:flex;flex-wrap:wrap;gap:6px;margin:-4px 0 18px}
+.pg .pg-met{margin:12px 0 4px}
+.pg-filtro button,.pg-met button{
+  background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:7px 14px;
+  font-family:inherit;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer;
+}
+.pg-met button{background:var(--paper);padding:6px 12px;font-size:12.5px}
+.pg-filtro button.on,.pg-met button.on{background:var(--ink);border-color:var(--ink);color:#fff;font-weight:600}
+.pg-filtro button:focus-visible,.pg-met button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 
+/* manchete */
+.pg-hero{padding:2px 0 16px}
+.hero-v{font-size:clamp(52px,15vw,68px);font-weight:700;letter-spacing:-.05em;line-height:1;color:var(--ink)}
+.hero-vazio{color:var(--ink-3)}
+.hero-l{font-size:14px;color:var(--ink-2);line-height:1.5;margin-top:8px;max-width:40ch}
+
+/* indicadores */
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kpi{background:var(--card);border:1px solid var(--rule);border-radius:var(--r-card);padding:12px 12px 11px;min-width:0}
+.kpis-ex{margin:14px 0 6px}
+.kpis-ex .kpi{background:var(--paper);border-color:transparent}
+.kv{display:block;font-size:22px;font-weight:700;letter-spacing:-.03em;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpis-ex .kv{font-size:18px}
+.kv small{font-size:.62em;font-weight:600;color:var(--ink-2);margin-left:3px;letter-spacing:0}
+.kl{display:block;font-size:12px;color:var(--ink-2);font-weight:500;margin-top:3px;line-height:1.3}
+.ks{display:block;font-size:11.5px;color:var(--ink-2);opacity:.78;margin-top:1px}
+
+.pg .block{margin-bottom:10px}
+.bh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.bh h3{margin-bottom:0}
+.tbtn{background:none;border:none;font-family:inherit;font-size:12.5px;font-weight:500;color:var(--ink-2);cursor:pointer;padding:2px 0;border-bottom:1px solid var(--rule)}
+.tbtn:hover{color:var(--ink);border-color:var(--ink-3)}
+.sub-g{font-size:13px;color:var(--ink-2);line-height:1.5;margin-top:5px}
+.chart{margin-top:12px;position:relative;width:100%}
+.chart svg{display:block;overflow:visible;outline:none}
+.chart svg:focus-visible{outline:2px solid var(--accent);outline-offset:4px;border-radius:6px}
+
+/* marcas */
+.pg-grid{stroke:var(--grid);stroke-width:1;shape-rendering:crispEdges}
+.pg-ax{font-family:'Archivo',system-ui,sans-serif;font-size:11px;fill:var(--ink-2);font-variant-numeric:tabular-nums}
+.pg-end{font-family:'Archivo',system-ui,sans-serif;font-size:13px;font-weight:700;fill:var(--ink)}
+.pg-line{fill:none;stroke:var(--data);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.pg-area{fill:var(--data-wash);stroke:none}
+.pg-dot{fill:var(--data);stroke:var(--card);stroke-width:2}
+.pg-dot.pr{fill:var(--pr)}
+.pg-cross{stroke:var(--ink-3);stroke-width:1}
+.pg-hover{fill:none;stroke:var(--ink);stroke-width:2;pointer-events:none}
+.pg-col{fill:var(--data-track)}
+.pg-col.atual{fill:var(--data)}
+.pg-leg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2);margin-top:8px}
+.lg-l{display:inline-block;width:14px;height:2px;background:var(--data);border-radius:1px}
+.lg-d{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--pr);margin-left:10px}
+
+#pg-tip{
+  position:absolute;display:none;z-index:80;pointer-events:none;
+  background:var(--ink);color:#fff;border-radius:9px;padding:8px 11px;
+  font-family:'Archivo',system-ui,sans-serif;box-shadow:0 6px 18px rgba(12,26,38,.18);max-width:220px;
+}
+#pg-tip .tv{font-size:15px;font-weight:700;letter-spacing:-.01em}
+#pg-tip .tl{font-size:12px;color:rgba(255,255,255,.72);margin-top:1px}
+#pg-tip .tpr{color:#FFB48A;font-weight:600}
+
+select.pg-sel{
+  width:100%;margin-top:12px;font-family:inherit;font-size:15px;font-weight:600;color:var(--ink);
+  background:var(--paper);border:1px solid var(--rule);border-radius:var(--r-field);padding:10px 12px;
+}
+select.pg-sel:focus{outline:none;border-color:var(--accent)}
+
+/* semana atual */
+.semana-top{display:flex;align-items:baseline;gap:8px;margin-top:4px}
+.st-v{font-size:22px;font-weight:700;letter-spacing:-.03em}
+.st-l{font-size:13px;color:var(--ink-2)}
+.meter{height:8px;border-radius:4px;background:var(--data-track);margin-top:8px;overflow:hidden}
+.meter span{display:block;height:100%;background:var(--data);border-radius:4px}
+.mus{margin-top:10px;position:relative}
+.mus-esc{position:relative;height:16px;margin-left:92px;margin-right:64px;font-size:11px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.mus-esc span{position:absolute;transform:translateX(-50%)}
+.mus-r{display:flex;align-items:center;gap:10px;padding:5px 0}
+.mus-n{flex:0 0 82px;font-size:13px;color:var(--ink);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mus-b{flex:1;position:relative;height:12px}
+.mus-b .trk,.mus-b .fil{position:absolute;left:0;top:0;height:12px;border-radius:0 4px 4px 0}
+.mus-b .trk{background:var(--data-track)}
+.mus-b .fil{background:var(--data)}
+.mus-lin{position:absolute;top:18px;bottom:2px;left:92px;right:64px;pointer-events:none;z-index:1}
+.mus-lin i{position:absolute;top:0;bottom:0;width:1px;background:var(--ink-3);opacity:.45}
+.mus-v{flex:0 0 54px;text-align:right;font-size:12.5px;color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.mus-v b{color:var(--ink);font-weight:600}
+
+/* estagnação */
+.est{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid transparent;border-radius:var(--r-field);
+  padding:10px 12px;margin-top:7px;font-family:inherit;cursor:pointer}
+.est:hover{border-color:var(--rule)}
+.est-n{display:block;font-size:14px;font-weight:600;color:var(--ink)}
+.est-d{display:block;font-size:12.5px;color:var(--ink-2);margin-top:1px}
+
+/* relatórios */
+.dia{border-top:1px solid var(--rule-soft)}
+.dia:first-child{border-top:none}
+.dia-h{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;background:none;border:none;
+  padding:12px 0;font-family:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.dia-h::after{content:'';flex:0 0 8px;width:8px;height:8px;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(45deg);margin:-4px 2px 0 0}
+.dia.open .dia-h::after{transform:rotate(-135deg);margin-top:4px}
+.dia-t b{display:block;font-size:15px;font-weight:600;letter-spacing:-.015em}
+.dia-t span{display:block;font-size:12.5px;color:var(--ink-2);margin-top:1px}
+.dia-s{flex:1;text-align:right;font-size:12.5px;color:var(--ink-2)}
+.dia-b{padding:0 0 14px}
+.dia-comp{font-size:13px;color:var(--ink-2);margin-bottom:10px}
+.dia-k{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.dia-k div{background:var(--paper);border-radius:var(--r-field);padding:9px 10px;font-size:11.5px;color:var(--ink-2)}
+.dia-k span{display:block;font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.02em}
+
+table.dt{width:100%;border-collapse:collapse;font-size:13px}
+.dt th,.dt td{text-align:left;padding:8px 6px 8px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;font-variant-numeric:tabular-nums}
+.dt thead th{font-size:11.5px;font-weight:500;color:var(--ink-2);padding-top:0}
+.dt tbody th{font-weight:600}
+.dt tr:last-child th,.dt tr:last-child td{border-bottom:none}
+.dt td:last-child,.dt th:last-child{padding-right:0;text-align:right}
+.dt-s{display:block;font-size:11.5px;color:var(--ink-2);margin-top:1px;white-space:nowrap}
+.dt-chart td,.dt-chart th{font-size:13.5px}
+.lk{background:none;border:none;padding:0;font:inherit;color:var(--ink);text-align:left;cursor:pointer;text-decoration:underline;text-decoration-color:var(--rule);text-underline-offset:3px}
+.lk:hover{text-decoration-color:var(--ink-3)}
+
+/* variação e recorde */
+.dl{white-space:nowrap;font-size:12.5px;font-weight:600}
+.dl.up{color:var(--up)} .dl.dn{color:var(--down)} .dl.eq{color:var(--ink-2);font-weight:500}
+.tag-pr{display:inline-block;font-size:11px;font-weight:600;color:var(--pr-text);background:var(--accent-soft);
+  border:1px solid #FFD0B4;border-radius:999px;padding:1px 7px;white-space:nowrap;vertical-align:1px}
+
+/* linha de evolução dentro do card do exercício */
+.evo{display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:calc(100% - 57px);margin:8px 15px 0 42px;
+  background:var(--paper);border:1px solid transparent;border-radius:var(--r-field);padding:7px 10px;
+  font-family:inherit;text-align:left;cursor:pointer;color:var(--ink)}
+.evo:hover{border-color:var(--rule)}
+.evo:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.spark{flex:0 0 auto}
+.spark path{fill:none;stroke:#9DAAB6;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+.spark circle{fill:var(--data)}
+.evo-t{font-size:13px;font-weight:600}
+.evo::after{content:'Ver evolução';margin-left:auto;font-size:12px;color:var(--ink-2);font-weight:500}
+.save.recorde{background:var(--pr)}
+
+.relat{margin:10px 0 0 8px;background:none;border:none;font-family:inherit;font-size:13px;font-weight:500;
+  color:var(--data);cursor:pointer;padding:9px 2px;text-decoration:underline;text-underline-offset:3px}
+
+.como p{font-size:13.5px}
+.como b{color:var(--ink);font-weight:600}
+.vazio-pg .save{margin-top:14px}
+@media (max-width:349px){ .pg-filtro button{padding:6px 11px;font-size:12.5px} .pg .pg-filtro{gap:5px} .kv{font-size:19px} .kpi{padding:10px 9px} .mus-n{flex-basis:72px} .mus-esc{margin-left:82px} .mus-lin{left:82px} }
+</style>
 <body>
 
 <div class="bar"><div class="wrap bar-in">
   <span class="mark">MG <b>COACH</b></span>
   <nav class="navs" aria-label="Seções">
     <button class="linkbtn on" id="nav-treino" onclick="abrir('treino')">Treino</button>
+    <button class="linkbtn" id="nav-progresso" onclick="abrir('progresso')">Progresso</button>
     <button class="linkbtn" id="nav-dieta" onclick="abrir('dieta')">Dieta</button>
     <button class="linkbtn" id="nav-proto" onclick="abrir('proto')">Protocolo</button>
   </nav>
@@ -347,6 +509,7 @@ body{
     <header class="head" id="head"></header>
     <div id="lista"></div>
   </div>
+  <div id="viewProgresso" style="display:none"></div>
   <div id="viewDieta" style="display:none"></div>
   <div id="viewEditor" style="display:none"></div>
   <div id="viewProto" style="display:none"></div>
@@ -373,7 +536,7 @@ body{
 
 const D = {"sessoes": {"Push 1": {"dia": "Segunda", "foco": "Peito, ombro e tríceps", "exs": [{"nome": "Supino reto", "id": "supino-reto", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo antes. Escápulas retraídas, pés firmes."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Peito em alongamento. Cotovelos com flexão fixa, sem empurrar com o tríceps."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados do começo ao fim. Sinta o dorsal e o peitoral alongarem na parte alta."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Core firme, sem arquear a lombar. Vem depois do peito, então ajuste a carga."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Cotovelo lidera, sem impulso."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos apontados para cima e fixos. Alongamento completo da cabeça longa."}, {"nome": "Tríceps pulley", "id": "triceps-pulley", "fmt": "cluster", "nota": "Cotovelos colados ao tronco, extensão completa em cada bloco."}], "min": 81}, "Pull 1": {"dia": "Terça", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada aberta pronada", "id": "puxada-aberta-pronada", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Conduza o cotovelo em direção ao quadril."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Peito apoiado ou tronco estável. Cotovelos para trás, escápulas se aproximando no fim."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Tronco a 45°, lombar neutra. Puxe em direção ao umbigo."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles. Escápulas quase imóveis."}, {"nome": "Rosca direta", "id": "rosca-direta", "fmt": "cluster", "nota": "Cotovelos colados ao tronco. Descida controlada em cada bloco."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Pegada neutra. Pega braquial e braquiorradial."}], "min": 61}, "Legs 1": {"dia": "Quarta", "foco": "Agachamento e cadeia completa", "exs": [{"nome": "Cadeira abdutora 45°", "id": "cadeira-abdutora-45", "fmt": "backoff", "nota": "Abre a sessão ativando o glúteo médio antes do agachamento."}, {"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Com o quadril já ativado. Amplitude segura, sem buscar falha concêntrica."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Profundidade que você controla, sem tirar o quadril do encosto."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta. Quadril colado no assento."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos. Pausa curta no topo de cada repetição."}, {"nome": "Stiff", "id": "stiff", "fmt": "backoff", "nota": "Quadril para trás, coluna estável, amplitude limitada pela mobilidade dos posteriores."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento em toda repetição."}], "min": 81}, "Push 2": {"dia": "Quinta", "foco": "Peito superior, ombro e tríceps", "exs": [{"nome": "Supino inclinado", "id": "supino-inclinado", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Banco a 30–45°."}, {"nome": "Voador", "id": "voador", "fmt": "backoff", "nota": "Segunda vez na semana. Priorize o alongamento."}, {"nome": "Pullover", "id": "pullover", "fmt": "reta3", "nota": "Cotovelos travados. Amplitude completa."}, {"nome": "Desenvolvimento de ombros", "id": "desenvolvimento-de-ombros", "fmt": "reta3", "nota": "Segunda vez na semana, depois do inclinado."}, {"nome": "Elevação lateral", "id": "elevacao-lateral", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Tríceps francês", "id": "triceps-frances", "fmt": "reta3", "nota": "Cotovelos fixos, alongamento completo."}, {"nome": "Tríceps testa", "id": "triceps-testa", "fmt": "cluster", "nota": "Cotovelos estáveis e descida controlada em cada bloco."}], "min": 81}, "Pull 2": {"dia": "Sexta", "foco": "Dorsal, posterior de ombro e bíceps", "exs": [{"nome": "Puxada triângulo", "id": "puxada-triangulo", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Pegada neutra, peito estufado."}, {"nome": "Remada cavalinho", "id": "remada-cavalinho", "fmt": "backoff", "nota": "Segunda vez na semana. Tronco estável."}, {"nome": "Remada curvada", "id": "remada-curvada", "fmt": "backoff", "nota": "Cuide da lombar — é a quarta remada pesada da semana."}, {"nome": "Crucifixo inverso", "id": "crucifixo-inverso", "fmt": "cluster", "nota": "Cluster: 6 blocos de 4 repetições, 10 a 20 segundos entre eles."}, {"nome": "Rosca banco 45", "id": "rosca-banco-45", "fmt": "cluster", "nota": "Ombros para trás, braço fixo. O alongamento é o ponto do exercício."}, {"nome": "Rosca martelo", "id": "rosca-martelo", "fmt": "cluster", "nota": "Segunda vez na semana."}], "min": 61}, "Legs 2": {"dia": "Sábado", "foco": "Agachamento, glúteo e posterior", "exs": [{"nome": "Agachamento", "id": "agachamento", "fmt": "backoff", "nota": "Primeiro do dia: aquecimento completo. Segunda vez na semana — se a quarta deixou resíduo, comece conservador."}, {"nome": "Leg press", "id": "leg-press", "fmt": "backoff", "nota": "Sem ego, máxima amplitude que você controla."}, {"nome": "Cadeira flexora", "id": "cadeira-flexora", "fmt": "backoff", "nota": "Conduza na subida, controle a volta."}, {"nome": "Cadeira extensora", "id": "cadeira-extensora", "fmt": "cluster", "nota": "Cluster: 6 blocos."}, {"nome": "Banco romano", "id": "banco-romano", "fmt": "reta3", "nota": "Suba até alinhar o tronco com as pernas. Não hiperextenda."}, {"nome": "Elevação pélvica", "id": "elevacao-pelvica", "fmt": "cluster", "nota": "Pausa na contração máxima em cada bloco, sem hiperextender a lombar."}, {"nome": "Panturrilha", "id": "panturrilha", "fmt": "cluster", "nota": "Pausa de 1 segundo no alongamento."}], "min": 74}}, "semana": [{"dia": "Seg", "sessao": "Push 1"}, {"dia": "Ter", "sessao": "Pull 1"}, {"dia": "Qua", "sessao": "Legs 1"}, {"dia": "Qui", "sessao": "Push 2"}, {"dia": "Sex", "sessao": "Pull 2"}, {"dia": "Sáb", "sessao": "Legs 2"}, {"dia": "Dom", "sessao": null}], "protocolo": {"reps": "5 a 9 repetições nas séries normais e no backoff. Nos clusters, 4 repetições por bloco.", "aquecimento": [{"serie": "1ª", "reps": "15", "carga": "50%", "desc": "30s"}, {"serie": "2ª", "reps": "5", "carga": "75%", "desc": "1 min"}, {"serie": "3ª", "reps": "1–2", "carga": "100%", "desc": "2 min"}], "feeder": "Nos demais exercícios: 1 série de 2 repetições com 90–100% da carga alvo, 2 min de descanso antes da primeira válida.", "descanso": "2 a 3 minutos entre as séries válidas. Dentro de um cluster, 10 a 20 segundos entre os blocos.", "backoff": "Backoff é a mesma série com 10–15% menos carga, mantendo a faixa de 5–9 repetições. Acrescenta volume sem repetir o custo da série pesada.", "cluster": "Cluster é uma série longa quebrada em 6 blocos de 4 repetições com a mesma carga e 10 a 20 segundos de pausa entre eles. Entrega 24 repetições com qualidade alta em pouco tempo.", "formato": "Cada exercício vem com um formato sugerido, mas você pode trocar na hora pelo seletor do próprio exercício. O registro guarda o formato que você usou naquele dia.", "rir": [{"quando": "Compostos pesados", "o_que": "1 a 2 repetições na reserva"}, {"quando": "Isolados e máquinas", "o_que": "Pode levar à falha técnica"}, {"quando": "Sono ruim ou fadiga alta", "o_que": "Mantenha 2 na reserva e corte o backoff"}]}, "formatos": {"reta2": {"nome": "2 séries", "sets": ["1", "2"]}, "reta3": {"nome": "3 séries", "sets": ["1", "2", "3"]}, "backoff": {"nome": "2 + backoff", "sets": ["1", "2", "Backoff"]}, "cluster": {"nome": "Cluster 6×4", "sets": ["B1", "B2", "B3", "B4", "B5", "B6"]}}, "migra": {"Upper1_0": "supino-reto", "Upper1_1": "puxada-aberta-pronada", "Upper1_2": "pullover", "Upper1_3": "remada-cavalinho", "Upper1_4": "desenvolvimento-de-ombros", "Upper1_5": "elevacao-lateral", "Upper1_6": "triceps-frances", "Upper1_7": "rosca-direta", "Lower1_0": "cadeira-abdutora-45", "Lower1_1": "agachamento", "Lower1_2": "cadeira-flexora", "Lower1_3": "cadeira-extensora", "Lower1_4": "stiff", "Lower1_5": "elevacao-pelvica", "Lower1_6": "panturrilha", "Lower1_7": "abdominal", "Upper2_0": "supino-inclinado", "Upper2_1": "puxada-triangulo", "Upper2_2": "voador", "Upper2_3": "remada-curvada", "Upper2_4": "elevacao-lateral", "Upper2_5": "elevacao-frontal", "Upper2_6": "triceps-pulley", "Upper2_7": "rosca-banco-45", "Lower2_0": "mesa-flexora", "Lower2_1": "leg-press", "Lower2_2": "levantamento-terra-sumo", "Lower2_3": "cadeira-extensora", "Lower2_4": "banco-romano", "Lower2_5": "panturrilha", "Lower2_6": "abdominal", "Upper3_0": "supino-declinado", "Upper3_1": "remada-neutra", "Upper3_2": "voador", "Upper3_3": "remada-curvada", "Upper3_4": "elevacao-lateral", "Upper3_5": "crucifixo-inverso", "Upper3_6": "triceps-testa", "Upper3_7": "rosca-martelo", "Lower3_0": "agachamento", "Lower3_1": "cadeira-flexora", "Lower3_2": "cadeira-extensora", "Lower3_3": "stiff", "Lower3_4": "bulgaro", "Lower3_5": "panturrilha", "Lower3_6": "abdominal"}, "catalogo": [{"id": "abdominal", "nome": "Abdominal"}, {"id": "abdominal-infra", "nome": "Abdominal infra"}, {"id": "afundo", "nome": "Afundo"}, {"id": "agachamento", "nome": "Agachamento"}, {"id": "banco-romano", "nome": "Banco romano"}, {"id": "bulgaro", "nome": "Búlgaro"}, {"id": "cadeira-abdutora-45", "nome": "Cadeira abdutora 45°"}, {"id": "cadeira-adutora", "nome": "Cadeira adutora"}, {"id": "cadeira-extensora", "nome": "Cadeira extensora"}, {"id": "cadeira-flexora", "nome": "Cadeira flexora"}, {"id": "crucifixo", "nome": "Crucifixo"}, {"id": "crucifixo-inverso", "nome": "Crucifixo inverso"}, {"id": "desenvolvimento-de-ombros", "nome": "Desenvolvimento de ombros"}, {"id": "desenvolvimento-pegada-neutra", "nome": "Desenvolvimento pegada neutra"}, {"id": "elevacao-frontal", "nome": "Elevação frontal"}, {"id": "elevacao-lateral", "nome": "Elevação lateral"}, {"id": "elevacao-lateral-polia", "nome": "Elevação lateral polia"}, {"id": "elevacao-pelvica", "nome": "Elevação pélvica"}, {"id": "encolhimento", "nome": "Encolhimento"}, {"id": "face-pull", "nome": "Face pull"}, {"id": "hack-machine", "nome": "Hack machine"}, {"id": "leg-press", "nome": "Leg press"}, {"id": "levantamento-terra-sumo", "nome": "Levantamento terra sumô"}, {"id": "mesa-flexora", "nome": "Mesa flexora"}, {"id": "panturrilha", "nome": "Panturrilha"}, {"id": "panturrilha-sentado", "nome": "Panturrilha sentado"}, {"id": "prancha", "nome": "Prancha"}, {"id": "pullover", "nome": "Pullover"}, {"id": "puxada-aberta-pronada", "nome": "Puxada aberta pronada"}, {"id": "puxada-supinada", "nome": "Puxada supinada"}, {"id": "puxada-triangulo", "nome": "Puxada triângulo"}, {"id": "remada-cavalinho", "nome": "Remada cavalinho"}, {"id": "remada-curvada", "nome": "Remada curvada"}, {"id": "remada-neutra", "nome": "Remada neutra"}, {"id": "remada-unilateral", "nome": "Remada unilateral"}, {"id": "rosca-banco-45", "nome": "Rosca banco 45"}, {"id": "rosca-direta", "nome": "Rosca direta"}, {"id": "rosca-martelo", "nome": "Rosca martelo"}, {"id": "rosca-scott", "nome": "Rosca scott"}, {"id": "stiff", "nome": "Stiff"}, {"id": "supino-declinado", "nome": "Supino declinado"}, {"id": "supino-inclinado", "nome": "Supino inclinado"}, {"id": "supino-reto", "nome": "Supino reto"}, {"id": "triceps-corda", "nome": "Tríceps corda"}, {"id": "triceps-frances", "nome": "Tríceps francês"}, {"id": "triceps-pulley", "nome": "Tríceps pulley"}, {"id": "triceps-testa", "nome": "Tríceps testa"}, {"id": "voador", "nome": "Voador"}]};
 const DIETA = {"alvo": {"k": 2500, "p": 140, "c": 344, "g": 62, "peso": 78, "regra_p": "1,8 g por kg", "regra_g": "0,8 g por kg"}, "refeicoes": [{"id": "cafe", "nome": "Café da manhã", "quando": "logo após o treino", "nota": "Esta é a sua refeição pós-treino. Carboidrato alto para repor o que o treino em jejum gastou.", "fixos": [{"nome": "Ovos", "qtd": "3 unidades", "k": 231, "p": 19.5, "c": 1.5, "g": 16.5}, {"nome": "Queijo mussarela", "qtd": "1 fatia (20 g)", "k": 60, "p": 4.4, "c": 0.6, "g": 4.4}], "troca_rotulo": "Escolha o carboidrato", "trocas": [{"nome": "Pão francês", "qtd": "3 unidades (150 g)", "k": 450, "p": 12.0, "c": 87.9, "g": 4.7}, {"nome": "Cuscuz", "qtd": "350 g pronto", "k": 396, "p": 8.0, "c": 87.5, "g": 1.4}, {"nome": "Tapioca", "qtd": "145 g de goma", "k": 348, "p": 0.0, "c": 87.0, "g": 0.0}]}, {"id": "almoco", "nome": "Almoço", "quando": "meio do dia", "nota": "Carboidrato moderado. O trabalho pesado do dia já passou.", "fixos": [{"nome": "Frango ou carne", "qtd": "90 g", "k": 143, "p": 28.8, "c": 0.0, "g": 2.7}, {"nome": "Azeite no preparo", "qtd": "1 colher de chá (5 g)", "k": 44, "p": 0.0, "c": 0.0, "g": 5.0}], "troca_rotulo": "Escolha o acompanhamento", "trocas": [{"nome": "Arroz + feijão", "qtd": "arroz 240 g · feijão 120 g", "k": 398, "p": 11.8, "c": 83.8, "g": 1.1}, {"nome": "Arroz", "qtd": "300 g", "k": 384, "p": 7.5, "c": 84.3, "g": 0.6}, {"nome": "Macarrão + feijão", "qtd": "macarrão 220 g · feijão 120 g", "k": 439, "p": 18.5, "c": 84.3, "g": 2.6}, {"nome": "Macarrão", "qtd": "270 g", "k": 427, "p": 15.7, "c": 83.4, "g": 2.4}]}, {"id": "lanche", "nome": "Lanche da tarde", "quando": "meio da tarde", "nota": "A menor refeição do dia e a de menos carboidrato. É o fundo do U.", "fixos": [{"nome": "Ovos", "qtd": "2 unidades", "k": 154, "p": 13.0, "c": 1.0, "g": 11.0}, {"nome": "Queijo mussarela", "qtd": "1 fatia (20 g)", "k": 60, "p": 4.4, "c": 0.6, "g": 4.4}], "troca_rotulo": "Escolha o carboidrato", "trocas": [{"nome": "Cuscuz", "qtd": "200 g pronto", "k": 226, "p": 4.6, "c": 50.0, "g": 0.8}, {"nome": "Pão francês", "qtd": "85 g (quase 2 unidades)", "k": 255, "p": 6.8, "c": 49.8, "g": 2.6}, {"nome": "Tapioca", "qtd": "85 g de goma", "k": 204, "p": 0.0, "c": 51.0, "g": 0.0}]}, {"id": "jantar", "nome": "Jantar", "quando": "última refeição", "nota": "A refeição mais carregada do dia. É ela que enche o glicogênio para o treino de amanhã de manhã — você vai treinar sem comer nada antes.", "fixos": [{"nome": "Frango ou carne", "qtd": "90 g", "k": 143, "p": 28.8, "c": 0.0, "g": 2.7}, {"nome": "Azeite no preparo", "qtd": "1 colher de chá (5 g)", "k": 44, "p": 0.0, "c": 0.0, "g": 5.0}], "troca_rotulo": "Escolha o acompanhamento", "trocas": [{"nome": "Arroz + feijão", "qtd": "arroz 340 g · feijão 120 g", "k": 526, "p": 14.3, "c": 111.9, "g": 1.3}, {"nome": "Arroz", "qtd": "400 g", "k": 512, "p": 10.0, "c": 112.4, "g": 0.8}, {"nome": "Macarrão + feijão", "qtd": "macarrão 310 g · feijão 120 g", "k": 581, "p": 23.7, "c": 112.1, "g": 3.4}, {"nome": "Macarrão", "qtd": "360 g", "k": 569, "p": 20.9, "c": 111.2, "g": 3.2}]}], "logica": "Você treina logo ao acordar, sem comer. Então o café da manhã é, na prática, a refeição pós-treino — e o jantar da véspera é o que abastece o treino. Por isso o carboidrato fica alto nas duas pontas do dia e mais baixo no meio.", "notas": [{"t": "Frango ou carne", "d": "Frango tem menos gordura que carne vermelha magra — cerca de 3 g a menos por porção de 90 g. Se usar carne nas duas refeições, tire o azeite de uma delas."}, {"t": "Trocas de carboidrato", "d": "As quantidades foram calculadas para dar o mesmo carboidrato, não as mesmas calorias. Tapioca e cuscuz ficam 50 a 100 kcal abaixo do pão porque têm menos proteína. Se usar tapioca no café com frequência, acrescente 30 g de arroz no jantar."}, {"t": "Macarrão", "d": "O macarrão entrega mais proteína e cerca de 40 a 55 kcal a mais que o arroz na mesma quantidade de carboidrato. É a opção mais calórica das quatro."}, {"t": "Verduras e legumes", "d": "À vontade no almoço e no jantar. Sem acrescentar óleo além do que já está contado."}, {"t": "Água", "d": "3 a 4 litros por dia. Glicogênio é armazenado junto com água."}]};
-const VERSAO = 'v2.1.0';
+const VERSAO = 'v2.2.0';
 const KEY   = 'mgcoach_ul3x_v1';     // registros (mesma chave de sempre)
 const KEY_F = 'mgcoach_ppl_fmt_v1';  // formato escolhido por exercício
 const KEY_D = 'mgcoach_ul3x_dieta_v1';
@@ -500,6 +663,10 @@ function renderWeek(){
   }).join('');
 }
 
+function temHoje(){
+  const hoje = diaKey(new Date()), r = ler();
+  return Object.keys(r).some(k => Array.isArray(r[k]) && r[k].some(x => diaKey(x.data) === hoje));
+}
 /* ---------- cabeçalho ---------- */
 function renderHead(){
   const s = plano.sessoes[atual];
@@ -513,7 +680,8 @@ function renderHead(){
   + '<div class="stat"><span class="n">'+nser+'</span><span class="l">séries</span></div>'
   + '<div class="stat"><span class="n">~'+duracao(s.exs)+' min</span><span class="l">duração</span></div>'
   + '</div>'
-  + '<button class="editar" onclick="abrir(\'editor\')">Editar plano</button>';
+  + '<button class="editar" onclick="abrir(\'editor\')">Editar plano</button>'
+  + (temHoje() ? '<button class="relat" onclick="abrirRelatorio(\''+diaKey(new Date())+'\')">Relatório de hoje</button>' : '');
 }
 
 /* ---------- registros ---------- */
@@ -577,6 +745,7 @@ function renderLista(){
       + '<div class="fmt">'+botoes+'</div>'
       + (alterado ? '<p class="ex-nota" style="padding-top:6px;font-size:12px">'+alterado+'</p>' : '')
       + '<p class="prev" id="'+k+'_p"'+(ult?'':' hidden')+'>'+ult+'</p>'
+      + '<div id="'+k+'_evo">'+linhaEvolucao(k)+'</div>'
       + '<div class="log"><div class="log-h"><span>Série</span><span>Carga</span><span>Reps</span></div>'
       + linhas
       + '<button class="save" id="'+k+'_b" onclick="registrar(\''+k+'\')">Registrar</button></div>'
@@ -598,13 +767,16 @@ function registrar(k){
   if(vals.every(s => !s.carga && !s.reps)){ alert('Preencha ao menos uma carga ou repetição antes de registrar.'); return; }
   const reg = ler();
   if(!reg[k]) reg[k] = [];
-  reg[k].push({data:new Date().toISOString(), sets:vals, fmt:f});
+  reg[k].push({data:new Date().toISOString(), sets:vals, fmt:f, sessao:atual});
   if(!gravar(reg)){ alert('Este navegador não está salvando dados. Abra no Safari normal, fora da aba privada.'); return; }
+  const s_ = serie(k), recorde = s_.length && s_[s_.length-1].pr;
   const b = document.getElementById(k+'_b');
-  b.textContent = 'Registrado'; b.classList.add('ok');
-  setTimeout(()=>{ b.textContent='Registrar'; b.classList.remove('ok'); }, 1400);
+  b.textContent = recorde ? 'Recorde!' : 'Registrado'; b.classList.add(recorde ? 'recorde' : 'ok');
+  setTimeout(()=>{ b.textContent='Registrar'; b.classList.remove('ok','recorde'); }, recorde ? 2600 : 1400);
   const pel = document.getElementById(k+'_p');
   pel.innerHTML = ultimo(k); pel.hidden = !ultimo(k);
+  const ev = document.getElementById(k+'_evo'); if(ev) ev.innerHTML = linhaEvolucao(k);
+  renderHead();
   document.getElementById(k+'_h').innerHTML = historico(k);
   sets.forEach((lab,j) => {
     const ci = document.getElementById(k+'_c'+j);
@@ -622,6 +794,8 @@ function apagar(k, idx){
   document.getElementById(k+'_h').innerHTML = historico(k);
   const p = document.getElementById(k+'_p');
   if(p){ p.innerHTML = ultimo(k); p.hidden = !ultimo(k); }
+  const ev = document.getElementById(k+'_evo'); if(ev) ev.innerHTML = linhaEvolucao(k);
+  renderHead();
 }
 function verHist(k){
   const el = document.getElementById(k+'_h');
@@ -633,7 +807,9 @@ function irPara(s){ atual = s; abrir('treino'); }
 function abrir(v){
   vista = v;
   const aceso = v === 'editor' ? 'treino' : v;
-  ['treino','dieta','proto'].forEach(x => document.getElementById('nav-'+x).classList.toggle('on', x===aceso));
+  ['treino','progresso','dieta','proto'].forEach(x => document.getElementById('nav-'+x).classList.toggle('on', x===aceso));
+  document.getElementById('viewProgresso').style.display = v==='progresso' ? '' : 'none';
+  if(v!=='progresso') esconderTip();
   document.getElementById('viewTreino').style.display = v==='treino' ? '' : 'none';
   document.getElementById('viewDieta').style.display  = v==='dieta'  ? '' : 'none';
   document.getElementById('viewProto').style.display  = v==='proto'  ? '' : 'none';
@@ -643,9 +819,550 @@ function abrir(v){
   if(v==='dieta') renderDieta();
   if(v==='proto') renderProto();
   if(v==='editor') renderEditor();
+  if(v==='progresso') renderProgresso();
   window.scrollTo({top:0});
 }
 
+
+/* =====================================================================
+   PROGRESSO — métricas, relatórios e gráficos (SVG desenhado à mão)
+   ===================================================================== */
+const NF1 = new Intl.NumberFormat('pt-BR', {maximumFractionDigits:1});
+const NF0 = new Intl.NumberFormat('pt-BR', {maximumFractionDigits:0});
+const SVGNS = 'http://www.w3.org/2000/svg';
+
+let pgRange = 90;          // dias; 0 = tudo
+let pgEx = null;           // exercício aberto no gráfico
+let pgMetrica = 'e1rm';    // e1rm | carga | volume
+let pgDiaAberto = null;    // relatório expandido
+let pgDiasVistos = 8;
+let pgTabela = {};         // gráfico -> mostrando tabela?
+
+/* ---------- números ---------- */
+function num(v){ const n = parseFloat(String(v == null ? '' : v).replace(',', '.')); return isFinite(n) ? n : 0; }
+function e1rm(c, r){ return (c > 0 && r > 0) ? c * (1 + r / 30) : 0; }      // Epley
+function kg(x){ return NF1.format(Math.round(x * 2) / 2) + ' kg'; }
+function ehCluster(rec){ return rec.fmt === 'cluster' || (rec.sets[0] && /^B/.test(rec.sets[0].lab)); }
+
+function melhorSet(sets){
+  let b = null;
+  sets.forEach(s => {
+    const c = num(s.carga), r = num(s.reps), e = e1rm(c, r);
+    if(!b || e > b.e || (e === b.e && r > b.r)) b = {c:c, r:r, e:e};
+  });
+  return b || {c:0, r:0, e:0};
+}
+function tonelagem(sets){ return sets.reduce((a, s) => a + num(s.carga) * num(s.reps), 0); }
+function repsTotais(sets){ return sets.reduce((a, s) => a + num(s.reps), 0); }
+/* séries efetivas: um cluster 6×4 conta como 2 séries duras */
+function seriesEfetivas(rec){
+  const feitas = rec.sets.filter(s => num(s.reps) > 0).length;
+  if(!feitas) return 0;
+  return ehCluster(rec) ? 2 : feitas;
+}
+
+/* ---------- datas ---------- */
+function diaKey(d){ const x = new Date(d); return x.getFullYear() + '-' + String(x.getMonth()+1).padStart(2,'0') + '-' + String(x.getDate()).padStart(2,'0'); }
+function inicioSemana(d){ const x = new Date(d); x.setHours(0,0,0,0); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; }
+function noRange(d){ return !pgRange || (Date.now() - new Date(d).getTime()) <= pgRange * 864e5; }
+const DIAS_SEM = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+function dataLonga(d){ const x = new Date(d); return DIAS_SEM[x.getDay()] + ', ' + data(d); }
+
+/* ---------- exercícios ---------- */
+function nomeEx(id){
+  for(const n of nomesSessoes()){ const e = exsDe(n).find(x => x.id === id); if(e) return e.nome; }
+  const c = D.catalogo.find(x => x.id === id);
+  return c ? c.nome : id.replace(/-/g, ' ').replace(/^./, m => m.toUpperCase());
+}
+function idsComRegistro(){ const r = ler(); return Object.keys(r).filter(k => Array.isArray(r[k]) && r[k].length); }
+
+/* grupo muscular pelo nome — funciona também para exercícios criados por você */
+const GRUPOS = [
+  [/crucifixo-inverso|face-pull|desenvolvimento|elevacao-lateral|elevacao-frontal/, 'Ombros'],
+  [/supino|voador|crucifixo|peck|flexao-de-braco/, 'Peito'],
+  [/puxada|remada|pullover|barra-fixa|pulldown/, 'Costas'],
+  [/triceps|mergulho/, 'Tríceps'],
+  [/rosca|biceps/, 'Bíceps'],
+  [/abdutora|elevacao-pelvica|gluteo|hip-thrust/, 'Glúteos'],
+  [/adutora/, 'Adutores'],
+  [/agachamento|leg-press|extensora|hack|bulgaro|afundo|passada/, 'Quadríceps'],
+  [/flexora|stiff|banco-romano|terra|good-morning/, 'Posterior'],
+  [/panturrilha/, 'Panturrilha'],
+  [/abdominal|prancha|abdomen/, 'Abdômen'],
+  [/encolhimento|trapezio/, 'Trapézio'],
+];
+const ORDEM_GRUPOS = ['Peito','Costas','Ombros','Quadríceps','Posterior','Glúteos','Bíceps','Tríceps','Panturrilha','Abdômen','Adutores','Trapézio','Outros'];
+function grupoDe(id){ for(const [re, g] of GRUPOS) if(re.test(id)) return g; return 'Outros'; }
+
+/* ---------- série histórica de um exercício ---------- */
+function serie(id){
+  const h = (ler()[id] || []).slice().sort((a, b) => a.data.localeCompare(b.data));
+  let max = 0;
+  return h.map((rec, i) => {
+    const b = melhorSet(rec.sets);
+    const pr = i > 0 && b.e > 0 && b.e > max + 0.01;
+    if(b.e > max) max = b.e;
+    return {d:rec.data, t:new Date(rec.data).getTime(), b:b, e:b.e, ton:tonelagem(rec.sets),
+            reps:repsTotais(rec.sets), series:seriesEfetivas(rec), pr:pr, rec:rec};
+  });
+}
+function semCarga(pts){ return pts.length && pts.every(p => p.e === 0); }
+function valorMetrica(p, m, pts){
+  if(semCarga(pts)) return p.reps;               // abdominal e afins: acompanha repetições
+  if(m === 'carga')  return p.b.c;
+  if(m === 'volume') return p.ton;
+  return p.e;
+}
+
+/* ---------- dias de treino ---------- */
+function diasDeTreino(){
+  const dias = {};
+  idsComRegistro().forEach(id => {
+    const s = serie(id);
+    s.forEach((p, i) => {
+      const k = diaKey(p.d);
+      (dias[k] = dias[k] || {key:k, d:p.d, itens:[]}).itens.push({id:id, p:p, prev: i > 0 ? s[i-1] : null});
+    });
+  });
+  return Object.values(dias).sort((a, b) => b.key.localeCompare(a.key)).map(d => {
+    d.sessao = nomeDoDia(d);
+    d.series = d.itens.reduce((a, it) => a + it.p.series, 0);
+    d.ton    = d.itens.reduce((a, it) => a + it.p.ton, 0);
+    d.prs    = d.itens.filter(it => it.p.pr).length;
+    const ord = exsDe(d.sessao).map(e => e.id);
+    d.itens.sort((a, b) => (ord.indexOf(a.id) + 1 || 99) - (ord.indexOf(b.id) + 1 || 99));
+    return d;
+  });
+}
+function nomeDoDia(d){
+  const marcados = d.itens.map(it => it.p.rec.sessao).filter(Boolean);
+  if(marcados.length){
+    const c = {}; marcados.forEach(n => c[n] = (c[n] || 0) + 1);
+    return Object.keys(c).sort((a, b) => c[b] - c[a])[0];
+  }
+  const dow = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'][new Date(d.d).getDay()];
+  const doDia = (plano.semana.find(x => x.dia === dow) || {}).sessao;
+  let melhor = null, pts = -1;
+  nomesSessoes().forEach(n => {
+    const ids = new Set(exsDe(n).map(e => e.id));
+    const s = d.itens.filter(it => ids.has(it.id)).length + (n === doDia ? 0.5 : 0);
+    if(s > pts){ pts = s; melhor = n; }
+  });
+  return melhor || 'Treino';
+}
+
+/* ---------- indicadores ---------- */
+function forcaMedia(){
+  const v = [];
+  idsComRegistro().forEach(id => {
+    const pts = serie(id).filter(p => noRange(p.d) && p.e > 0);
+    if(pts.length >= 2) v.push((pts[pts.length-1].e - pts[0].e) / pts[0].e);
+  });
+  return v.length ? {pct: v.reduce((a, b) => a + b, 0) / v.length * 100, n: v.length} : null;
+}
+function estagnados(){
+  const out = [];
+  idsComRegistro().forEach(id => {
+    const pts = serie(id);
+    if(pts.length < 4 || semCarga(pts)) return;
+    if(Date.now() - pts[pts.length-1].t > 35 * 864e5) return;          // fora do plano há tempo
+    let iMax = 0; pts.forEach((p, i) => { if(p.e > pts[iMax].e + 0.01) iMax = i; });   // primeira vez que a melhor marca apareceu
+    const sem = pts.length - 1 - iMax;
+    if(sem >= 3) out.push({id:id, sem:sem, rec:pts[iMax]});
+  });
+  return out.sort((a, b) => b.sem - a.sem);
+}
+function seriesPlanejadas(){
+  const g = {};
+  plano.semana.forEach(d => {
+    if(!d.sessao) return;
+    exsDe(d.sessao).forEach(e => {
+      const f = fmtDe(e), n = f === 'cluster' ? 2 : D.formatos[f].sets.length;
+      g[grupoDe(e.id)] = (g[grupoDe(e.id)] || 0) + n;
+    });
+  });
+  return g;
+}
+
+/* =====================================================================
+   GRÁFICOS
+   ===================================================================== */
+function el(tag, attrs, parent){
+  const n = document.createElementNS(SVGNS, tag);
+  for(const k in attrs) n.setAttribute(k, attrs[k]);
+  if(parent) parent.appendChild(n);
+  return n;
+}
+function txt(tag, attrs, s, parent){ const n = el(tag, attrs, parent); n.textContent = s; return n; }
+function ticksBons(min, max, alvo){
+  if(min === max){ min = min - 1; max = max + 1; }
+  const bruto = (max - min) / alvo, mag = Math.pow(10, Math.floor(Math.log10(bruto)));
+  const passo = [1, 2, 2.5, 5, 10].map(m => m * mag).find(s => bruto <= s) || 10 * mag;
+  const ini = Math.floor(min / passo) * passo, fim = Math.ceil(max / passo) * passo, t = [];
+  for(let v = ini; v <= fim + passo / 2; v += passo) t.push(+v.toFixed(6));
+  return t;
+}
+function compacto(v){ return v >= 1000 ? NF1.format(v / 1000) + ' t' : NF0.format(v); }
+
+/* tooltip único, reaproveitado por todos os gráficos */
+function tip(){ let t = document.getElementById('pg-tip'); if(!t){ t = document.createElement('div'); t.id = 'pg-tip'; t.setAttribute('role','status'); document.body.appendChild(t); } return t; }
+function mostrarTip(linhas, x, y){
+  const t = tip(); t.textContent = '';
+  linhas.forEach((l, i) => {
+    const d = document.createElement('div');
+    d.className = i === 0 ? 'tv' : (l.pr ? 'tl tpr' : 'tl');
+    d.textContent = l.t !== undefined ? l.t : l; t.appendChild(d);
+  });
+  t.style.display = 'block';
+  const w = t.offsetWidth, h = t.offsetHeight, vw = document.documentElement.clientWidth;
+  t.style.left = Math.max(8, Math.min(vw - w - 8, x - w / 2)) + 'px';
+  t.style.top  = (y - h - 12 + window.scrollY) + 'px';
+}
+function esconderTip(){ const t = document.getElementById('pg-tip'); if(t) t.style.display = 'none'; }
+
+/* ----- linha: evolução de um exercício ----- */
+function graficoLinha(box, pts, rotulo, unidade){
+  box.textContent = '';
+  const W = box.clientWidth || 340, H = 210, m = {l:42, r:44, t:14, b:28};
+  const pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const svg = el('svg', {width:W, height:H, viewBox:'0 0 '+W+' '+H, role:'img', tabindex:'0',
+                         'aria-label': rotulo + ': ' + pts.length + ' registros'}, box);
+  const ys = pts.map(p => p.v);
+  const t = ticksBons(Math.min.apply(null, ys), Math.max.apply(null, ys), 4);
+  const y0 = t[0], y1 = t[t.length-1];
+  const x0 = pts[0].t, x1 = pts[pts.length-1].t;
+  const X = v => m.l + (x1 === x0 ? pw / 2 : (v - x0) / (x1 - x0) * pw);
+  const Y = v => m.t + ph - (v - y0) / (y1 - y0) * ph;
+
+  t.forEach(v => {
+    el('line', {x1:m.l, x2:m.l + pw, y1:Y(v), y2:Y(v), class:'pg-grid'}, svg);
+    txt('text', {x:m.l - 8, y:Y(v) + 4, class:'pg-ax', 'text-anchor':'end'}, compacto(v), svg);
+  });
+  // rótulos do eixo x: primeiro, meio, último
+  const marcas = pts.length > 2 ? [0, Math.floor((pts.length - 1) / 2), pts.length - 1] : pts.map((_, i) => i);
+  marcas.forEach(i => txt('text', {x:X(pts[i].t), y:H - 8, class:'pg-ax',
+      'text-anchor': i === 0 ? 'start' : (i === pts.length - 1 ? 'end' : 'middle')}, data(pts[i].d), svg));
+
+  if(pts.length > 1){
+    const d = pts.map((p, i) => (i ? 'L' : 'M') + X(p.t).toFixed(1) + ' ' + Y(p.v).toFixed(1)).join(' ');
+    el('path', {d: d + ' L' + X(x1).toFixed(1) + ' ' + (m.t + ph) + ' L' + X(x0).toFixed(1) + ' ' + (m.t + ph) + ' Z', class:'pg-area'}, svg);
+    el('path', {d:d, class:'pg-line'}, svg);
+  }
+  pts.forEach(p => { if(!p.pr) el('circle', {cx:X(p.t), cy:Y(p.v), r:4, class:'pg-dot'}, svg); });
+  pts.forEach(p => { if(p.pr) el('circle', {cx:X(p.t), cy:Y(p.v), r:5, class:'pg-dot pr'}, svg); });
+
+  const ult = pts[pts.length-1];
+  txt('text', {x:X(ult.t) + 8, y:Y(ult.v) + 4, class:'pg-end'}, NF1.format(ult.v), svg);
+  txt('text', {x:X(ult.t) + 8, y:Y(ult.v) + 17, class:'pg-ax'}, unidade, svg);
+
+  // camada de interação: crosshair que encontra o registro mais próximo
+  const cross = el('line', {y1:m.t, y2:m.t + ph, class:'pg-cross', style:'display:none'}, svg);
+  const anel  = el('circle', {r:6, class:'pg-hover', style:'display:none'}, svg);
+  const hit   = el('rect', {x:m.l - 10, y:0, width:pw + 20, height:H, fill:'transparent'}, svg);
+  let idx = pts.length - 1;
+  function mostrar(i){
+    idx = i; const p = pts[i], cx = X(p.t), cy = Y(p.v);
+    cross.setAttribute('x1', cx); cross.setAttribute('x2', cx); cross.style.display = '';
+    anel.setAttribute('cx', cx); anel.setAttribute('cy', cy); anel.style.display = '';
+    const r = svg.getBoundingClientRect();
+    const linhas = [NF1.format(p.v) + ' ' + unidade, dataLonga(p.d), p.b.c > 0 ? 'Melhor série ' + NF1.format(p.b.c) + ' kg × ' + p.b.r : 'Sem carga registrada'];
+    if(p.pr) linhas.push({t:'Recorde', pr:true});
+    mostrarTip(linhas, r.left + cx, r.top + cy);
+  }
+  function perto(ev){
+    const r = svg.getBoundingClientRect(), x = ev.clientX - r.left;
+    let b = 0, bd = 1e9; pts.forEach((p, i) => { const dd = Math.abs(X(p.t) - x); if(dd < bd){ bd = dd; b = i; } });
+    mostrar(b);
+  }
+  hit.addEventListener('pointermove', perto);
+  hit.addEventListener('pointerdown', perto);
+  hit.addEventListener('pointerleave', () => { cross.style.display = 'none'; anel.style.display = 'none'; esconderTip(); });
+  svg.addEventListener('focus', () => mostrar(idx));
+  svg.addEventListener('blur', () => { cross.style.display = 'none'; anel.style.display = 'none'; esconderTip(); });
+  svg.addEventListener('keydown', ev => {
+    if(ev.key === 'ArrowLeft'){ ev.preventDefault(); mostrar(Math.max(0, idx - 1)); }
+    if(ev.key === 'ArrowRight'){ ev.preventDefault(); mostrar(Math.min(pts.length - 1, idx + 1)); }
+  });
+}
+
+/* ----- colunas: séries por semana ----- */
+function graficoColunas(box, semanas){
+  box.textContent = '';
+  const W = box.clientWidth || 340, H = 180, m = {l:34, r:8, t:18, b:26};
+  const pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const svg = el('svg', {width:W, height:H, viewBox:'0 0 '+W+' '+H, role:'img', 'aria-label':'Séries por semana'}, box);
+  const max = Math.max(10, Math.max.apply(null, semanas.map(s => s.v)));
+  const t = ticksBons(0, max, 3), y1 = t[t.length-1];
+  const Y = v => m.t + ph - v / y1 * ph;
+  t.forEach(v => { el('line', {x1:m.l, x2:m.l + pw, y1:Y(v), y2:Y(v), class:'pg-grid'}, svg);
+                   txt('text', {x:m.l - 7, y:Y(v) + 4, class:'pg-ax', 'text-anchor':'end'}, NF0.format(v), svg); });
+  const slot = pw / semanas.length, bw = Math.min(24, slot - 6);
+  semanas.forEach((s, i) => {
+    const cx = m.l + slot * i + slot / 2, x = cx - bw / 2, y = Y(s.v), h = m.t + ph - y;
+    if(s.v > 0){
+      const r = Math.min(4, h);
+      el('path', {d:'M'+x+' '+(m.t+ph)+' V'+(y+r)+' Q'+x+' '+y+' '+(x+r)+' '+y+' H'+(x+bw-r)+' Q'+(x+bw)+' '+y+' '+(x+bw)+' '+(y+r)+' V'+(m.t+ph)+' Z',
+                  class: 'pg-col' + (s.atual ? ' atual' : '')}, svg);
+    }
+    if(i === semanas.length - 1 || semanas.length <= 6 || i % 2 === (semanas.length - 1) % 2)
+      txt('text', {x:cx, y:H - 8, class:'pg-ax', 'text-anchor':'middle'}, s.rot, svg);
+    const alvo = el('rect', {x:cx - slot / 2, y:m.t, width:slot, height:ph, fill:'transparent', tabindex:'0',
+                             'aria-label':'Semana de ' + s.rot + ': ' + s.v + ' séries'}, svg);
+    const ver = () => { const r = svg.getBoundingClientRect();
+      mostrarTip([s.v + ' séries', 'Semana de ' + s.rot, s.treinos + (s.treinos === 1 ? ' treino' : ' treinos')], r.left + cx, r.top + y); };
+    alvo.addEventListener('pointerenter', ver); alvo.addEventListener('pointerdown', ver); alvo.addEventListener('focus', ver);
+    alvo.addEventListener('pointerleave', esconderTip); alvo.addEventListener('blur', esconderTip);
+  });
+  const ult = semanas[semanas.length - 1];
+  if(ult.v > 0) txt('text', {x:m.l + slot * (semanas.length - 1) + slot / 2, y:Y(ult.v) - 6, class:'pg-end', 'text-anchor':'middle'}, ult.v, svg);
+}
+
+/* ----- sparkline do card de exercício ----- */
+function sparkline(pts){
+  if(pts.length < 2) return '';
+  const vs = pts.map(p => p.v), mn = Math.min.apply(null, vs), mx = Math.max.apply(null, vs);
+  const W = 60, H = 20, X = i => 2 + i / (pts.length - 1) * (W - 6), Y = v => mx === mn ? H / 2 : 3 + (1 - (v - mn) / (mx - mn)) * (H - 6);
+  const d = vs.map((v, i) => (i ? 'L' : 'M') + X(i).toFixed(1) + ' ' + Y(v).toFixed(1)).join(' ');
+  return '<svg class="spark" width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" aria-hidden="true">'
+       + '<path d="'+d+'"/><circle cx="'+X(vs.length-1).toFixed(1)+'" cy="'+Y(vs[vs.length-1]).toFixed(1)+'" r="2.5"/></svg>';
+}
+
+/* =====================================================================
+   INTEGRAÇÃO COM A TELA DE TREINO
+   ===================================================================== */
+function deltaHtml(a, b, unidade){
+  const d = a - b;
+  if(Math.abs(d) < 0.05) return '<span class="dl eq">= igual</span>';
+  return '<span class="dl ' + (d > 0 ? 'up' : 'dn') + '"><span aria-hidden="true">' + (d > 0 ? '▲' : '▼') + '</span> '
+       + (d > 0 ? '+' : '−') + NF1.format(Math.abs(d)) + (unidade ? ' ' + unidade : '') + '</span>';
+}
+function linhaEvolucao(id){
+  const pts = serie(id);
+  if(!pts.length) return '';
+  const ult = pts[pts.length-1], sc = semCarga(pts);
+  const v = p => sc ? p.reps : p.e;
+  const unid = sc ? 'reps' : 'kg';
+  const dl = pts.length > 1 ? deltaHtml(v(ult), v(pts[pts.length-2]), unid) : '<span class="dl eq">primeiro registro</span>';
+  const sp = sparkline(pts.slice(-10).map(p => ({v:v(p)})));
+  return '<button class="evo" onclick="abrirProgresso(\'' + id + '\')" aria-label="Ver evolução de ' + esc(nomeEx(id)) + '">'
+       + sp + '<span class="evo-t">' + (sc ? NF0.format(ult.reps) + ' reps' : '1RM est. ' + kg(ult.e)) + '</span>' + dl
+       + (ult.pr ? '<span class="tag-pr">Recorde</span>' : '') + '</button>';
+}
+function abrirProgresso(id){ if(id) pgEx = id; abrir('progresso'); if(id) setTimeout(() => {
+  const a = document.getElementById('pg-ex'); if(a) a.scrollIntoView({block:'start'}); }, 30); }
+function abrirRelatorio(key){ pgDiaAberto = key; abrir('progresso'); setTimeout(() => {
+  const a = document.getElementById('dia-' + key); if(a) a.scrollIntoView({block:'start'}); }, 30); }
+
+/* =====================================================================
+   TELA DE PROGRESSO
+   ===================================================================== */
+function renderProgresso(){
+  const v = document.getElementById('viewProgresso');
+  const ids = idsComRegistro();
+  let h = '<div class="sheet pg"><h2>Progresso</h2>';
+  h += '<div class="pg-filtro" role="group" aria-label="Período">'
+     + [[30,'30 dias'],[90,'90 dias'],[365,'1 ano'],[0,'Tudo']].map(([d, l]) =>
+        '<button class="'+(pgRange === d ? 'on' : '')+'" onclick="pgRange='+d+';renderProgresso()">'+l+'</button>').join('')
+     + '</div>';
+
+  if(!ids.length){
+    h += '<div class="block vazio-pg"><h3>Ainda não há registros</h3><p>Registre as séries de um treino e volte aqui: cada exercício ganha um gráfico de evolução, e cada dia de treino vira um relatório.</p>'
+       + '<button class="save" onclick="abrir(\'treino\')">Ir para o treino</button></div></div>';
+    v.innerHTML = h; return;
+  }
+
+  // ---- manchete + indicadores
+  const dias = diasDeTreino(), noP = dias.filter(d => noRange(d.d));
+  const fm = forcaMedia();
+  const prs = noP.reduce((a, d) => a + d.prs, 0), ser = noP.reduce((a, d) => a + d.series, 0);
+  const desdeInicio = (Date.now() - new Date(dias[dias.length-1].d)) / 864e5;
+  const semanasP = Math.max(1, (pgRange ? Math.min(pgRange, desdeInicio) : desdeInicio) / 7);
+  h += '<section class="pg-hero">';
+  if(fm){
+    h += '<div class="hero-v">' + (fm.pct >= 0 ? '+' : '−') + NF1.format(Math.abs(fm.pct)) + '%</div>'
+       + '<p class="hero-l">variação média da sua força estimada, em ' + fm.n + (fm.n === 1 ? ' exercício' : ' exercícios')
+       + ', comparando o primeiro e o último registro de cada um no período</p>';
+  } else {
+    h += '<div class="hero-v hero-vazio">—</div><p class="hero-l">a variação de força aparece quando um exercício tiver pelo menos dois registros no período</p>';
+  }
+  h += '</section><div class="kpis">'
+     + kpi(noP.length, noP.length === 1 ? 'treino' : 'treinos', NF1.format(noP.length / semanasP) + ' por semana')
+     + kpi(prs, prs === 1 ? 'recorde' : 'recordes', 'no período')
+     + kpi(ser, 'séries', 'efetivas')
+     + '</div>';
+
+  // ---- semana atual
+  h += semanaAtualHtml(dias);
+
+  // ---- séries por semana
+  h += '<div class="block"><div class="bh"><h3>Séries por semana</h3>' + botaoTabela('sem') + '</div>'
+     + '<p class="sub-g">Volume total de séries efetivas. A semana atual, ainda em andamento, aparece em destaque.</p>'
+     + '<div class="chart" id="ch-sem"></div></div>';
+
+  // ---- exercício
+  const opts = ordemExercicios(ids);
+  if(!pgEx || ids.indexOf(pgEx) < 0) pgEx = opts[0];
+  h += '<div class="block" id="pg-ex"><div class="bh"><h3>Evolução por exercício</h3>' + botaoTabela('ex') + '</div>'
+     + '<select class="pg-sel" onchange="pgEx=this.value;renderProgresso();document.getElementById(\'pg-ex\').scrollIntoView({block:\'start\'})" aria-label="Exercício">'
+     + opts.map(id => '<option value="'+id+'"'+(id === pgEx ? ' selected' : '')+'>'+esc(nomeEx(id))+'</option>').join('') + '</select>'
+     + '<div class="pg-met" role="group" aria-label="Métrica">'
+     + [['e1rm','Força estimada'],['carga','Carga'],['volume','Volume']].map(([k, l]) =>
+        '<button class="'+(pgMetrica === k ? 'on' : '')+'" onclick="pgMetrica=\''+k+'\';renderProgresso();document.getElementById(\'pg-ex\').scrollIntoView({block:\'start\'})">'+l+'</button>').join('')
+     + '</div><div id="ex-resumo"></div><div class="chart" id="ch-ex"></div></div>';
+
+  // ---- atenção
+  const est = estagnados();
+  if(est.length){
+    h += '<div class="block"><h3>Sem recorde há algumas sessões</h3>'
+       + '<p class="sub-g">Exercícios cuja força estimada não supera a melhor marca há 3 sessões ou mais.</p>'
+       + est.map(x => '<button class="est" onclick="pgEx=\''+x.id+'\';renderProgresso();document.getElementById(\'pg-ex\').scrollIntoView({block:\'start\'})">'
+          + '<span class="est-n">'+esc(nomeEx(x.id))+'</span><span class="est-d">'+x.sem+' sessões · melhor '+kg(x.rec.e)+' em '+data(x.rec.d)+'</span></button>').join('')
+       + '<p class="sub-g" style="margin-top:10px">Platô de 3 sessões é normal. A partir de 4 ou 5, vale olhar sono e alimentação, trocar o formato da série ou reduzir 10% da carga e reconstruir.</p></div>';
+  }
+
+  // ---- relatórios
+  h += '<div class="block"><h3>Relatórios de treino</h3><p class="sub-g">Cada dia que você registrou. Toque para abrir.</p><div id="dias">'
+     + dias.slice(0, pgDiasVistos).map(d => diaHtml(d, dias)).join('') + '</div>'
+     + (dias.length > pgDiasVistos ? '<button class="cat-mais" onclick="pgDiasVistos+=10;renderProgresso()">Ver dias anteriores</button>' : '')
+     + '</div>';
+
+  h += '<div class="block como"><h3>Como ler</h3>'
+     + '<p><b>Força estimada</b> é o 1RM calculado a partir da sua melhor série do dia (fórmula de Epley). Ela junta carga e repetições num número só: 60 kg × 8 e 65 kg × 6 viram valores comparáveis.</p>'
+     + '<p><b>Recorde</b> é a sessão em que a força estimada superou todas as anteriores daquele exercício.</p>'
+     + '<p><b>Séries efetivas</b> contam as séries válidas e o backoff. Um cluster 6×4 conta como 2 séries.</p>'
+     + '<p><b>A faixa de 10 a 20 séries</b> por grupo muscular na semana é a referência usual para hipertrofia. Abaixo de 10 tende a ser pouco; acima de 20, o retorno cai e a recuperação pesa.</p></div>';
+
+  h += '</div>';
+  v.innerHTML = h;
+  desenharGraficos(dias);
+}
+
+function kpi(v, l, s){ return '<div class="kpi"><span class="kv">'+NF0.format(v)+'</span><span class="kl">'+l+'</span><span class="ks">'+s+'</span></div>'; }
+function botaoTabela(k){ return '<button class="tbtn" onclick="pgTabela.'+k+'=!pgTabela.'+k+';desenharGraficos(diasDeTreino())">'+(pgTabela[k] ? 'Gráfico' : 'Tabela')+'</button>'; }
+function ordemExercicios(ids){
+  const ordem = [];
+  nomesSessoes().forEach(n => exsDe(n).forEach(e => { if(ids.indexOf(e.id) >= 0 && ordem.indexOf(e.id) < 0) ordem.push(e.id); }));
+  ids.forEach(id => { if(ordem.indexOf(id) < 0) ordem.push(id); });
+  return ordem;
+}
+
+function semanaAtualHtml(dias){
+  const ini = inicioSemana(new Date()).getTime();
+  const daSemana = dias.filter(d => new Date(d.d).getTime() >= ini);
+  const plan = plano.semana.filter(d => d.sessao).length;
+  const feito = {};
+  daSemana.forEach(d => d.itens.forEach(it => { const g = grupoDe(it.id); feito[g] = (feito[g] || 0) + it.p.series; }));
+  const planj = seriesPlanejadas();
+  const grupos = ORDEM_GRUPOS.filter(g => (planj[g] || 0) > 0 || (feito[g] || 0) > 0);
+  const escala = Math.max(22, Math.max.apply(null, grupos.map(g => Math.max(planj[g] || 0, feito[g] || 0))));
+  const P = v => (v / escala * 100).toFixed(2) + '%';
+  let h = '<div class="block"><h3>Esta semana</h3>'
+        + '<div class="semana-top"><span class="st-v">'+daSemana.length+' de '+plan+'</span><span class="st-l">treinos feitos</span></div>'
+        + '<div class="meter" role="img" aria-label="'+daSemana.length+' de '+plan+' treinos"><span style="width:'+Math.min(100, daSemana.length / Math.max(1, plan) * 100)+'%"></span></div>'
+        + '<p class="sub-g" style="margin-top:16px">Séries por grupo muscular. A barra clara é o que o plano prevê na semana; a escura, o que você já fez. As marcas indicam 10 e 20 séries.</p>'
+        + '<div class="mus">'
+        + '<div class="mus-esc"><span style="left:'+P(10)+'">10</span><span style="left:'+P(20)+'">20</span></div>'
+        + '<div class="mus-lin" aria-hidden="true"><i style="left:'+P(10)+'"></i><i style="left:'+P(20)+'"></i></div>';
+  grupos.forEach(g => {
+    const f = feito[g] || 0, p = planj[g] || 0;
+    h += '<div class="mus-r"><span class="mus-n">'+g+'</span><div class="mus-b" role="img" aria-label="'+g+': '+f+' de '+p+' séries">'
+       + (p ? '<span class="trk" style="width:'+P(p)+'"></span>' : '')
+       + (f ? '<span class="fil" style="width:'+P(f)+'"></span>' : '')
+       + '</div><span class="mus-v"><b>'+NF0.format(f)+'</b> / '+NF0.format(p)+'</span></div>';
+  });
+  return h + '</div></div>';
+}
+
+function diaHtml(d, todos){
+  const aberto = pgDiaAberto === d.key;
+  const anterior = todos.find(x => x.key < d.key && x.sessao === d.sessao);
+  let comp = '';
+  if(anterior && anterior.ton > 0 && d.ton > 0){
+    const pct = (d.ton - anterior.ton) / anterior.ton * 100;
+    comp = '<p class="dia-comp">Volume ' + (Math.abs(pct) < 0.5 ? 'igual ao' : (pct > 0 ? '+' : '−') + NF0.format(Math.abs(pct)) + '% em relação ao')
+         + ' ' + esc(d.sessao) + ' de ' + data(anterior.d) + '</p>';
+  }
+  let h = '<article class="dia'+(aberto ? ' open' : '')+'" id="dia-'+d.key+'">'
+        + '<button class="dia-h" aria-expanded="'+aberto+'" onclick="pgDiaAberto=(pgDiaAberto===\''+d.key+'\'?null:\''+d.key+'\');renderProgresso();document.getElementById(\'dia-'+d.key+'\').scrollIntoView({block:\'nearest\'})">'
+        + '<span class="dia-t"><b>'+esc(d.sessao)+'</b><span>'+dataLonga(d.d)+'</span></span>'
+        + '<span class="dia-s">'+d.itens.length+' ex · '+d.series+' séries'+(d.prs ? ' · <span class="tag-pr">'+d.prs+(d.prs === 1 ? ' recorde' : ' recordes')+'</span>' : '')+'</span></button>';
+  if(aberto){
+    h += '<div class="dia-b">' + comp
+       + '<div class="dia-k"><div><span>'+compacto(d.ton)+(d.ton < 1000 ? ' kg' : '')+'</span>volume</div><div><span>'+d.series+'</span>séries</div><div><span>'+d.itens.length+'</span>exercícios</div></div>'
+       + '<table class="dt"><thead><tr><th scope="col">Exercício</th><th scope="col">Melhor série</th><th scope="col">vs. anterior</th></tr></thead><tbody>'
+       + d.itens.map(it => {
+           const p = it.p, sc = p.e === 0;
+           const val = sc ? p.reps : p.e, ant = it.prev ? (sc ? it.prev.reps : it.prev.e) : null;
+           return '<tr><th scope="row"><button class="lk" onclick="abrirProgresso(\''+it.id+'\')">'+esc(nomeEx(it.id))+'</button>'
+                + (p.pr ? ' <span class="tag-pr">Recorde</span>' : '') + '</th>'
+                + '<td>'+(sc ? NF0.format(p.reps)+' reps' : NF1.format(p.b.c)+' × '+p.b.r)+'<span class="dt-s">'+(sc ? '' : '1RM '+kg(p.e))+'</span></td>'
+                + '<td>'+(ant === null ? '<span class="dl eq">primeiro</span>' : deltaHtml(val, ant, sc ? 'reps' : 'kg'))+'</td></tr>';
+         }).join('')
+       + '</tbody></table></div>';
+  }
+  return h + '</article>';
+}
+
+function desenharGraficos(dias){
+  esconderTip();
+  // séries por semana
+  const box = document.getElementById('ch-sem');
+  if(box){
+    const nSem = pgRange ? Math.min(12, Math.max(4, Math.ceil(pgRange / 7))) : 12;
+    const hoje = inicioSemana(new Date()).getTime(), sem = [];
+    for(let i = nSem - 1; i >= 0; i--){
+      const ini = hoje - i * 6048e5, fim = ini + 6048e5;
+      const ds = dias.filter(d => { const t = new Date(d.d).getTime(); return t >= ini && t < fim; });
+      sem.push({rot:data(new Date(ini).toISOString()), v:ds.reduce((a, d) => a + d.series, 0), treinos:ds.length, atual:i === 0});
+    }
+    const tb = box.parentNode.querySelector('.tbtn'); if(tb) tb.textContent = pgTabela.sem ? 'Gráfico' : 'Tabela';
+    if(pgTabela.sem) tabela(box, ['Semana de', 'Treinos', 'Séries'], sem.slice().reverse().map(s => [s.rot, s.treinos, s.v]));
+    else graficoColunas(box, sem);
+  }
+  // exercício
+  const bx = document.getElementById('ch-ex');
+  if(bx && pgEx){
+    const todos = serie(pgEx), pts = todos.filter(p => noRange(p.d));
+    const sc = semCarga(todos);
+    const unid = sc ? 'reps' : 'kg';
+    const rot = sc ? 'Repetições' : ({e1rm:'Força estimada', carga:'Carga da melhor série', volume:'Volume'})[pgMetrica];
+    const tb = bx.parentNode.querySelector('.tbtn'); if(tb) tb.textContent = pgTabela.ex ? 'Gráfico' : 'Tabela';
+    const melhor = todos.reduce((a, p) => valorMetrica(p, pgMetrica, todos) > valorMetrica(a, pgMetrica, todos) ? p : a, todos[0]);
+    const res = document.getElementById('ex-resumo');
+    if(res){
+      const ult = todos[todos.length - 1];
+      const var_ = pts.length >= 2 ? valorMetrica(pts[pts.length-1], pgMetrica, todos) - valorMetrica(pts[0], pgMetrica, todos) : null;
+      res.innerHTML = '<div class="kpis kpis-ex">'
+        + '<div class="kpi"><span class="kv">'+NF1.format(valorMetrica(melhor, pgMetrica, todos))+'<small>'+unid+'</small></span><span class="kl">melhor marca</span><span class="ks">'+data(melhor.d)+'</span></div>'
+        + '<div class="kpi"><span class="kv">'+(var_ === null ? '—' : (var_ >= 0 ? '+' : '−') + NF1.format(Math.abs(var_)) + '<small>'+unid+'</small>')+'</span><span class="kl">no período</span><span class="ks">'+pts.length+' registros</span></div>'
+        + '<div class="kpi"><span class="kv">'+(sc ? NF0.format(ult.reps)+'<small>reps</small>' : NF1.format(ult.b.c)+' × '+ult.b.r)+'</span><span class="kl">'+(sc ? 'último treino' : 'última melhor série')+'</span><span class="ks">'+data(ult.d)+'</span></div>'
+        + '</div>' + (sc ? '<p class="sub-g">Sem carga registrada neste exercício — o gráfico acompanha as repetições totais.</p>' : '');
+    }
+    if(!pts.length){ bx.innerHTML = '<p class="sub-g">Nenhum registro deste exercício no período escolhido.</p>'; }
+    else if(pgTabela.ex) tabela(bx, ['Data', 'Melhor série', rot], pts.slice().reverse().map(p =>
+        [data(p.d) + (p.pr ? ' ★' : ''), sc ? NF0.format(p.reps) + ' reps' : NF1.format(p.b.c) + ' × ' + p.b.r, NF1.format(valorMetrica(p, pgMetrica, todos)) + ' ' + unid]));
+    else graficoLinha(bx, pts.map(p => ({t:p.t, d:p.d, v:valorMetrica(p, pgMetrica, todos), pr:p.pr && pgMetrica === 'e1rm', b:p.b})), rot, unid);
+    if(!pgTabela.ex && pts.length && pgMetrica === 'e1rm' && !sc && pts.some(p => p.pr)){
+      const lg = document.createElement('p'); lg.className = 'pg-leg';
+      lg.innerHTML = '<span class="lg-l"></span>força estimada<span class="lg-d"></span>recorde';
+      bx.appendChild(lg);
+    }
+  }
+}
+function tabela(box, cab, linhas){
+  box.textContent = '';
+  const t = document.createElement('table'); t.className = 'dt dt-chart';
+  const th = document.createElement('thead'), tr = document.createElement('tr');
+  cab.forEach(c => { const x = document.createElement('th'); x.scope = 'col'; x.textContent = c; tr.appendChild(x); });
+  th.appendChild(tr); t.appendChild(th);
+  const tb = document.createElement('tbody');
+  linhas.forEach(l => { const r = document.createElement('tr'); l.forEach(c => { const x = document.createElement('td'); x.textContent = c; r.appendChild(x); }); tb.appendChild(r); });
+  t.appendChild(tb); box.appendChild(t);
+}
+
+let pgResize = null;
+window.addEventListener('resize', () => { clearTimeout(pgResize); pgResize = setTimeout(() => { if(vista === 'progresso') desenharGraficos(diasDeTreino()); }, 150); });
+document.addEventListener('scroll', esconderTip, {passive:true});
 
 /* ---------- editor do plano ---------- */
 function renderEditor(){
